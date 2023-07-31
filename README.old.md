@@ -1,4 +1,0 @@
-# Hackathon
-
-## TEAM AILION
-
