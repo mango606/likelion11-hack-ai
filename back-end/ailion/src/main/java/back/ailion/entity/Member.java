@@ -20,11 +20,15 @@ public class Member extends BaseEntity{
 
     private String password;
 
-    private String nickname;
+    private String userName;
 
     private String name;
 
     private String phone;
+
+    private String provider;
+
+    private String providerId;
 
     @Enumerated(EnumType.STRING)
     private RoleType role;
@@ -33,7 +37,7 @@ public class Member extends BaseEntity{
     public Member(String email, String password, String nickname, String name, String phone, RoleType role) {
         this.email = email;
         this.password = password;
-        this.nickname = nickname;
+        this.userName = userName;
         this.name = name;
         this.phone = phone;
         this.role = role;
