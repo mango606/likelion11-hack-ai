@@ -1,8 +1,8 @@
 package back.ailion.repository;
 
-import back.ailion.entity.Member;
-import back.ailion.entity.Post;
-import back.ailion.entity.RoleType;
+import back.ailion.model.entity.Member;
+import back.ailion.model.entity.Post;
+import back.ailion.model.entity.RoleType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

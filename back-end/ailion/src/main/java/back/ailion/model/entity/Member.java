@@ -1,4 +1,4 @@
-package back.ailion.entity;
+package back.ailion.model.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;

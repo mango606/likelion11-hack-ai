@@ -1,4 +1,4 @@
-package back.ailion.entity;
+package back.ailion.model.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,24 +10,30 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Favorite extends BaseEntity{
+public class CommentReply extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "favorite_id")
+    @Column(name = "comment_reply_id")
     private Long id;
+
+    private String content;
+
+    private String writer;
 
     @JoinColumn(name = "member_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @JoinColumn(name = "ai_info_id")
+    @JoinColumn(name = "comment_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private AiInfo aiInfo;
+    private Comment comment;
 
     @Builder
-    public Favorite(Member member, AiInfo aiInfo) {
+    public CommentReply(String content, String writer, Member member, Comment comment) {
+        this.content = content;
+        this.writer = writer;
         this.member = member;
-        this.aiInfo = aiInfo;
+        this.comment = comment;
     }
 }
