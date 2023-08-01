@@ -36,4 +36,10 @@ public class PostApiController {
         return postService.updatePost(updateRequestDto);
     }
 
+    @DeleteMapping("/{id}")
+    public boolean deletePost(@PathVariable("id") Long postId) {
+
+        return postService.deletePost(postId);
+    }
+
 }

@@ -57,6 +57,15 @@ public class PostService {
         return PostToPostDto(postRepository.findById(updateDto.getPostId()).get());
     }
 
+    public boolean deletePost(Long postId) {
+
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Could not found post id : " + postId));
+
+        postRepository.delete(post);
+        return true;
+    }
+
     public Result getPosts() {
         List<Post> posts = postRepository.findAll();
         List<PostDto> collect = posts.stream()
