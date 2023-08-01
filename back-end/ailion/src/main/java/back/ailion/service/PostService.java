@@ -1,6 +1,7 @@
 package back.ailion.service;
 
 import back.ailion.model.dto.request.PostRequestDto;
+import back.ailion.model.dto.request.PostUpdateRequestDto;
 import back.ailion.model.entity.Member;
 import back.ailion.model.entity.Post;
 import back.ailion.model.dto.PostDto;
@@ -42,6 +43,18 @@ public class PostService {
                 .build();
 
         return PostToPostDto(postRepository.save(post));
+    }
+
+    @Transactional
+    public PostDto updatePost(PostUpdateRequestDto updateDto) {
+
+        Post post = postRepository.findById(updateDto.getPostId())
+                .orElseThrow(() -> new RuntimeException("Could not found post id : " + updateDto.getPostId()));
+
+        post.setTitle(updateDto.getTitle());
+        post.setContent(updateDto.getContent());
+
+        return PostToPostDto(postRepository.findById(updateDto.getPostId()).get());
     }
 
     public Result getPosts() {

@@ -1,10 +1,7 @@
 package back.ailion.model.entity;
 
 import back.ailion.model.dto.PostDto;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post extends BaseEntity{

@@ -3,6 +3,7 @@ package back.ailion.controller;
 import back.ailion.model.dto.PostDto;
 import back.ailion.model.dto.Result;
 import back.ailion.model.dto.request.PostRequestDto;
+import back.ailion.model.dto.request.PostUpdateRequestDto;
 import back.ailion.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,13 @@ public class PostApiController {
     public PostDto savePost(@RequestBody PostRequestDto postRequestDto) {
 
         return postService.savePost(postRequestDto);
+    }
+
+
+    @PatchMapping
+    public PostDto updatePost(@RequestBody PostUpdateRequestDto updateRequestDto) {
+
+        return postService.updatePost(updateRequestDto);
     }
 
 }
