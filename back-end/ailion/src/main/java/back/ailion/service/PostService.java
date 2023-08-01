@@ -72,6 +72,11 @@ public class PostService {
         return true;
     }
 
+    public PostDto getPost(Long postId) {
+
+        return PostToPostDto(postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Could not found post id : " + postId)));
+    }
+
     public Page<Post> getPosts(int page) {
 //        List<Post> posts = postRepository.findAll();
 //        List<PostDto> collect = posts.stream()

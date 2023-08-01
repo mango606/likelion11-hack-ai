@@ -35,6 +35,12 @@ public class PostApiController {
         return postService.deletePost(postId);
     }
 
+    @GetMapping("/{id}")
+    public PostDto getPost(@PathVariable("id") Long postId) {
+
+        return postService.getPost(postId);
+    }
+
     @GetMapping("/list")
     public Page<PostDto> getPosts(@RequestParam(value="page", defaultValue="0") int page) {
 
