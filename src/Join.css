@@ -1,0 +1,18 @@
+.joinForm {
+	margin-left : 30%;
+
+	align-items: center;
+	display: flex;
+}
+
+.joinForm div {
+	margin-bottom: 50px;
+}
+
+.joinForm .errorMessage {
+	color: red;
+}
+
+.joinForm .invisibleText {
+	color : transparent;
+}

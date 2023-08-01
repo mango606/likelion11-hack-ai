@@ -1,67 +1,24 @@
 // Join.js
-import React, { useState } from 'react';
+import React from 'react';
+import './Join.css';
+import useForm from './useForm';
 
 const Join = () => {
-  const [Id, setId] = useState('');
-  const [IdError, setIdError] = useState(false);
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(false);
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState(false);
+  const {
+    Id,
+    IdError,
+    email,
+    emailError,
+    password,
+    passwordError,
+    passwordCheck,
+    passwordCheckError,
+    handleIdChange,
+    handleEmailChange,
+    handlePasswordChange,
+    handlePasswordSame
+    } = useForm();
 
-  const validatePassword = (password) => {
-	// 비밀번호가 8자리 이상이며 숫자, 대소문자 알파벳, 특수문자 중 하나를 최소한 포함하는지 확인
-	const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
-	return re.test(password);
-  }
-
-  const validateEmail = (email) => {
-	// 이메일 형식인지 확인
-	const re = /\S+@\S+\.\S+/;
-	return re.test(email);
-	}
-
-  const validateId = (id) => {
-    // 아이디가 5~15자리인지 확인
-    const re = /^[a-zA-Z\d]{5,15}$/;
-    return re.test(id);
-  }
-
-  const handleIdChange = (event) => {
-    const newName = event.target.value;
-
-    if (!validateId(newName)) {
-      setIdError(true);
-    } else {
-      setIdError(false);
-    }
-
-    setId(newName);
-  }
-
-  const handleEmailChange = (event) => {
-    const newEmail = event.target.value;
-
-    if (!validateEmail(newEmail)) {
-      setEmailError(true);
-    } else {
-      setEmailError(false);
-    }
-
-    setEmail(newEmail);
-  }
-
-  const handlePasswordChange = (event) => {
-    const newPass = event.target.value;
-
-    if (!validatePassword(newPass)) {
-      setPasswordError(true);
-    } else {
-      setPasswordError(false);
-    }
-
-    setPassword(newPass);
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -69,30 +26,46 @@ const Join = () => {
   }
 
   return (
+  <div className="joinForm">
     <form onSubmit={handleSubmit}>
       <h2>회원 가입</h2>
 
-      <label>
+      <div>
         아이디 :
         <input type="text" value={Id} onChange={handleIdChange} />
-        {IdError && <p>아이디는 5~15자리의 영문 대소문자와 숫자로만 입력해주세요.</p>}
-      </label>
+        <p className={IdError ? 'errorMessage' : 'invisibleText'}>
+        {IdError ? '아이디는 5~15자리의 영문 대소문자와 숫자로만 입력해주세요.' : 'invisible text'}
+        </p>
+      </div>
 
-      <label>
+      <div>
         이메일 :
         <input type="email" value={email} onChange={handleEmailChange} />
-        {emailError && <p>이메일 형식이 올바르지 않습니다.</p>}
-      </label>
+        <p className={emailError ? 'errorMessage' : 'invisibleText'}>
+        {emailError ? '이메일 형식이 잘못되었습니다.' : 'invisible text'}
+        </p>
+      </div>
 
-      <label>
+      <div>
         비밀번호 :
         <input type="password" value={password} onChange={handlePasswordChange} />
-        {passwordError && <p>비밀번호는 8자리 이상이며 숫자, 대소문자 알파벳을 포함해야 합니다.</p>}
-      </label>
+        <p className={passwordError ? 'errorMessage' : 'invisibleText'}>
+        {passwordError ? '비밀번호는 8자리 이상이며 숫자, 대소문자 알파벳을 포함해야 합니다.' : 'invisible text'}
+        </p>
+      </div>
 
-      <button type="submit" disabled={passwordError || emailError || IdError}>회원 가입</button>
+      <div>
+        비밀번호 확인 :
+        <input type="password" value={passwordCheck} onChange={handlePasswordSame} />
+        <p className={(!passwordError && passwordCheckError) ? 'errorMessage' : 'invisibleText'}>
+        {(!passwordError && passwordCheckError) ? '비밀번호가 다릅니다.' : 'invisible text'}
+        </p>
+      </div>
+
+      <button type="submit" disabled={passwordError || emailError || IdError || passwordCheckError}>회원 가입</button>
 
     </form>
+  </div>
   );
 };
 
