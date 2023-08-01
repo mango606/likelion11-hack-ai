@@ -7,6 +7,10 @@ const Join = () => {
   const {
     Id,
     IdError,
+    Nickname,
+    NicknameError,
+    Birth,
+    BirthError,
     email,
     emailError,
     password,
@@ -16,7 +20,9 @@ const Join = () => {
     handleIdChange,
     handleEmailChange,
     handlePasswordChange,
-    handlePasswordSame
+    handlePasswordSame,
+    handleNicknameChange,
+    handleBirthChange,
     } = useForm();
 
 
@@ -31,38 +37,37 @@ const Join = () => {
       <h2>회원 가입</h2>
 
       <div>
-        아이디 :
-        <input type="text" value={Id} onChange={handleIdChange} />
-        <p className={IdError ? 'errorMessage' : 'invisibleText'}>
-        {IdError ? '아이디는 5~15자리의 영문 대소문자와 숫자로만 입력해주세요.' : 'invisible text'}
-        </p>
+        <input type="text" placeholder='아이디' value={Id} onChange={handleIdChange} />
+        {IdError && <p className='errorMessage'> 아이디는 5~15자리의 영문 대소문자와 숫자로만 입력해주세요.</p>}
       </div>
 
       <div>
-        이메일 :
-        <input type="email" value={email} onChange={handleEmailChange} />
-        <p className={emailError ? 'errorMessage' : 'invisibleText'}>
-        {emailError ? '이메일 형식이 잘못되었습니다.' : 'invisible text'}
-        </p>
+        <input type="email" placeholder='이메일' value={email} onChange={handleEmailChange} />
+        {emailError && <p className='errorMessage'>이메일 형식이 잘못되었습니다.</p>}
       </div>
 
       <div>
-        비밀번호 :
-        <input type="password" value={password} onChange={handlePasswordChange} />
-        <p className={passwordError ? 'errorMessage' : 'invisibleText'}>
-        {passwordError ? '비밀번호는 8자리 이상이며 숫자, 대소문자 알파벳을 포함해야 합니다.' : 'invisible text'}
-        </p>
+        <input type="password" placeholder='비밀번호' value={password} onChange={handlePasswordChange} />
+        {passwordError && <p className='errorMessage'>비밀번호는 8자리 이상이며 숫자, 대소문자 알파벳을 포함해야 합니다.</p>}
       </div>
 
       <div>
-        비밀번호 확인 :
-        <input type="password" value={passwordCheck} onChange={handlePasswordSame} />
-        <p className={(!passwordError && passwordCheckError) ? 'errorMessage' : 'invisibleText'}>
-        {(!passwordError && passwordCheckError) ? '비밀번호가 다릅니다.' : 'invisible text'}
-        </p>
+        <input type="password" placeholder='비밀번호 확인' value={passwordCheck} onChange={handlePasswordSame} />
+
+        {(!passwordError && passwordCheckError) && <p className='errorMessage'>비밀번호가 다릅니다.</p>}
       </div>
 
-      <button type="submit" disabled={passwordError || emailError || IdError || passwordCheckError}>회원 가입</button>
+      <div>
+        <input type="text" placeholder='생년월일 8자' value={Birth} onChange={handleBirthChange} />
+        {BirthError && <p className='errorMessage'> 올바른 생년월일 8자를 입력해주세요</p>}
+      </div>
+
+      <div>
+        <input type="text" placeholder='닉네임' value={Nickname} onChange={handleNicknameChange} />
+        {NicknameError && <p className='errorMessage'> 닉네임을 2글자 이상 10 글자 이하로 입력해주세요.</p>}
+      </div>
+
+      <button type="submit" disabled={passwordError || emailError || IdError || passwordCheckError || !Id || NicknameError || BirthError }>회원 가입</button>
 
     </form>
   </div>
