@@ -23,6 +23,8 @@ const Join = () => {
     handlePasswordSame,
     handleNicknameChange,
     handleBirthChange,
+    interest,
+    handleInterestChange,
     } = useForm();
 
 
@@ -65,6 +67,28 @@ const Join = () => {
       <div>
         <input type="text" placeholder='닉네임' value={Nickname} onChange={handleNicknameChange} />
         {NicknameError && <p className='errorMessage'> 닉네임을 2글자 이상 10 글자 이하로 입력해주세요.</p>}
+      </div>
+
+      <div>
+          관심 있는 분야
+            <input type="radio" id="music" name="interest" value="음악" onChange={handleInterestChange} />
+            <label htmlFor="music">음악</label>
+
+            <input type="radio" id="video" name="interest" value="영상" onChange={handleInterestChange} />
+            <label htmlFor="video">영상</label>
+
+
+            <input type="radio" id="writing" name="interest" value="글쓰기" onChange={handleInterestChange} />
+            <label htmlFor="writing">글쓰기</label>
+
+
+            <input type="radio" id="searchEngine" name="interest" value="검색엔진" onChange={handleInterestChange} />
+            <label htmlFor="searchEngine">검색엔진</label>
+
+
+            <input type="radio" id="none" name="interest" value="없음" onChange={handleInterestChange} checked={interest === '없음'} />
+            <label htmlFor="none">없음</label>
+
       </div>
 
       <button type="submit" disabled={passwordError || emailError || IdError || passwordCheckError || !Id || NicknameError || BirthError }>회원 가입</button>

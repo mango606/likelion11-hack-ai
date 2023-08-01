@@ -14,7 +14,12 @@ export default function useForm() {
   const [NicknameError, setNicknameError] = useState(false);
   const [Birth, setBirth] = useState('');
   const [BirthError, setBirthError] = useState(false);
+  const [interest, setInterest] = useState('없음');
 
+
+  const handleInterestChange = (event) => {
+    setInterest(event.target.value);
+  }
 
   const validatePassword = (password) => {
 	const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
@@ -176,5 +181,7 @@ export default function useForm() {
     BirthError,
     handleNicknameChange,
     handleBirthChange,
+    interest,
+    handleInterestChange,
   }
 }
