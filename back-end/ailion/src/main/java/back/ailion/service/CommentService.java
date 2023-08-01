@@ -55,5 +55,15 @@ public class CommentService {
         return CommentToCommentDto(commentRepository.findById(comment.getId()).get());
     }
 
+    @Transactional
+    public boolean deleteComment(Long commentId) {
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new RuntimeException("Could not found comment id : " + commentId));
+
+        commentRepository.delete(comment);
+        return true;
+    }
+
 
 }

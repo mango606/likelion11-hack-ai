@@ -26,4 +26,10 @@ public class CommentApiController {
         return commentService.updateComment(commentUpdateDto);
     }
 
+    @DeleteMapping("/{id}")
+    public boolean deleteComment(@PathVariable("id") Long commentId) {
+
+        return commentService.deleteComment(commentId);
+    }
+
 }
