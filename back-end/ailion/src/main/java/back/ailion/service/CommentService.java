@@ -2,6 +2,7 @@ package back.ailion.service;
 
 import back.ailion.model.dto.CommentDto;
 import back.ailion.model.dto.request.CommentRequestDto;
+import back.ailion.model.dto.request.CommentUpdateDto;
 import back.ailion.model.entity.Comment;
 import back.ailion.model.entity.Member;
 import back.ailion.model.entity.Post;
@@ -41,6 +42,17 @@ public class CommentService {
                 .build();
 
         return CommentToCommentDto(commentRepository.save(comment));
+    }
+
+    @Transactional
+    public CommentDto updateComment(CommentUpdateDto commentUpdateDto) {
+
+        Comment comment = commentRepository.findById(commentUpdateDto.getCommentId())
+                .orElseThrow(() -> new RuntimeException("Could not found comment id : " + commentUpdateDto.getCommentId()));
+
+        comment.modifyContent(commentUpdateDto.getContent());
+
+        return CommentToCommentDto(commentRepository.findById(comment.getId()).get());
     }
 
 

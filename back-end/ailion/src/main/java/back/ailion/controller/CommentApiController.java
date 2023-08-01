@@ -2,12 +2,10 @@ package back.ailion.controller;
 
 import back.ailion.model.dto.CommentDto;
 import back.ailion.model.dto.request.CommentRequestDto;
+import back.ailion.model.dto.request.CommentUpdateDto;
 import back.ailion.service.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/comments")
@@ -20,6 +18,12 @@ public class CommentApiController {
     public CommentDto saveComment(@RequestBody CommentRequestDto commentRequestDto) {
 
         return commentService.saveComment(commentRequestDto);
+    }
+
+    @PatchMapping
+    public CommentDto updateComment(@RequestBody CommentUpdateDto commentUpdateDto) {
+
+        return commentService.updateComment(commentUpdateDto);
     }
 
 }

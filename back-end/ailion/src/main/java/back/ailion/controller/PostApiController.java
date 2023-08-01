@@ -23,9 +23,9 @@ public class PostApiController {
     }
 
     @PatchMapping
-    public PostDto updatePost(@RequestBody PostUpdateDto updateRequestDto) {
+    public PostDto updatePost(@RequestBody PostUpdateDto postUpdateDto) {
 
-        return postService.updatePost(updateRequestDto);
+        return postService.updatePost(postUpdateDto);
     }
 
     @DeleteMapping("/{id}")
