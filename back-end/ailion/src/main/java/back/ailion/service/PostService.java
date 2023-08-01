@@ -9,9 +9,14 @@ import back.ailion.model.dto.Result;
 import back.ailion.repository.MemberRepository;
 import back.ailion.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,6 +62,7 @@ public class PostService {
         return PostToPostDto(postRepository.findById(updateDto.getPostId()).get());
     }
 
+    @Transactional
     public boolean deletePost(Long postId) {
 
         Post post = postRepository.findById(postId)
@@ -66,13 +72,18 @@ public class PostService {
         return true;
     }
 
-    public Result getPosts() {
-        List<Post> posts = postRepository.findAll();
-        List<PostDto> collect = posts.stream()
-                .map(p -> new PostDto(p.getMember().getId(), p.getTitle(), p.getContent(), p.getWriter(), p.getLikeCount(), p.getViewCount(), p.getCommentCount()))
-                .collect(Collectors.toList());
+    public Page<Post> getPosts(int page) {
+//        List<Post> posts = postRepository.findAll();
+//        List<PostDto> collect = posts.stream()
+//                .map(p -> new PostDto(p.getMember().getId(), p.getTitle(), p.getContent(), p.getWriter(), p.getLikeCount(), p.getViewCount(), p.getCommentCount(), p.getCreatedDate()))
+//                .collect(Collectors.toList());
+//
+//        return new Result(collect);
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createdDate"));
 
-        return new Result(collect);
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+        return postRepository.findAll(pageable);
     }
 }
 

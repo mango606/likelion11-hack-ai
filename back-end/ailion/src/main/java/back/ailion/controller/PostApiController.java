@@ -4,8 +4,10 @@ import back.ailion.model.dto.PostDto;
 import back.ailion.model.dto.Result;
 import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateRequestDto;
+import back.ailion.model.entity.Post;
 import back.ailion.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,22 +15,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class PostApiController {
 
-    // 2023-08-01 01:01:56.920707
-
     private final PostService postService;
-
-    @GetMapping
-    public Result getPosts() {
-
-        return postService.getPosts();
-    }
 
     @PostMapping
     public PostDto savePost(@RequestBody PostRequestDto postRequestDto) {
 
         return postService.savePost(postRequestDto);
     }
-
 
     @PatchMapping
     public PostDto updatePost(@RequestBody PostUpdateRequestDto updateRequestDto) {
@@ -42,4 +35,10 @@ public class PostApiController {
         return postService.deletePost(postId);
     }
 
+    @GetMapping("/list")
+    public Page<PostDto> getPosts(@RequestParam(value="page", defaultValue="0") int page) {
+
+        Page<Post> paging = postService.getPosts(page);
+        return paging.map(PostDto::new);
+    }
 }

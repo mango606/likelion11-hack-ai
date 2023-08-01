@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 
 @Data
 @NoArgsConstructor
@@ -21,7 +23,10 @@ public class PostDto {
     private Integer viewCount;
     private Integer commentCount;
 
+    private LocalDateTime createdDate;
+
     public PostDto(Post post) {
+        this.createdDate = post.getCreatedDate();
         this.memberId = post.getMember().getId();
         this.title = post.getTitle();
         this.content = post.getContent();
