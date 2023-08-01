@@ -39,7 +39,7 @@ public class PostService {
                 .member(member)
                 .content(postRequestDto.getContent())
                 .title(postRequestDto.getTitle())
-                .writer(postRequestDto.getWriter())
+                .writer(member.getNickname())
                 .commentCount(0)
                 .likeCount(0)
                 .viewCount(0)
