@@ -66,6 +66,7 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Could not found post id : " + postId));
 
+        postRepository.deleteCommentsByPostId(postId);
         postRepository.delete(post);
         return true;
     }
