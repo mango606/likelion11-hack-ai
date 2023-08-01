@@ -1,9 +1,8 @@
 package back.ailion.controller;
 
 import back.ailion.model.dto.PostDto;
-import back.ailion.model.dto.Result;
 import back.ailion.model.dto.request.PostRequestDto;
-import back.ailion.model.dto.request.PostUpdateRequestDto;
+import back.ailion.model.dto.request.PostUpdateDto;
 import back.ailion.model.entity.Post;
 import back.ailion.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class PostApiController {
     }
 
     @PatchMapping
-    public PostDto updatePost(@RequestBody PostUpdateRequestDto updateRequestDto) {
+    public PostDto updatePost(@RequestBody PostUpdateDto updateRequestDto) {
 
         return postService.updatePost(updateRequestDto);
     }

@@ -1,0 +1,47 @@
+package back.ailion.service;
+
+import back.ailion.model.dto.CommentDto;
+import back.ailion.model.dto.request.CommentRequestDto;
+import back.ailion.model.entity.Comment;
+import back.ailion.model.entity.Member;
+import back.ailion.model.entity.Post;
+import back.ailion.repository.CommentRepository;
+import back.ailion.repository.MemberRepository;
+import back.ailion.repository.PostRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class CommentService {
+
+    private final CommentRepository commentRepository;
+    private final MemberRepository memberRepository;
+    private final PostRepository postRepository;
+
+    private CommentDto CommentToCommentDto(Comment comment) {
+        return new CommentDto(comment);
+    }
+
+    @Transactional
+    public CommentDto saveComment(CommentRequestDto commentRequestDto) {
+
+        Member member = memberRepository.findById(commentRequestDto.getMemberId())
+                .orElseThrow(() -> new RuntimeException("Could not found member id : " + commentRequestDto.getMemberId()));
+
+        Post post = postRepository.findById(commentRequestDto.getPostId())
+                .orElseThrow(() -> new RuntimeException("Could not found post id : " + commentRequestDto.getPostId()));
+
+        Comment comment = Comment.builder()
+                .content(commentRequestDto.getContent())
+                .writer(member.getNickname())
+                .member(member)
+                .post(post)
+                .build();
+
+        return CommentToCommentDto(commentRepository.save(comment));
+    }
+
+
+}

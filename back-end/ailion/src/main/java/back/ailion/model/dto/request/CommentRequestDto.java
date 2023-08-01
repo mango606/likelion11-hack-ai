@@ -5,11 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class PostUpdateRequestDto {
+@AllArgsConstructor
+public class CommentRequestDto {
 
+    private Long memberId;
     private Long postId;
-    private String title;
     private String content;
 }

@@ -1,11 +1,10 @@
 package back.ailion.service;
 
 import back.ailion.model.dto.request.PostRequestDto;
-import back.ailion.model.dto.request.PostUpdateRequestDto;
+import back.ailion.model.dto.request.PostUpdateDto;
 import back.ailion.model.entity.Member;
 import back.ailion.model.entity.Post;
 import back.ailion.model.dto.PostDto;
-import back.ailion.model.dto.Result;
 import back.ailion.repository.MemberRepository;
 import back.ailion.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -51,7 +49,7 @@ public class PostService {
     }
 
     @Transactional
-    public PostDto updatePost(PostUpdateRequestDto updateDto) {
+    public PostDto updatePost(PostUpdateDto updateDto) {
 
         Post post = postRepository.findById(updateDto.getPostId())
                 .orElseThrow(() -> new RuntimeException("Could not found post id : " + updateDto.getPostId()));
