@@ -39,6 +39,7 @@ public class CommentService {
                 .writer(member.getNickname())
                 .member(member)
                 .post(post)
+                .delCheck(false)
                 .build();
 
         return CommentToCommentDto(commentRepository.save(comment));
@@ -61,9 +62,14 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new RuntimeException("Could not found comment id : " + commentId));
 
+        if (commentRepository.countRepliesByCommentId(commentId) > 0) {
+
+            comment.delete();
+            return true;
+        }
+
         commentRepository.delete(comment);
         return true;
     }
-
 
 }
