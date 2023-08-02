@@ -6,7 +6,7 @@ const Sidebar = () => {
     <>
       <sidebar>
         <Link to="/">
-          <img id="logo" src={`${process.env.PUBLIC_URL}/logo.png`} />
+          <img id="logo" alt="logo" src={`${process.env.PUBLIC_URL}/logo.png`} />
         </Link>
         <div className="menu">
           <Link to="/">
