@@ -87,7 +87,7 @@ public class PostService {
         sorts.add(Sort.Order.desc("createdDate"));
 
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-        return postRepository.findAll(pageable);
+        return postRepository.findByDelCheckFalse(pageable);
     }
 }
 
