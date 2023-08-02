@@ -137,7 +137,7 @@ const Join = () => {
         {BirthError && <p className='errorMessage'> 올바른 생년월일 8자를 입력해주세요</p>}
         {NicknameError && <p className='errorMessage'> 닉네임을 2글자 이상 10 글자 이하로 입력해주세요.</p>}
 
-        <button class="w-btn w-btn-indigo" type="submit" disabled={passwordError || emailError || IdError || passwordCheckError || !Id || NicknameError || BirthError }>
+        <button className="w-btn w-btn-indigo" type="submit" disabled={passwordError || emailError || IdError || passwordCheckError || !Id || NicknameError || BirthError }>
         회원가입
     </button>
 
