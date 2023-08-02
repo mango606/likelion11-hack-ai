@@ -43,6 +43,7 @@ public class PostService {
                 .commentCount(0)
                 .likeCount(0)
                 .viewCount(0)
+                .delCheck(false)
                 .build();
 
         return PostToPostDto(postRepository.save(post));
@@ -66,8 +67,7 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Could not found post id : " + postId));
 
-        postRepository.deleteCommentsByPostId(postId);
-        postRepository.delete(post);
+        post.delete();
         return true;
     }
 

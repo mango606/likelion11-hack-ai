@@ -39,7 +39,7 @@ public class InitDb {
                 String writer = "write" + count;
                 String title = "write" + count;
                 String content = "write" + count;
-                Post post = new Post(writer, title, content, member1, 0, 0, 0);
+                Post post = new Post(writer, title, content, member1, 0, 0, 0, false);
                 em.persist(post);
                 count += 1;
             }
