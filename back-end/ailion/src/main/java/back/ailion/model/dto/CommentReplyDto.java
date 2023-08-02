@@ -23,6 +23,4 @@ public class CommentReplyDto {
         this.content = commentReply.getContent();
         this.writer = commentReply.getWriter();
     }
-
-
 }

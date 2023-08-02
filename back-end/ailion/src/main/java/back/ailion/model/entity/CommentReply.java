@@ -36,4 +36,8 @@ public class CommentReply extends BaseEntity {
         this.member = member;
         this.comment = comment;
     }
+
+    public void modifyContent(String content) {
+        this.content = content;
+    }
 }
