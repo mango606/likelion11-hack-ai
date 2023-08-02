@@ -34,10 +34,25 @@ public class CommentReply extends BaseEntity {
         this.content = content;
         this.writer = writer;
         this.member = member;
-        this.comment = comment;
+        // this.comment = comment;
+        if (comment != null) {
+            changeComment(comment);
+        }
     }
 
     public void modifyContent(String content) {
         this.content = content;
+    }
+
+    // 연관관계 편의 메소드
+    public void changeComment(Comment comment) {
+
+        if(this.comment != null) {
+
+            this.comment.getCommentReplies().remove(this);
+        }
+
+        this.comment = comment;
+        comment.getCommentReplies().add(this);
     }
 }

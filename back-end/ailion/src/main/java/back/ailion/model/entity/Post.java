@@ -6,6 +6,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,6 +33,9 @@ public class Post extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
+
     @ColumnDefault("0")
     @Column(name = "like_count", nullable = false)
     private Integer likeCount;
@@ -43,14 +48,6 @@ public class Post extends BaseEntity{
     @Column(name = "comment_count",nullable = false)
     private Integer commentCount;
 
-//    @Builder
-//    public Post(String title, String content, String writer, Member member) {
-//        this.title = title;
-//        this.content = content;
-//        this.writer = writer;
-//        this.member = member;
-//    }
-
     @Builder
     public Post(String title, String content, String writer, Member member, Integer likeCount, Integer viewCount, Integer commentCount, boolean delCheck) {
         this.title = title;
@@ -61,11 +58,17 @@ public class Post extends BaseEntity{
         this.viewCount = viewCount;
         this.commentCount = commentCount;
         this.delCheck = delCheck;
-
-
     }
 
     public void delete() {
         this.delCheck = true;
     }
+
+    // 연관관계 편의 메소드
+//    public void addComment(Comment comment) {
+//        this.comments.add(comment);
+//        if (comment.getPost() != this) {
+//            comment.changePost(this);
+//        }
+//    }
 }
