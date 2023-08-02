@@ -55,4 +55,14 @@ public class CommentReplyService {
         return CommentToCommentReplyDto(commentReplyRepository.findById(commentReply.getId()).get());
     }
 
+    @Transactional
+    public boolean deleteReply(Long replyId) {
+
+        CommentReply commentReply = commentReplyRepository.findById(replyId)
+                .orElseThrow(() -> new RuntimeException("Could not found CommentReplyId : " + replyId));
+
+        commentReplyRepository.delete(commentReply);
+
+        return true;
+    }
 }
