@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Join from './Join';
+import Join from './pages/Join';
 import { Routes, Route } from "react-router-dom";
 
 import CommunityPage from './pages/CommunityPage';
@@ -10,6 +10,7 @@ import WritePage from './pages/WritePage';
 import NewsPage from './pages/NewsPage';
 import RecommendationPage from './pages/RecommendationPage';
 import InformationPage from './pages/InformationPage';
+
 
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
         <Route element={<NewsPage />} path="/news" />
         <Route element={<WritePage />} path="/write" />
         <Route element={<LoginPage />} path="/login" />
+        <Route element={<Join />} path="/Join" />
       </Routes>
       </box>
     </div>
