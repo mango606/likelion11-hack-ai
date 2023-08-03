@@ -13,12 +13,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CommentReplyDto {
 
+    private Long replyId;
+
     private String content;
     private String writer;
 
     private LocalDateTime createdDate;
 
     public CommentReplyDto(CommentReply commentReply) {
+        this.replyId = commentReply.getId();
         this.createdDate = commentReply.getCreatedDate();
         this.content = commentReply.getContent();
         this.writer = commentReply.getWriter();

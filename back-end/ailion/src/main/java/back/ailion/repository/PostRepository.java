@@ -12,9 +12,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Page<Post> findAll(Pageable pageable);
 
-    @Modifying
-    @Query("DELETE FROM Comment c WHERE c.post.id = :postId")
-    void deleteCommentsByPostId(@Param("postId") Long postId);
+    @Query("SELECT DISTINCT p FROM Post p JOIN FETCH p.comments c WHERE p.id = :postId")
+    Post findByIdWithComments(@Param("postId") Long postId);
 
     Page<Post> findByDelCheckFalse(Pageable pageable);
 }

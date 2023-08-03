@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Data
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 public class PostDto {
 
     private Long memberId;
+    private Long postId;
 
     private String title;
     private String content;
@@ -25,7 +27,10 @@ public class PostDto {
 
     private LocalDateTime createdDate;
 
+    private List<CommentDto> comments;
+
     public PostDto(Post post) {
+        this.postId = post.getId();
         this.createdDate = post.getCreatedDate();
         this.memberId = post.getMember().getId();
         this.title = post.getTitle();

@@ -1,7 +1,11 @@
 package back.ailion.service;
 
+import back.ailion.model.dto.CommentDto;
+import back.ailion.model.dto.CommentReplyDto;
 import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateDto;
+import back.ailion.model.entity.Comment;
+import back.ailion.model.entity.CommentReply;
 import back.ailion.model.entity.Member;
 import back.ailion.model.entity.Post;
 import back.ailion.model.dto.PostDto;
@@ -73,7 +77,9 @@ public class PostService {
 
     public PostDto getPost(Long postId) {
 
-        return PostToPostDto(postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Could not found post id : " + postId)));
+        Post post = postRepository.findByIdWithComments(postId);
+
+        return convertPostToDTO(post);
     }
 
     public Page<Post> getPosts(int page) {
@@ -88,6 +94,48 @@ public class PostService {
 
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         return postRepository.findByDelCheckFalse(pageable);
+    }
+
+    private PostDto convertPostToDTO(Post post) {
+        PostDto postDTO = new PostDto();
+        postDTO.setPostId(post.getId());
+        postDTO.setTitle(post.getTitle());
+        postDTO.setContent(post.getContent());
+        postDTO.setWriter(post.getWriter());
+        postDTO.setCommentCount(post.getCommentCount());
+        postDTO.setLikeCount(post.getLikeCount());
+        postDTO.setViewCount(post.getViewCount());
+        postDTO.setCreatedDate(post.getCreatedDate());
+        postDTO.setComments(convertCommentsToDTOs(post.getComments()));
+        postDTO.setMemberId(post.getMember().getId());
+        return postDTO;
+    }
+
+    private List<CommentDto> convertCommentsToDTOs(List<Comment> comments) {
+        List<CommentDto> commentDTOs = new ArrayList<>();
+        for (Comment comment : comments) {
+            CommentDto commentDTO = new CommentDto();
+            commentDTO.setCommentId(comment.getId());
+            commentDTO.setContent(comment.getContent());
+            commentDTO.setWriter(comment.getWriter());
+            commentDTO.setCreatedDate(comment.getCreatedDate());
+            commentDTO.setReplies(convertRepliesToDTOs(comment.getCommentReplies()));
+            commentDTOs.add(commentDTO);
+        }
+        return commentDTOs;
+    }
+
+    private List<CommentReplyDto> convertRepliesToDTOs(List<CommentReply> replies) {
+        List<CommentReplyDto> replyDTOs = new ArrayList<>();
+        for (CommentReply reply : replies) {
+            CommentReplyDto replyDTO = new CommentReplyDto();
+            replyDTO.setReplyId(reply.getId());
+            replyDTO.setContent(reply.getContent());
+            replyDTO.setWriter(reply.getWriter());
+            replyDTO.setCreatedDate(reply.getCreatedDate());
+            replyDTOs.add(replyDTO);
+        }
+        return replyDTOs;
     }
 }
 
