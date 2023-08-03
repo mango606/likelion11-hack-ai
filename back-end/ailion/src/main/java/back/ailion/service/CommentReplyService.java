@@ -8,7 +8,7 @@ import back.ailion.model.entity.CommentReply;
 import back.ailion.model.entity.User;
 import back.ailion.repository.CommentReplyRepository;
 import back.ailion.repository.CommentRepository;
-import back.ailion.repository.MemberRepository;
+import back.ailion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CommentReplyService {
 
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final CommentReplyRepository commentReplyRepository;
 
@@ -28,7 +28,7 @@ public class CommentReplyService {
     @Transactional
     public CommentReplyDto saveReply(CommentReplyRequestDto replyRequestDto) {
 
-        User user = memberRepository.findById(replyRequestDto.getUserId())
+        User user = userRepository.findById(replyRequestDto.getUserId())
                 .orElseThrow(() -> new RuntimeException("Could not found user id : " + replyRequestDto.getUserId()));
 
         Comment comment = commentRepository.findById(replyRequestDto.getCommentId())

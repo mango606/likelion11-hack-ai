@@ -9,7 +9,7 @@ import back.ailion.model.entity.CommentReply;
 import back.ailion.model.entity.User;
 import back.ailion.model.entity.Post;
 import back.ailion.model.dto.PostDto;
-import back.ailion.repository.MemberRepository;
+import back.ailion.repository.UserRepository;
 import back.ailion.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,7 +27,7 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
 
     private PostDto PostToPostDto(Post post) {
         return new PostDto(post);
@@ -36,7 +36,7 @@ public class PostService {
     @Transactional
     public PostDto savePost(PostRequestDto postRequestDto) {
 
-        User user = memberRepository.findById(postRequestDto.getUserId())
+        User user = userRepository.findById(postRequestDto.getUserId())
                 .orElseThrow(() -> new RuntimeException("Could not found user id : " + postRequestDto.getContent()));
 
         Post post = Post.builder()

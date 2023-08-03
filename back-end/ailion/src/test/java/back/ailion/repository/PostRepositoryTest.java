@@ -19,7 +19,7 @@ class PostRepositoryTest {
     @Autowired
     PostRepository postRepository;
     @Autowired
-    MemberRepository memberRepository;
+    UserRepository userRepository;
 
 
     @Test
@@ -34,10 +34,10 @@ class PostRepositoryTest {
                 .role(RoleType.USER)
                 .build();
 
-        User savedUser = memberRepository.save(user);
+        User savedUser = userRepository.save(user);
 
         Post post = Post.builder()
-                .member(savedUser)
+                .user(savedUser)
                 .content("test")
                 .title("hi")
                 .writer(savedUser.getNickname())
