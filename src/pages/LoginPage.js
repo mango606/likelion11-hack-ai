@@ -58,7 +58,7 @@ return (
                           onChange={(e) => setId(e.target.value)} 
                     />
                     {id && <div type="button" className="btn_clear" onClick={handleClearId}>
-                          <img className="btn_clear_img" alt="close_icon" src="img/close.png" />
+                          <img className="btn_clear_img" alt="close_icon" src="img/clear.png" />
                           </div>}
               </label>
               <label>
@@ -69,12 +69,12 @@ return (
                           value={password} 
                           onChange={(e) => setPassword(e.target.value)} 
                     />
-                    {password && <div type="button" className="login_clear" onClick={handleClearPassword}>
-                                      <img className="login_clear_img" alt="close_icon" src="img/close.png" />
+                    {password && <div type="button" className="btn_clear" onClick={handleClearPassword}>
+                                      <img className="btn_clear_img" alt="close_icon" src="img/clear.png" />
                                  </div>}
               </label>
-              {loginError && <p className="error_message">{loginError}</p>}
-              {loginError === '' && <p className="error_message"> </p>}
+              {loginError && <div className="error_message">{loginError}</div>}
+              {loginError === '' && <div className="error_message"> </div>}
               <button className="btn_login" type="submit">로그인</button>
               <div className="txt_line"> 또는 </div>
               <div className="btn_col">
@@ -83,7 +83,7 @@ return (
                     <button className="btn_Google">Google 로그인</button>
               </div>
               <NavLink to="/Join">
-                    <p className="link_join">회원가입</p>
+                    <div className="link_join">회원가입</div>
               </NavLink>             
         </form>
   </div>
