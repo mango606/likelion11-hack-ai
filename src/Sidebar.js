@@ -6,30 +6,55 @@ const Sidebar = () => {
     <>
       <sidebar>
         <Link to="/">
-          <img id="logo" src={`${process.env.PUBLIC_URL}/logo.png`} />
+          <img id="logo" src="./logo.png" />
         </Link>
         <div className="menu">
           <Link to="/">
-            <p id="home">Home</p>
+            <p id="side-menu">
+            <img class="side-img" src="./home.png" />
+            <a id="side-txt">
+            Home
+            </a>
+            </p>
           </Link>
           <Link to="/info">
-            <p id="info">AI 정보</p>
+            <p id="side-menu">
+            <img class="side-img" src="./edit.png" />
+            <a id="side-txt">
+              AI 정보
+            </a>
+            </p>
           </Link>
           <Link to="/rec">
-            <p id="rec">AI 추천</p>
+            <p id="side-menu">
+            <img class="side-img" src="./flag.png" />
+            <a id="side-txt">
+              AI 추천
+              </a>
+              </p>
           </Link>
           <Link to="/comm">
-            <p id="comm">커뮤니티</p>
+            <p id="side-menu">
+            <img class="side-img" src="./globe.png" />
+            <a id="side-txt">
+              커뮤니티
+              </a>
+              </p>
           </Link>
           <Link to="/news">
-            <p id="news">AI 소식</p>
+            <p id="side-menu">
+            <img class="side-img" src="./marker.png" />
+            <a id="side-txt">
+              AI 소식
+              </a>
+              </p>
           </Link>
         </div>
         <Link to="/write">
-          <button>글 작성</button>
+          <button id="side-bt">+ 글 작성</button>
         </Link>
         <Link to="/login">
-          <button>로그인</button>
+          <button id="side-bt2">로그인</button>
         </Link>
       </sidebar>
     </>
