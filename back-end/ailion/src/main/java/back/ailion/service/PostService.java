@@ -1,11 +1,11 @@
 package back.ailion.service;
 
 import back.ailion.model.dto.CommentDto;
-import back.ailion.model.dto.CommentReplyDto;
+import back.ailion.model.dto.ReplyDto;
 import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateDto;
 import back.ailion.model.entity.Comment;
-import back.ailion.model.entity.CommentReply;
+import back.ailion.model.entity.Reply;
 import back.ailion.model.entity.User;
 import back.ailion.model.entity.Post;
 import back.ailion.model.dto.PostDto;
@@ -106,7 +106,7 @@ public class PostService {
         postDTO.setLikeCount(post.getLikeCount());
         postDTO.setViewCount(post.getViewCount());
         postDTO.setCreatedDate(post.getCreatedDate());
-        postDTO.setComments(convertCommentsToDTOs(post.getComments()));
+        postDTO.setComments(convertCommentsToDTOs(post.getComments())); // post.getComments 이부분이 오류 발생?
         postDTO.setUserId(post.getUser().getId());
         return postDTO;
     }
@@ -119,16 +119,16 @@ public class PostService {
             commentDTO.setContent(comment.getContent());
             commentDTO.setWriter(comment.getWriter());
             commentDTO.setCreatedDate(comment.getCreatedDate());
-            commentDTO.setReplies(convertRepliesToDTOs(comment.getCommentReplies()));
+            commentDTO.setReplies(convertRepliesToDTOs(comment.getReplies()));
             commentDTOs.add(commentDTO);
         }
         return commentDTOs;
     }
 
-    private List<CommentReplyDto> convertRepliesToDTOs(List<CommentReply> replies) {
-        List<CommentReplyDto> replyDTOs = new ArrayList<>();
-        for (CommentReply reply : replies) {
-            CommentReplyDto replyDTO = new CommentReplyDto();
+    private List<ReplyDto> convertRepliesToDTOs(List<Reply> replies) {
+        List<ReplyDto> replyDTOs = new ArrayList<>();
+        for (Reply reply : replies) {
+            ReplyDto replyDTO = new ReplyDto();
             replyDTO.setReplyId(reply.getId());
             replyDTO.setContent(reply.getContent());
             replyDTO.setWriter(reply.getWriter());

@@ -10,11 +10,11 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CommentReply extends BaseEntity {
+public class Reply extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_reply_id")
+    @Column(name = "reply_id")
     private Long id;
 
     private String content;
@@ -30,7 +30,7 @@ public class CommentReply extends BaseEntity {
     private Comment comment;
 
     @Builder
-    public CommentReply(String content, String writer, User user, Comment comment) {
+    public Reply(String content, String writer, User user, Comment comment) {
         this.content = content;
         this.writer = writer;
         this.user = user;
@@ -49,10 +49,10 @@ public class CommentReply extends BaseEntity {
 
         if(this.comment != null) {
 
-            this.comment.getCommentReplies().remove(this);
+            this.comment.getReplies().remove(this);
         }
 
         this.comment = comment;
-        comment.getCommentReplies().add(this);
+        comment.getReplies().add(this);
     }
 }

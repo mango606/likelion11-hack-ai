@@ -34,7 +34,7 @@ public class Comment extends BaseEntity{
     private Post post;
 
     @OneToMany(mappedBy = "comment")
-    private List<CommentReply> commentReplies = new ArrayList<>();
+    private List<Reply> replies = new ArrayList<>();
 
     @Builder
     public Comment(String content, String writer, User user, Post post, boolean delCheck) {

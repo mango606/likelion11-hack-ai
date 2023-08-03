@@ -20,7 +20,7 @@ public class CommentDto {
 
     private LocalDateTime createdDate;
 
-    private List<CommentReplyDto> replies;
+    private List<ReplyDto> replies;
 
     public CommentDto(Comment comment) {
         this.commentId = comment.getId();

@@ -12,7 +12,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Page<Post> findAll(Pageable pageable);
 
-    @Query("SELECT DISTINCT p FROM Post p JOIN FETCH p.comments c WHERE p.id = :postId")
+    @Query("SELECT DISTINCT p FROM Post p LEFT JOIN FETCH p.comments c WHERE p.id = :postId")
     Post findByIdWithComments(@Param("postId") Long postId);
 
     Page<Post> findByDelCheckFalse(Pageable pageable);

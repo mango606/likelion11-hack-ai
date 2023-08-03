@@ -7,6 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    @Query("SELECT COUNT(r) FROM CommentReply r WHERE r.comment.id = :commentId")
+    @Query("SELECT COUNT(r) FROM Reply r WHERE r.comment.id = :commentId")
     int countRepliesByCommentId(@Param("commentId") Long commentId);
 }
