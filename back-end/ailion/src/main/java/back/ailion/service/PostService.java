@@ -6,7 +6,7 @@ import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateDto;
 import back.ailion.model.entity.Comment;
 import back.ailion.model.entity.CommentReply;
-import back.ailion.model.entity.Member;
+import back.ailion.model.entity.User;
 import back.ailion.model.entity.Post;
 import back.ailion.model.dto.PostDto;
 import back.ailion.repository.MemberRepository;
@@ -36,14 +36,14 @@ public class PostService {
     @Transactional
     public PostDto savePost(PostRequestDto postRequestDto) {
 
-        Member member = memberRepository.findById(postRequestDto.getMemberId())
-                .orElseThrow(() -> new RuntimeException("Could not found member id : " + postRequestDto.getMemberId()));
+        User user = memberRepository.findById(postRequestDto.getUserId())
+                .orElseThrow(() -> new RuntimeException("Could not found user id : " + postRequestDto.getContent()));
 
         Post post = Post.builder()
-                .member(member)
+                .user(user)
                 .content(postRequestDto.getContent())
                 .title(postRequestDto.getTitle())
-                .writer(member.getNickname())
+                .writer(user.getNickname())
                 .commentCount(0)
                 .likeCount(0)
                 .viewCount(0)
@@ -107,7 +107,7 @@ public class PostService {
         postDTO.setViewCount(post.getViewCount());
         postDTO.setCreatedDate(post.getCreatedDate());
         postDTO.setComments(convertCommentsToDTOs(post.getComments()));
-        postDTO.setMemberId(post.getMember().getId());
+        postDTO.setUserId(post.getUser().getId());
         return postDTO;
     }
 

@@ -25,9 +25,9 @@ public class Comment extends BaseEntity{
 
     private boolean delCheck;
 
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private User user;
 
     @JoinColumn(name = "post_id")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,10 +37,10 @@ public class Comment extends BaseEntity{
     private List<CommentReply> commentReplies = new ArrayList<>();
 
     @Builder
-    public Comment(String content, String writer, Member member, Post post, boolean delCheck) {
+    public Comment(String content, String writer, User user, Post post, boolean delCheck) {
         this.content = content;
         this.writer = writer;
-        this.member = member;
+        this.user = user;
         // this.post = post;
         if (post != null) {
             changePost(post);

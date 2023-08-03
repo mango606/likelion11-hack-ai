@@ -4,7 +4,7 @@ import back.ailion.model.dto.CommentDto;
 import back.ailion.model.dto.request.CommentRequestDto;
 import back.ailion.model.dto.request.CommentUpdateDto;
 import back.ailion.model.entity.Comment;
-import back.ailion.model.entity.Member;
+import back.ailion.model.entity.User;
 import back.ailion.model.entity.Post;
 import back.ailion.repository.CommentRepository;
 import back.ailion.repository.MemberRepository;
@@ -28,16 +28,16 @@ public class CommentService {
     @Transactional
     public CommentDto saveComment(CommentRequestDto commentRequestDto) {
 
-        Member member = memberRepository.findById(commentRequestDto.getMemberId())
-                .orElseThrow(() -> new RuntimeException("Could not found member id : " + commentRequestDto.getMemberId()));
+        User user = memberRepository.findById(commentRequestDto.getUserId())
+                .orElseThrow(() -> new RuntimeException("Could not found user id : " + commentRequestDto.getUserId()));
 
         Post post = postRepository.findById(commentRequestDto.getPostId())
                 .orElseThrow(() -> new RuntimeException("Could not found post id : " + commentRequestDto.getPostId()));
 
         Comment comment = Comment.builder()
                 .content(commentRequestDto.getContent())
-                .writer(member.getNickname())
-                .member(member)
+                .writer(user.getNickname())
+                .user(user)
                 .post(post)
                 .delCheck(false)
                 .build();

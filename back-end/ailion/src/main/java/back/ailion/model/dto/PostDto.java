@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PostDto {
 
-    private Long memberId;
+    private Long userId;
     private Long postId;
 
     private String title;
@@ -32,7 +32,7 @@ public class PostDto {
     public PostDto(Post post) {
         this.postId = post.getId();
         this.createdDate = post.getCreatedDate();
-        this.memberId = post.getMember().getId();
+        this.userId = post.getUser().getId();
         this.title = post.getTitle();
         this.content = post.getContent();
         this.writer = post.getWriter();

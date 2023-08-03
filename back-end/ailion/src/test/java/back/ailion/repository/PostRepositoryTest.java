@@ -1,6 +1,6 @@
 package back.ailion.repository;
 
-import back.ailion.model.entity.Member;
+import back.ailion.model.entity.User;
 import back.ailion.model.entity.Post;
 import back.ailion.model.entity.RoleType;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ class PostRepositoryTest {
     @Test
     public void crudTest() {
 
-        Member member = Member.builder()
+        User user = User.builder()
                 .email("email")
                 .name("an")
                 .nickname("ph")
@@ -34,18 +34,18 @@ class PostRepositoryTest {
                 .role(RoleType.USER)
                 .build();
 
-        Member savedMember = memberRepository.save(member);
+        User savedUser = memberRepository.save(user);
 
         Post post = Post.builder()
-                .member(savedMember)
+                .member(savedUser)
                 .content("test")
                 .title("hi")
-                .writer(savedMember.getNickname())
+                .writer(savedUser.getNickname())
                 .build();
 
         Post savedPost = postRepository.save(post);
 
-        assertThat(savedMember.getNickname()).isEqualTo(savedPost.getMember().getNickname());
+        assertThat(savedUser.getNickname()).isEqualTo(savedPost.getUser().getNickname());
     }
 
 }

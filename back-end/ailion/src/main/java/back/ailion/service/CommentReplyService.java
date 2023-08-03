@@ -5,7 +5,7 @@ import back.ailion.model.dto.request.CommentReplyRequestDto;
 import back.ailion.model.dto.request.CommentReplyUpdateDto;
 import back.ailion.model.entity.Comment;
 import back.ailion.model.entity.CommentReply;
-import back.ailion.model.entity.Member;
+import back.ailion.model.entity.User;
 import back.ailion.repository.CommentReplyRepository;
 import back.ailion.repository.CommentRepository;
 import back.ailion.repository.MemberRepository;
@@ -28,8 +28,8 @@ public class CommentReplyService {
     @Transactional
     public CommentReplyDto saveReply(CommentReplyRequestDto replyRequestDto) {
 
-        Member member = memberRepository.findById(replyRequestDto.getMemberId())
-                .orElseThrow(() -> new RuntimeException("Could not found member id : " + replyRequestDto.getMemberId()));
+        User user = memberRepository.findById(replyRequestDto.getUserId())
+                .orElseThrow(() -> new RuntimeException("Could not found user id : " + replyRequestDto.getUserId()));
 
         Comment comment = commentRepository.findById(replyRequestDto.getCommentId())
                 .orElseThrow(() -> new RuntimeException("Could not found reply id : " + replyRequestDto.getCommentId()));
@@ -37,8 +37,8 @@ public class CommentReplyService {
         CommentReply commentReply = CommentReply.builder()
                 .content(replyRequestDto.getContent())
                 .comment(comment)
-                .member(member)
-                .writer(member.getNickname())
+                .user(user)
+                .writer(user.getNickname())
                 .build();
 
         return CommentToCommentReplyDto(commentReplyRepository.save(commentReply));

@@ -1,6 +1,5 @@
 package back.ailion.model.entity;
 
-import back.ailion.model.dto.PostDto;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -29,9 +28,9 @@ public class Post extends BaseEntity{
 
     private boolean delCheck;
 
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private User user;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
@@ -49,11 +48,11 @@ public class Post extends BaseEntity{
     private Integer commentCount;
 
     @Builder
-    public Post(String title, String content, String writer, Member member, Integer likeCount, Integer viewCount, Integer commentCount, boolean delCheck) {
+    public Post(String title, String content, String writer, User user, Integer likeCount, Integer viewCount, Integer commentCount, boolean delCheck) {
         this.title = title;
         this.content = content;
         this.writer = writer;
-        this.member = member;
+        this.user = user;
         this.likeCount = likeCount;
         this.viewCount = viewCount;
         this.commentCount = commentCount;

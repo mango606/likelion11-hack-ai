@@ -21,19 +21,19 @@ public class CommentReply extends BaseEntity {
 
     private String writer;
 
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private User user;
 
     @JoinColumn(name = "comment_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Comment comment;
 
     @Builder
-    public CommentReply(String content, String writer, Member member, Comment comment) {
+    public CommentReply(String content, String writer, User user, Comment comment) {
         this.content = content;
         this.writer = writer;
-        this.member = member;
+        this.user = user;
         // this.comment = comment;
         if (comment != null) {
             changeComment(comment);
