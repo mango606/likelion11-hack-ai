@@ -6,12 +6,12 @@ const Sidebar = () => {
     <>
       <sidebar>
         <Link to="/">
-          <img id="logo" src="./logo.png" />
+          <img id="logo" alt='logo' src="./logo.png" />
         </Link>
         <div className="menu">
           <Link to="/">
             <p id="side-menu">
-            <img class="side-img" src="./home.png" />
+            <img class="side-img" alt='home_icon' src="./home.png" />
             <a id="side-txt">
             Home
             </a>
@@ -19,7 +19,7 @@ const Sidebar = () => {
           </Link>
           <Link to="/info">
             <p id="side-menu">
-            <img class="side-img" src="./edit.png" />
+            <img class="side-img" alt='edit_icon' src="./edit.png" />
             <a id="side-txt">
               AI 정보
             </a>
@@ -27,7 +27,7 @@ const Sidebar = () => {
           </Link>
           <Link to="/rec">
             <p id="side-menu">
-            <img class="side-img" src="./flag.png" />
+            <img class="side-img" alt='flag_icon' src="./flag.png" />
             <a id="side-txt">
               AI 추천
               </a>
@@ -35,7 +35,7 @@ const Sidebar = () => {
           </Link>
           <Link to="/comm">
             <p id="side-menu">
-            <img class="side-img" src="./globe.png" />
+            <img class="side-img" alt='globe_icon' src="./globe.png" />
             <a id="side-txt">
               커뮤니티
               </a>
@@ -43,7 +43,7 @@ const Sidebar = () => {
           </Link>
           <Link to="/news">
             <p id="side-menu">
-            <img class="side-img" src="./marker.png" />
+            <img class="side-img" alt='marker_icon' src="./marker.png" />
             <a id="side-txt">
               AI 소식
               </a>
