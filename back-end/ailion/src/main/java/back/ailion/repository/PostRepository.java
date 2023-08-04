@@ -16,4 +16,12 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Post findByIdWithComments(@Param("postId") Long postId);
 
     Page<Post> findByDelCheckFalse(Pageable pageable);
+
+    @Modifying
+    @Query("UPDATE Post p SET p.likeCount = p.likeCount + 1 WHERE p = :selectedPost")
+    void addLikeCount(@Param("selectedPost") Post post);
+
+    @Modifying
+    @Query("UPDATE Post p SET p.likeCount = p.likeCount - 1 WHERE p = :selectedPost")
+    void subLikeCount(@Param("selectedPost") Post post);
 }
