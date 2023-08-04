@@ -1,6 +1,7 @@
 package back.ailion.controller;
 
 import back.ailion.model.dto.ReplyDto;
+import back.ailion.model.dto.request.ReplyDeleteDto;
 import back.ailion.model.dto.request.ReplyRequestDto;
 import back.ailion.model.dto.request.ReplyUpdateDto;
 import back.ailion.service.ReplyService;
@@ -26,10 +27,10 @@ public class ReplyApiController {
         return replyService.updateReply(replyUpdateDto);
     }
 
-    @DeleteMapping("/{id}")
-    public boolean deleteReply(@PathVariable("id") Long replyId) {
+    @DeleteMapping
+    public boolean deleteReply(@RequestBody ReplyDeleteDto replyDeleteDto) {
 
-        return replyService.deleteReply(replyId);
+        return replyService.deleteReply(replyDeleteDto);
     }
 
 }

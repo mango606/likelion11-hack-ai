@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReplyRequestDto {
+public class ReplyDeleteDto {
 
-    private Long userId;
-    private Long commentId;
+    private Long replyId;
     private Long postId;
-    private String content;
+
 }

@@ -1,6 +1,7 @@
 package back.ailion.controller;
 
 import back.ailion.model.dto.CommentDto;
+import back.ailion.model.dto.request.CommentDeleteDto;
 import back.ailion.model.dto.request.CommentRequestDto;
 import back.ailion.model.dto.request.CommentUpdateDto;
 import back.ailion.service.CommentService;
@@ -26,10 +27,10 @@ public class CommentApiController {
         return commentService.updateComment(commentUpdateDto);
     }
 
-    @DeleteMapping("/{id}")
-    public boolean deleteComment(@PathVariable("id") Long commentId) {
+    @DeleteMapping
+    public boolean deleteComment(@RequestBody CommentDeleteDto commentDeleteDto) {
 
-        return commentService.deleteComment(commentId);
+        return commentService.deleteComment(commentDeleteDto);
     }
 
 }
