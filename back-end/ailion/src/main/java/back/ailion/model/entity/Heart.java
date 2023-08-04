@@ -10,11 +10,11 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostLike extends BaseEntity {
+public class Heart extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_like_id")
+    @Column(name = "heart_id")
     private Long id;
 
     @JoinColumn(name = "user_id")
@@ -26,7 +26,7 @@ public class PostLike extends BaseEntity {
     private Post post;
 
     @Builder
-    public PostLike(User user, Post post) {
+    public Heart(User user, Post post) {
         this.user = user;
         this.post = post;
     }
