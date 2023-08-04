@@ -25,6 +25,8 @@ public class PostDto {
     private Integer viewCount;
     private Integer commentCount;
 
+    private boolean delCheck;
+
     private LocalDateTime createdDate;
 
     private List<CommentDto> comments;
@@ -39,5 +41,6 @@ public class PostDto {
         this.likeCount = post.getLikeCount();
         this.viewCount = post.getViewCount();
         this.commentCount = post.getCommentCount();
+        this.delCheck = post.isDelCheck();
     }
 }

@@ -18,6 +18,8 @@ public class CommentDto {
     private String content;
     private String writer;
 
+    private boolean delCheck;
+
     private LocalDateTime createdDate;
 
     private List<ReplyDto> replies;
@@ -27,5 +29,6 @@ public class CommentDto {
         this.createdDate = comment.getCreatedDate();
         this.content = comment.getContent();
         this.writer = comment.getWriter();
+        this.delCheck = comment.isDelCheck();
     }
 }

@@ -17,6 +17,8 @@ public class ReplyDto {
     private String content;
     private String writer;
 
+    private boolean delCheck;
+
     private LocalDateTime createdDate;
 
     public ReplyDto(Reply reply) {
@@ -24,5 +26,6 @@ public class ReplyDto {
         this.createdDate = reply.getCreatedDate();
         this.content = reply.getContent();
         this.writer = reply.getWriter();
+        this.delCheck = reply.isDelCheck();
     }
 }
