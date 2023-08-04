@@ -11,5 +11,4 @@ public class ReplyDeleteDto {
 
     private Long replyId;
     private Long postId;
-
 }

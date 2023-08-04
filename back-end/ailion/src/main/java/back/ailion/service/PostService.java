@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static lombok.Lombok.checkNotNull;
+
 @Service
 @RequiredArgsConstructor
 public class PostService {
@@ -80,6 +82,18 @@ public class PostService {
         Post post = postRepository.findByIdWithComments(postId);
 
         return convertPostToDTO(post);
+    }
+
+    @Transactional
+    public void viewCountUp(Long postId) {
+        Post post = findById(postId);
+        post.viewCountUp(post);
+    }
+
+    @Transactional(readOnly = true)
+    public Post findById(Long postId) {
+//        checkNotNull(postId, "postId must be provided");
+        return postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Could not found board id : " + postId));
     }
 
     public Page<Post> getPosts(int page) {

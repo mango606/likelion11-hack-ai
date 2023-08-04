@@ -63,6 +63,10 @@ public class Post extends BaseEntity{
         this.delCheck = true;
     }
 
+    public void viewCountUp(Post post) {
+        post.viewCount++;
+    }
+
     // 연관관계 편의 메소드
 //    public void addComment(Comment comment) {
 //        this.comments.add(comment);

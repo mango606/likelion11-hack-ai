@@ -45,6 +45,7 @@ public class ReplyService {
                 .content(replyRequestDto.getContent())
                 .comment(comment)
                 .user(user)
+                .delCheck(false)
                 .writer(user.getNickname())
                 .build();
 

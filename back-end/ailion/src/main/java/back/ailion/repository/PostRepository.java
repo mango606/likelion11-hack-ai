@@ -24,4 +24,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Modifying
     @Query("UPDATE Post p SET p.likeCount = p.likeCount - 1 WHERE p = :selectedPost")
     void subLikeCount(@Param("selectedPost") Post post);
+
+//    @Query("SELECT COUNT(DISTINCT c) + COUNT(DISTINCT r) FROM Post p LEFT JOIN p.comments c LEFT JOIN c.replies r WHERE p.id = :postId AND c.delCheck = false")
+//    Long countCommentsAndRepliesWithoutDelCheck(@Param("postId") Long postId);
 }

@@ -9,6 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping("/posts")
 @RequiredArgsConstructor
@@ -35,8 +39,9 @@ public class PostApiController {
     }
 
     @GetMapping("/{id}")
-    public PostDto getPost(@PathVariable("id") Long postId) {
+    public PostDto getPost(@PathVariable("id") Long postId, HttpServletRequest req, HttpServletResponse res) {
 
+        viewCountUp(postId, req, res);
         return postService.getPost(postId);
     }
 
@@ -46,4 +51,35 @@ public class PostApiController {
         Page<Post> paging = postService.getPosts(page);
         return paging.map(PostDto::new);
     }
+
+    private void viewCountUp(Long id, HttpServletRequest req, HttpServletResponse res) {
+
+        Cookie oldCookie = null;
+
+        Cookie[] cookies = req.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("postView")) {
+                    oldCookie = cookie;
+                }
+            }
+        }
+
+        if (oldCookie != null) {
+            if (!oldCookie.getValue().contains("[" + id.toString() + "]")) {
+                postService.viewCountUp(id);
+                oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+                oldCookie.setPath("/");
+                oldCookie.setMaxAge(60 * 60 * 24);
+                res.addCookie(oldCookie);
+            }
+        } else {
+            postService.viewCountUp(id);
+            Cookie newCookie = new Cookie("postView","[" + id + "]");
+            newCookie.setPath("/");
+            newCookie.setMaxAge(60 * 60 * 24);
+            res.addCookie(newCookie);
+        }
+    }
+
 }

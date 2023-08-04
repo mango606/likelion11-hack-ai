@@ -21,6 +21,8 @@ public class Reply extends BaseEntity {
 
     private String writer;
 
+    private boolean delCheck;
+
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
@@ -30,10 +32,11 @@ public class Reply extends BaseEntity {
     private Comment comment;
 
     @Builder
-    public Reply(String content, String writer, User user, Comment comment) {
+    public Reply(String content, String writer, User user, Comment comment, boolean delCheck) {
         this.content = content;
         this.writer = writer;
         this.user = user;
+        this.delCheck = delCheck;
         // this.comment = comment;
         if (comment != null) {
             changeComment(comment);

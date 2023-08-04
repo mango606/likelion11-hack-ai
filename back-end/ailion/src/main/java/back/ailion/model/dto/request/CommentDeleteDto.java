@@ -11,4 +11,5 @@ public class CommentDeleteDto {
 
     private Long postId;
     private Long commentId;
+
 }
