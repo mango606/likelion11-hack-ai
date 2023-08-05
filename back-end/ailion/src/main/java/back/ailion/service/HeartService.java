@@ -25,7 +25,7 @@ public class HeartService {
     }
 
     @Transactional
-    public HeartDto insert(HeartRequestDto heartRequestDto) {
+    public HeartDto like(HeartRequestDto heartRequestDto) {
 
         User user = userRepository.findById(heartRequestDto.getUserId())
                 .orElseThrow(() -> new RuntimeException("Could not found user id : " + heartRequestDto.getUserId()));
@@ -49,7 +49,7 @@ public class HeartService {
     }
 
     @Transactional
-    public boolean delete(HeartRequestDto heartRequestDto) {
+    public boolean cancelLike(HeartRequestDto heartRequestDto) {
 
         User user = userRepository.findById(heartRequestDto.getUserId())
                 .orElseThrow(() -> new RuntimeException("Could not found user id : " + heartRequestDto.getUserId()));

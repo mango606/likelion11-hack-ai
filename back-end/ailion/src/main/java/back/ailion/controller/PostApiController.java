@@ -51,7 +51,7 @@ public class PostApiController {
     public Page<PostDto> getPosts(@RequestParam(value="page", defaultValue="0") int page) {
 
         Page<Post> paging = postService.getPosts(page);
-        return paging.map(PostDto::new);
+        return paging.map(post -> new PostDto(post));
     }
 
     private void viewCountUp(Long id, HttpServletRequest req, HttpServletResponse res) {

@@ -14,13 +14,13 @@ public class HeartApiController {
     private final HeartService heartService;
 
     @PostMapping
-    public HeartDto insert(@RequestBody HeartRequestDto heartRequestDto) {
-        return heartService.insert(heartRequestDto);
+    public HeartDto like(@RequestBody HeartRequestDto heartRequestDto) {
+        return heartService.like(heartRequestDto);
     }
 
     @DeleteMapping
-    public boolean delete(@RequestBody HeartRequestDto heartRequestDto) {
-        return heartService.delete(heartRequestDto);
+    public boolean cancelLike(@RequestBody HeartRequestDto heartRequestDto) {
+        return heartService.cancelLike(heartRequestDto);
     }
 
 }

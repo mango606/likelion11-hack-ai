@@ -77,13 +77,6 @@ public class PostService {
         return true;
     }
 
-    public PostDto getPost(Long postId) {
-
-        Post post = postRepository.findByIdWithComments(postId);
-
-        return convertPostToDTO(post);
-    }
-
     @Transactional
     public void viewCountUp(Long postId) {
         Post post = findById(postId);
@@ -96,6 +89,7 @@ public class PostService {
         return postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Could not found board id : " + postId));
     }
 
+    // 페이징 처리
     public Page<Post> getPosts(int page) {
 //        List<Post> posts = postRepository.findAll();
 //        List<PostDto> collect = posts.stream()
@@ -110,6 +104,13 @@ public class PostService {
         return postRepository.findByDelCheckFalse(pageable);
     }
 
+    public PostDto getPost(Long postId) {
+
+        Post post = postRepository.findByIdWithComments(postId);
+
+        return convertPostToDTO(post);
+    }
+
     private PostDto convertPostToDTO(Post post) {
         PostDto postDTO = new PostDto();
         postDTO.setPostId(post.getId());
@@ -120,7 +121,7 @@ public class PostService {
         postDTO.setLikeCount(post.getLikeCount());
         postDTO.setViewCount(post.getViewCount());
         postDTO.setCreatedDate(post.getCreatedDate());
-        postDTO.setComments(convertCommentsToDTOs(post.getComments())); // post.getComments 이부분이 오류 발생?
+        postDTO.setComments(convertCommentsToDTOs(post.getComments()));
         postDTO.setUserId(post.getUser().getId());
         return postDTO;
     }
