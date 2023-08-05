@@ -21,19 +21,19 @@ public class Comment extends BaseEntity{
 
     private String writer;
 
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private User user;
 
     @JoinColumn(name = "post_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
     @Builder
-    public Comment(String content, String writer, Member member, Post post) {
+    public Comment(String content, String writer, User user, Post post) {
         this.content = content;
         this.writer = writer;
-        this.member = member;
+        this.user = user;
         this.post = post;
     }
 }

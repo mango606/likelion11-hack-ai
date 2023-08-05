@@ -23,15 +23,15 @@ public class Post extends BaseEntity{
 
     private String writer;
 
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private User user;
 
     @Builder
-    public Post(String title, String content, String writer, Member member) {
+    public Post(String title, String content, String writer, User member) {
         this.title = title;
         this.content = content;
         this.writer = writer;
-        this.member = member;
+        this.user = user;
     }
 }

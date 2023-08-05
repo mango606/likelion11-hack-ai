@@ -17,17 +17,17 @@ public class Favorite extends BaseEntity{
     @Column(name = "favorite_id")
     private Long id;
 
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private User user;
 
     @JoinColumn(name = "ai_info_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private AiInfo aiInfo;
 
     @Builder
-    public Favorite(Member member, AiInfo aiInfo) {
-        this.member = member;
+    public Favorite(User user, AiInfo aiInfo) {
+        this.user = user;
         this.aiInfo = aiInfo;
     }
 }

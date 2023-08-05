@@ -1,8 +1,15 @@
 package back.ailion.config.oauth.provider;
 
+import java.util.Map;
+
 public interface OAuth2UserInfo {
-    String getProviderId();
-    String getProvider();
-    String getEmail();
-    String getName();
+    public String getProviderId();
+
+    public String getProvider();
+
+    public String getEmail();
+
+    public String getName();
+
+    public Map<String, Object> getAttributes();
 }

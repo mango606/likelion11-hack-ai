@@ -1,6 +1,6 @@
 package back.ailion.config.auth;
 
-import back.ailion.entity.Member;
+import back.ailion.entity.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,25 +10,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-// 시큐리티가 /login 주소 요청이 낚아채 로그인을 진행시킨다.
-// 로그인 진행이 완료가 되면 시큐리티 session을 만들어줍니다. (Security ContextHolder)
-// 오브젝트 타입 => Authentication 타입 객체
-// Authentication 안에 User정보가 있어야 됨.
-// User오브젝트 타입 => UserDetails 타입 객체
-
-// Security Session => Authentication => UserDetails(PrincipalDetails)
-
 @Data
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
-    private Member member;
+    private User user;
     private Map<String, Object> attributes;
-
-    public PrincipalDetails(Member member){
-        this.member = member;
+    public PrincipalDetails(User user){
+        this.user = user;
     }
-    public PrincipalDetails(Member member, Map<String, Object> attributes){
-        this.member = member;
+
+    public PrincipalDetails(User user, Map<String, Object> attributes){
+        this.user = user;
         this.attributes = attributes;
     }
 
@@ -38,19 +30,13 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     }
 
     @Override
-    public Map<String, Object> getAttributes() {
-        return attributes;
-    }
-
-    // 해당 User의 권한을 리턴하는 곳!!
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collect = new ArrayList<>();
 
         collect.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return member.getRole().toString();
+                return user.getRole();
             }
         });
 
@@ -59,12 +45,12 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getPassword() {
-        return member.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return member.getUserName();
+        return user.getUsername();
     }
 
     @Override
@@ -84,8 +70,11 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public boolean isEnabled() {
-
-        // 1년동안 로그인 안하면 휴면 계정을 하기로 함
         return true;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return this.attributes;
     }
 }

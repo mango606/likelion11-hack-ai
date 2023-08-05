@@ -1,9 +1,12 @@
 package back.ailion.config.oauth;
 
+import back.ailion.config.auth.PrincipalDetails;
 import back.ailion.config.oauth.provider.FacebookUserInfo;
 import back.ailion.config.oauth.provider.GoogleUserInfo;
 import back.ailion.config.oauth.provider.NaverUserInfo;
 import back.ailion.config.oauth.provider.OAuth2UserInfo;
+import back.ailion.entity.User;
+import back.ailion.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -14,22 +17,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+
 @Service
-public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
+public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    // 함수 종료 시 @AuthenticationPrincipal 어노테이션이 만들어진다.
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        System.out.println("getClientRegistration: " + userRequest.getClientRegistration());
-        System.out.println("getAccessToken: " + userRequest.getAccessToken());
-        // 구글로그인 버튼 클릭 -> 구글로그인창 -> 로그인을 완료 -> code를 리턴(OAuth-Client 라이버러리) -> AccessToken 요청
-        // userRequest 정보 -> loadUser함수 호출 -> 구글로부터 회원프로필 받아준다.
+        System.out.println("getClientRegistration : " + userRequest.getClientRegistration());
+        System.out.println("getAccessToken : " + userRequest.getAccessToken().getTokenValue());
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
@@ -50,30 +51,36 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
         }
         else{
-            System.out.println("우리는 구글이랑 페이스북만 지원합니다.");
+            System.out.println("구글 페이스북 네이버만 지원합니다.");
         }
 
         String provider = oAuth2UserInfo.getProvider();
         String providerId = oAuth2UserInfo.getProviderId();
-        String username = provider + "_" + providerId; //goggle_개인ID
-        String password = bCryptPasswordEncoder.encode("겟인데어");
+        String username = provider + providerId;
+        String password = bCryptPasswordEncoder.encode("미래씨");
         String email = oAuth2UserInfo.getEmail();
+        String name = oAuth2UserInfo.getName();
         String role = "ROLE_USER";
 
-        User userEntity = userRepository.findByUsername(username);
+        User userEntity = userService.getUserEntity(username);
 
         if(userEntity == null){
+            System.out.println("OAuth 로그인이 최초입니다.");
             userEntity = User.builder()
                     .username(username)
                     .password(password)
-                    .email(email)
                     .role(role)
+                    .email(email)
                     .provider(provider)
                     .providerId(providerId)
+                    .name(name)
                     .build();
-            userRepository.save(userEntity);
+            userService.saveUserEntity(userEntity);
         }
-        // 회원가입 강제 진행
-        return new PrincipalDetails(userEntity, oAuth2User.getAttributes());
+        else{
+            System.out.println("이미 아이디가 있습니다.");
+        }
+
+        return new PrincipalDetails(userEntity, oAuth2UserInfo.getAttributes());
     }
 }
