@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     Page<Post> findAll(Pageable pageable);
@@ -16,6 +18,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Post findByIdWithComments(@Param("postId") Long postId);
 
     Page<Post> findByDelCheckFalse(Pageable pageable);
+
+    @Query("SELECT p FROM Post p ORDER BY p.likeCount DESC")
+    List<Post> findBestPostsByLike(Pageable pageable);
 
     @Modifying
     @Query("UPDATE Post p SET p.likeCount = p.likeCount + 1 WHERE p = :selectedPost")

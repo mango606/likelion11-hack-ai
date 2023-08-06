@@ -2,6 +2,7 @@ package back.ailion.service;
 
 import back.ailion.model.dto.CommentDto;
 import back.ailion.model.dto.ReplyDto;
+import back.ailion.model.dto.Result;
 import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateDto;
 import back.ailion.model.entity.Comment;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static lombok.Lombok.checkNotNull;
 
@@ -89,14 +91,21 @@ public class PostService {
         return postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Could not found board id : " + postId));
     }
 
+    public Result getBestPosts() {
+
+        Pageable pageable = PageRequest.of(0, 10);
+
+        List<Post> posts = postRepository.findBestPostsByLike(pageable);
+        List<PostDto> collect = posts.stream()
+                .map(post -> new PostDto(post))
+                .collect(Collectors.toList());
+
+        return new Result(collect);
+    }
+
     // 페이징 처리
     public Page<Post> getPosts(int page) {
-//        List<Post> posts = postRepository.findAll();
-//        List<PostDto> collect = posts.stream()
-//                .map(p -> new PostDto(p.getMember().getId(), p.getTitle(), p.getContent(), p.getWriter(), p.getLikeCount(), p.getViewCount(), p.getCommentCount(), p.getCreatedDate()))
-//                .collect(Collectors.toList());
-//
-//        return new Result(collect);
+
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createdDate"));
 

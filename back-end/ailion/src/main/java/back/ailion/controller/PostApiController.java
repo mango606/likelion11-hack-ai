@@ -1,6 +1,7 @@
 package back.ailion.controller;
 
 import back.ailion.model.dto.PostDto;
+import back.ailion.model.dto.Result;
 import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateDto;
 import back.ailion.model.entity.Post;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -45,6 +47,12 @@ public class PostApiController {
 
         viewCountUp(postId, req, res);
         return postService.getPost(postId);
+    }
+
+    @GetMapping("/best/list")
+    public Result getBestPosts() {
+
+        return postService.getBestPosts();
     }
 
     @GetMapping("/list")
@@ -85,7 +93,6 @@ public class PostApiController {
             res.addCookie(newCookie);
         }
 
-        log.info(oldCookie.getValue());
     }
 
 }
