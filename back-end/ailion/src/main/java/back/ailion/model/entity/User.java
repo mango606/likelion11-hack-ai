@@ -31,7 +31,6 @@ public class User extends BaseEntity {
 
     private String role;
 
-    private List<String> recommended;
 //    @Enumerated(EnumType.STRING)
 //    private RoleType role;
 
