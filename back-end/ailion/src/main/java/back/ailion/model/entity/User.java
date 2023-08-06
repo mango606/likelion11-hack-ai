@@ -3,6 +3,7 @@ package back.ailion.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,7 +19,7 @@ public class User extends BaseEntity {
 
     private String username;
 
-    private String nickName;
+    private String nickname;
 
     private String name;
 
@@ -30,6 +31,7 @@ public class User extends BaseEntity {
 
     private String role;
 
+    private List<String> recommended;
 //    @Enumerated(EnumType.STRING)
 //    private RoleType role;
 
@@ -40,7 +42,7 @@ public class User extends BaseEntity {
         this.username = username;
         this.name = name;
         this.phone = phone;
-        this.nickName = nickName;
+        this.nickname = nickName;
         this.role = role;
         this.provider = provider;
         this.providerId = providerId;

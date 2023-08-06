@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
                     .providerId(userEntity.getProviderId())
                     .name(userEntity.getName())
                     .phone(userEntity.getPhone())
-                    .nickName(userEntity.getNickName())
+                    .nickName(userEntity.getNickname())
                     .build();
             return userDto;
         }
