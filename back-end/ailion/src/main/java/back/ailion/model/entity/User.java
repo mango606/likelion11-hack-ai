@@ -18,7 +18,7 @@ public class User extends BaseEntity {
 
     private String username;
 
-    private String nickName;
+    private String nickname;
 
     private String name;
 
@@ -35,12 +35,12 @@ public class User extends BaseEntity {
 
 
     @Builder
-    public User(String nickName, String password, String username, String name, String phone, String role, String provider, String providerId) {
+    public User(String nickname, String password, String username, String name, String phone, String role, String provider, String providerId) {
         this.password = password;
         this.username = username;
         this.name = name;
         this.phone = phone;
-        this.nickName = nickName;
+        this.nickname = nickname;
         this.role = role;
         this.provider = provider;
         this.providerId = providerId;

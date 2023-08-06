@@ -50,7 +50,7 @@ public class InitDb {
         }
 
         private User createMember(String email, String password, String nickname, String name, String phone) {
-            User user = new User(email, password, nickname, name, phone, RoleType.USER);
+            User user = new User(email, password, nickname, name, phone, "", "", "");
             return user;
         }
     }

@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
                     .providerId(userEntity.getProviderId())
                     .name(userEntity.getName())
                     .phone(userEntity.getPhone())
-                    .nickName(userEntity.getNickName())
+                    .nickName(userEntity.getNickname())
                     .build();
             return userDto;
         }
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
                 .providerId(userDto.getProviderId())
                 .role(userDto.getRole())
                 .name(userDto.getName())
-                .nickName(userDto.getNickName())
+                .nickname(userDto.getNickName())
                 .phone(userDto.getPhone())
                 .build();
 

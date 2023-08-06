@@ -8,11 +8,17 @@ server:
       force: true
 
 spring:
+#  datasource:
+#    url: jdbc:h2:tcp://localhost/~/myspring
+#    username: sa
+#    password: 1234
+#    driver-class-name: org.h2.Driver
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/hackathon
     username: root
     password: rootroot
+
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -30,12 +36,11 @@ spring:
       ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
-#    properties:
-#      hibernate:
-#        # show_sql: true
-#        format_sql: true
-#        default_batch_fetch_size: 1000
+    properties:
+      hibernate:
+        # show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 1000
 
   security:
     oauth2:
