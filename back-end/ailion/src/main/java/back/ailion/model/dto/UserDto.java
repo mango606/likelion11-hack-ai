@@ -1,4 +1,4 @@
-package back.ailion.dto;
+package back.ailion.model.dto;
 
 import lombok.*;
 
@@ -8,14 +8,12 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Builder
-public class MemberDto {
+public class UserDto {
     private String username;
 
     private String password;
 
-    private String email;
-
-    private Integer age;
+    private String nickName;
 
     private String role;
 
@@ -25,4 +23,5 @@ public class MemberDto {
 
     private String name;
 
+    private String phone;
 }

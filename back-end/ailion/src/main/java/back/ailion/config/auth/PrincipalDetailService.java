@@ -1,6 +1,6 @@
 package back.ailion.config.auth;
 
-import back.ailion.entity.User;
+import back.ailion.model.entity.User;
 import back.ailion.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

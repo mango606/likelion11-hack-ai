@@ -1,8 +1,8 @@
 package back.ailion.service;
 
 
-import back.ailion.dto.UserDto;
-import back.ailion.entity.User;
+import back.ailion.model.dto.UserDto;
+import back.ailion.model.entity.User;
 
 public interface UserService {
     public UserDto getUserDto(String username);

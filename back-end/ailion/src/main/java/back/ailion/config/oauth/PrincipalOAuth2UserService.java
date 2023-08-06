@@ -5,7 +5,7 @@ import back.ailion.config.oauth.provider.FacebookUserInfo;
 import back.ailion.config.oauth.provider.GoogleUserInfo;
 import back.ailion.config.oauth.provider.NaverUserInfo;
 import back.ailion.config.oauth.provider.OAuth2UserInfo;
-import back.ailion.entity.User;
+import back.ailion.model.entity.User;
 import back.ailion.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -70,7 +70,6 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
                     .username(username)
                     .password(password)
                     .role(role)
-                    .email(email)
                     .provider(provider)
                     .providerId(providerId)
                     .name(name)

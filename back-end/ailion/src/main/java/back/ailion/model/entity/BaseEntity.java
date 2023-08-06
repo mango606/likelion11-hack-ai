@@ -1,4 +1,4 @@
-package back.ailion.entity;
+package back.ailion.model.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

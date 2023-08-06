@@ -1,7 +1,7 @@
 package back.ailion.service.impl;
 
-import back.ailion.dto.UserDto;
-import back.ailion.entity.User;
+import back.ailion.model.dto.UserDto;
+import back.ailion.model.entity.User;
 import back.ailion.repository.UserRepository;
 import back.ailion.service.UserService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,12 +26,12 @@ public class UserServiceImpl implements UserService {
             UserDto userDto = UserDto.builder()
                     .username(userEntity.getUsername())
                     .password(userEntity.getPassword())
-                    .email(userEntity.getEmail())
                     .role(userEntity.getRole())
                     .provider(userEntity.getProvider())
                     .providerId(userEntity.getProviderId())
                     .name(userEntity.getName())
                     .phone(userEntity.getPhone())
+                    .nickName(userEntity.getNickName())
                     .build();
             return userDto;
         }
@@ -49,12 +49,13 @@ public class UserServiceImpl implements UserService {
     public void saveUserDto(UserDto userDto) {
         User user = User.builder()
                 .username(userDto.getUsername())
-                .email(userDto.getEmail())
                 .password(userDto.getPassword())
                 .provider(userDto.getProvider())
                 .providerId(userDto.getProviderId())
                 .role(userDto.getRole())
                 .name(userDto.getName())
+                .nickName(userDto.getNickName())
+                .phone(userDto.getPhone())
                 .build();
 
         String rawPassword = userDto.getPassword();

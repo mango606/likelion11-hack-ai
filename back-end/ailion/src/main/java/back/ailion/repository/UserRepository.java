@@ -1,6 +1,6 @@
 package back.ailion.repository;
 
-import back.ailion.entity.User;
+import back.ailion.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
