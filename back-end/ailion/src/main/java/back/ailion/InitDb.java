@@ -39,11 +39,15 @@ public class InitDb {
             em.persist(user4);
 
             int count = 1;
+            String category = "카테고리";
             for (int i = 0; i < 50; i++) {
                 String writer = "write" + count;
                 String title = "title" + count;
                 String content = "content" + count;
-                Post post = new Post(writer, title, content, user1, 0, 0, 0, false);
+                if (i % 10 == 0) {
+                    category = "카테고리" + count;
+                }
+                Post post = new Post(writer, title, content, user1, 0, 0, 0, false, category);
                 em.persist(post);
                 count += 1;
             }

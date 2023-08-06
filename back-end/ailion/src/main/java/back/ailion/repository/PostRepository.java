@@ -17,6 +17,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT DISTINCT p FROM Post p LEFT JOIN FETCH p.comments c WHERE p.id = :postId")
     Post findByIdWithComments(@Param("postId") Long postId);
 
+    Page<Post> findByCategory(String category, Pageable pageable);
+
     Page<Post> findByDelCheckFalse(Pageable pageable);
 
     @Query("SELECT p FROM Post p ORDER BY p.likeCount DESC")

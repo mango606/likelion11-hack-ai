@@ -49,6 +49,15 @@ public class PostApiController {
         return postService.getPost(postId);
     }
 
+    @GetMapping("/{category}/list")
+    public Page<PostDto> getCategoryPosts(
+            @PathVariable("category") String category,
+            @RequestParam(value="page", defaultValue="0") int page) {
+
+        Page<Post> paging = postService.getCategoryPosts(category, page);
+        return paging.map(post -> new PostDto(post));
+    }
+
     @GetMapping("/best/list")
     public Result getBestPosts() {
 

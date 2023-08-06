@@ -28,6 +28,8 @@ public class Post extends BaseEntity{
 
     private boolean delCheck;
 
+    private String category;
+
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
@@ -48,7 +50,8 @@ public class Post extends BaseEntity{
     private Integer commentCount;
 
     @Builder
-    public Post(String title, String content, String writer, User user, Integer likeCount, Integer viewCount, Integer commentCount, boolean delCheck) {
+    public Post(String title, String content, String writer, User user, Integer likeCount,
+                Integer viewCount, Integer commentCount, boolean delCheck, String category) {
         this.title = title;
         this.content = content;
         this.writer = writer;
@@ -57,6 +60,7 @@ public class Post extends BaseEntity{
         this.viewCount = viewCount;
         this.commentCount = commentCount;
         this.delCheck = delCheck;
+        this.category = category;
     }
 
     public void delete() {

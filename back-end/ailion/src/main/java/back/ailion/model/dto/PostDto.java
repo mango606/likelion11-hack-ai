@@ -20,6 +20,7 @@ public class PostDto {
     private String title;
     private String content;
     private String writer;
+    private String category;
 
     private Integer likeCount;
     private Integer viewCount;
@@ -42,5 +43,6 @@ public class PostDto {
         this.viewCount = post.getViewCount();
         this.commentCount = post.getCommentCount();
         this.delCheck = post.isDelCheck();
+        this.category = post.getCategory();
     }
 }

@@ -19,6 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,7 @@ public class PostService {
                 .likeCount(0)
                 .viewCount(0)
                 .delCheck(false)
+                .category(postRequestDto.getCategory())
                 .build();
 
         return PostToPostDto(postRepository.save(post));
@@ -65,6 +68,7 @@ public class PostService {
 
         post.setTitle(updateDto.getTitle());
         post.setContent(updateDto.getContent());
+        post.setCategory(updateDto.getCategory());
 
         return PostToPostDto(postRepository.findById(updateDto.getPostId()).get());
     }
@@ -89,6 +93,15 @@ public class PostService {
     public Post findById(Long postId) {
 //        checkNotNull(postId, "postId must be provided");
         return postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Could not found board id : " + postId));
+    }
+
+    public Page<Post> getCategoryPosts(String category, int page) {
+
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createdDate"));
+
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+        return postRepository.findByCategory(category, pageable);
     }
 
     public Result getBestPosts() {
