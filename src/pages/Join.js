@@ -33,7 +33,15 @@ const Join = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`id: ${Id}, Email: ${email}, Password: ${password}`);
+    const user = {
+      Id,
+      email,
+      password,
+      Nickname,
+      Birth,
+      interest
+    };
+    console.log(user);
   }
 
   const [idFocused, setIdFocused] = useState(false);
@@ -63,7 +71,7 @@ const Join = () => {
         onFocus={() => setIdFocused(true)}
         onBlur={() => setIdFocused(false)}
         placeholder='아이디' value={Id} onChange={handleIdChange} />
-        <button onclick={handleIdDuplication}>중복 체크</button>
+        <button onClick={handleIdDuplication}>중복 체크</button>
       </div>
 
       <div className={`emailForm ${emailFocused ? 'focused' : ''}`}>
