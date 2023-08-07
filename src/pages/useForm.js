@@ -19,22 +19,21 @@ export default function useForm() {
 
 
   const handleIdDuplication = async (event) => {
-  //   try {
-  //     const response = await fetch('https://your-api-endpoint/check-username', {
-  //         method: 'POST',
-  //         headers: {
-  //             'Content-Type': 'application/json'
-  //         },
-  //         body: JSON.stringify({ username: id })
-  //     });
+  // try {
+  //   const response = await fetch(`https://your-api-endpoint/check-username?username=${id}`);
 
-  //     const data = await response.json();
+  //   if (!response.ok) {
+  //     throw new Error("Network response was not ok");
+  //   }
 
-      setIsDuplicated(null);
+  //   const data = await response.json();
+
+  //   setIsDuplicated(data.isDuplicated);
 
   // } catch (error) {
   //     console.error("Error during duplication check:", error);
   // }
+  setIsDuplicated(null); // 임시
 }
 
   const handleInterestChange = (event) => {
