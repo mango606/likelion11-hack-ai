@@ -2,6 +2,7 @@ package back.ailion.config;
 
 import org.springframework.boot.web.servlet.view.MustacheViewResolver;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -40,5 +41,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //
 //        registry.addResourceHandler("/img/exception/**")
 //                .addResourceLocations("classpath:/static/img/exception/");
+    }
+
+    public static final String ALLOWED_METHOD_NAMES = "GET,HEAD,POST,PUT,DELETE,TRACE,OPTIONS,PATCH";
+
+    @Override
+    public void addCorsMappings(final CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedMethods(ALLOWED_METHOD_NAMES.split(","));
     }
 }
