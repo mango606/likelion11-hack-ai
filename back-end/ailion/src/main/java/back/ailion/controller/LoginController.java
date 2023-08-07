@@ -35,7 +35,7 @@ public class LoginController {
     }
 
     @PostMapping("/join")
-    public String join(UserDto userDto){
+    public @ResponseBody String join(UserDto userDto){
         System.out.println(userDto);
 
         if(userService.getUserDto(userDto.getUsername()) == null) {
@@ -43,6 +43,6 @@ public class LoginController {
             System.out.println("success");
         }
 
-        return "redirect:/loginForm";
+        return "true";
     }
 }
