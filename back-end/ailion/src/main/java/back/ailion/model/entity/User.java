@@ -19,7 +19,7 @@ public class User extends BaseEntity {
 
     private String username;
 
-    private String nickname;
+    private String nickName;
 
     private String name;
 
@@ -41,7 +41,7 @@ public class User extends BaseEntity {
         this.username = username;
         this.name = name;
         this.phone = phone;
-        this.nickname = nickName;
+        this.nickName = nickName;
         this.role = role;
         this.provider = provider;
         this.providerId = providerId;

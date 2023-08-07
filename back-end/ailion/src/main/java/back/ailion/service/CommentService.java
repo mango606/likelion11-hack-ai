@@ -37,7 +37,7 @@ public class CommentService {
 
         Comment comment = Comment.builder()
                 .content(commentRequestDto.getContent())
-                .writer(user.getNickname())
+                .writer(user.getNickName())
                 .user(user)
                 .post(post)
                 .delCheck(false)
