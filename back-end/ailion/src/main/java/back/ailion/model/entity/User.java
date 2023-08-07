@@ -3,6 +3,7 @@ package back.ailion.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -35,12 +36,12 @@ public class User extends BaseEntity {
 
 
     @Builder
-    public User(String nickname, String password, String username, String name, String phone, String role, String provider, String providerId) {
+    public User(String nickName, String password, String username, String name, String phone, String role, String provider, String providerId) {
         this.password = password;
         this.username = username;
         this.name = name;
         this.phone = phone;
-        this.nickname = nickname;
+        this.nickname = nickName;
         this.role = role;
         this.provider = provider;
         this.providerId = providerId;
