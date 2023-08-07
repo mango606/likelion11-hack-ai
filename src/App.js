@@ -10,13 +10,13 @@ import WritePage from './pages/WritePage';
 import NewsPage from './pages/NewsPage';
 import RecommendationPage from './pages/RecommendationPage';
 import InformationPage from './pages/InformationPage';
+import DetailPage from './pages/detail';
 
 
 const App = () => {
   return (
 
     <div className="App">
-      {/* <Join /> */}
 
 
       <box>
@@ -28,7 +28,8 @@ const App = () => {
         <Route element={<NewsPage />} path="/news" />
         <Route element={<WritePage />} path="/write" />
         <Route element={<LoginPage />} path="/login" />
-        <Route element={<Join />} path="/Join" />
+        <Route element={<Join />} path="/join" />
+        <Route element={<DetailPage />} path="/detail" />
       </Routes>
       </box>
     </div>

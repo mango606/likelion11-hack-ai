@@ -144,11 +144,16 @@ const Join = () => {
     </div>
 
     <div className="buttonWrap">
-        <button className="w-btn w-btn-indigo" type="submit" disabled={passwordError || emailError || IdError || passwordCheckError || !Id || NicknameError || BirthError }>
+        <button
+        className="w-btn w-btn-indigo"
+        type="submit"
+        disabled={
+          passwordError || emailError || IdError || passwordCheckError ||
+          !Id || NicknameError || BirthError || !Nickname || !Birth || !password ||
+          !passwordCheck || !email }>
         회원가입
         </button>
     </div>
-
     </form>
   </div>
   );
