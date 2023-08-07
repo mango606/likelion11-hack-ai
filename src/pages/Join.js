@@ -26,6 +26,8 @@ const Join = () => {
     handleBirthChange,
     interest,
     handleInterestChange,
+    isDuplicated,
+    handleIdDuplication
     } = useForm();
 
 
@@ -61,6 +63,7 @@ const Join = () => {
         onFocus={() => setIdFocused(true)}
         onBlur={() => setIdFocused(false)}
         placeholder='아이디' value={Id} onChange={handleIdChange} />
+        <button onclick={handleIdDuplication}>중복 체크</button>
       </div>
 
       <div className={`emailForm ${emailFocused ? 'focused' : ''}`}>
@@ -89,6 +92,9 @@ const Join = () => {
     </div>
 
     <div className="errorList">
+      {isDuplicated !== null && (
+        <p className='errorMessage'>{isDuplicated ? '아이디가 중복됩니다.' : '사용 가능한 아이디입니다.'}</p>
+      )}
       {IdError && <p className='errorMessage'> 아이디는 5~15자리의 영문 대소문자와 숫자로만 입력해주세요.</p>}
       {emailError && <p className='errorMessage'>이메일 형식이 잘못되었습니다.</p>}
       {passwordError && <p className='errorMessage'>비밀번호는 8자리 이상이며 숫자, 대소문자 알파벳을 포함해야 합니다.</p>}
@@ -112,34 +118,28 @@ const Join = () => {
         placeholder='닉네임' value={Nickname} onChange={handleNicknameChange} />
       </div>
     </div>
-      <div className="interestForm">
-          관심 있는 분야 :
-            <input type="radio" id="music" name="interest" value="음악" onChange={handleInterestChange} />
-            <label htmlFor="music">음악</label>
-
-            <input type="radio" id="video" name="interest" value="영상" onChange={handleInterestChange} />
-            <label htmlFor="video">영상</label>
-
-
-            <input type="radio" id="writing" name="interest" value="글쓰기" onChange={handleInterestChange} />
-            <label htmlFor="writing">글쓰기</label>
-
-
-            <input type="radio" id="searchEngine" name="interest" value="검색엔진" onChange={handleInterestChange} />
-            <label htmlFor="searchEngine">검색엔진</label>
+    <div className="interestForm">
+    관심 있는 분야 :
+    <select name="interest" onChange={handleInterestChange} value={interest}>
+        <option value="음악">음악</option>
+        <option value="영상">영상</option>
+        <option value="글쓰기">글쓰기</option>
+        <option value="검색엔진">검색엔진</option>
+        <option value="없음">없음</option>
+    </select>
+    </div>
 
 
-            <input type="radio" id="none" name="interest" value="없음" onChange={handleInterestChange} checked={interest === '없음'} />
-            <label htmlFor="none">없음</label>
+    <div className="errorList">
+      {BirthError && <p className='errorMessage'> 올바른 생년월일 8자를 입력해주세요</p>}
+      {NicknameError && <p className='errorMessage'> 닉네임을 2글자 이상 10 글자 이하로 입력해주세요.</p>}
+    </div>
 
-      </div>
-
-        {BirthError && <p className='errorMessage'> 올바른 생년월일 8자를 입력해주세요</p>}
-        {NicknameError && <p className='errorMessage'> 닉네임을 2글자 이상 10 글자 이하로 입력해주세요.</p>}
-
+    <div className="buttonWrap">
         <button className="w-btn w-btn-indigo" type="submit" disabled={passwordError || emailError || IdError || passwordCheckError || !Id || NicknameError || BirthError }>
         회원가입
-    </button>
+        </button>
+    </div>
 
     </form>
   </div>

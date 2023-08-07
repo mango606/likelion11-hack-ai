@@ -5,26 +5,26 @@
 }
 
 .joinForm form {
-	width : 500px;
+	width : 800px;
 }
 
 
 
 .joinForm .errorMessage {
 	color: red;
+	margin-top: 5%;
+	margin-bottom: 5%;
 }
 
 .form_list {
-	margin-top : 10%;
-	margin-bottom: 10%;
+	margin-top : 5%;
+	margin-bottom: 5%;
 	border: 1px solid lightgray;
 	border-radius: 5px;
 	overflow: hidden;
 }
 
-input:focus {
-    outline: none;
-}
+
 
 .idImg {
 	margin-left: 10px;
@@ -45,8 +45,16 @@ input:focus {
 	width:100%;
 	border : none;
 	box-sizing: border-box;
-	height: 50px;
+	height: 80px;
+	margin : 0;
 }
+
+.idForm button {
+	width: 100px;
+	margin-right: 10px;
+	border-radius: 20px;
+}
+
 
 .emailImg {
 	margin-left: 10px;
@@ -67,7 +75,8 @@ input:focus {
 	width:100%;
 	border : none;
 	box-sizing: border-box;
-	height: 50px;
+	height: 80px;
+	margin : 0;
 }
 
 .passwordImg {
@@ -95,7 +104,8 @@ input:focus {
 	width:100%;
 	border : none;
 	box-sizing: border-box;
-	height: 50px;
+	height: 80px;
+	margin : 0;
 }
 
 .passwordCheckImg {
@@ -116,7 +126,8 @@ input:focus {
 	width:100%;
 	border : none;
 	box-sizing: border-box;
-	height: 50px;
+	height: 80px;
+	margin : 0;
 }
 
 .birthImg {
@@ -134,7 +145,8 @@ input:focus {
 	width:100%;
 	border : none;
 	box-sizing: border-box;
-	height: 50px;
+	height: 80px;
+	margin : 0;
 }
 
 .birthForm.focused {
@@ -160,15 +172,19 @@ input:focus {
 	width:100%;
 	border : none;
 	box-sizing: border-box;
-	height: 50px;
+	height: 80px;
+	margin : 0;
 }
 
 .interestForm {
 	font-size : 0.8em;
 	height: 50px;
+	margin-bottom: 5%;
 }
 
-
+.interestForm input {
+	height: 10px;
+}
 
 .w-btn {
     position: relative;
@@ -181,6 +197,7 @@ input:focus {
     text-decoration: none;
     font-weight: 600;
     transition: 0.25s;
+
 }
 
 .w-btn-outline {
@@ -248,4 +265,26 @@ input:focus {
 .w-btn-outline:disabled:hover {
     transform: none;
     letter-spacing: normal;
+}
+
+select {
+	margin-left : 10px;
+	width: 150px;
+	height: 35px;
+	background-size: 20px;
+	padding: 5px 30px 5px 10px;
+	border-radius: 4px;
+	outline: 0 none;
+}
+select option {
+	background: black;
+	color: #fff;
+	padding: 3px 0;
+}
+
+.buttonWrap {
+	display: flex;
+	justify-content: center;
+	margin-top : 5%;
+	margin-bottom: 5%;
 }
