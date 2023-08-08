@@ -1,17 +1,19 @@
 package back.ailion.config;
 
-import back.ailion.config.oauth.PrincipalOAuth2UserService;
-import back.ailion.exception.CustomAccessDeniedHandler;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import back.ailion.config.jwt.JwtAccessDeniedHandler;
+import back.ailion.config.jwt.JwtAuthenticationEntryPoint;
+import back.ailion.config.jwt.JwtSecurityConfig;
+import back.ailion.config.jwt.TokenProvider;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.session.HttpSessionEventPublisher;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -20,55 +22,52 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
-    private PrincipalOAuth2UserService principalOAuth2UserService;
+    private final TokenProvider tokenProvider;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
+    // PasswordEncoder는 BCryptPasswordEncoder를 사용
     @Bean
-    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.authorizeRequests()
-                .antMatchers("/user/**").authenticated()
-                .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
-                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-                .anyRequest().permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/loginForm")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/")
-                .and()
-                .oauth2Login()
-                .loginPage("/loginForm")
-                .userInfoEndpoint()
-                .userService(principalOAuth2UserService);
-
-        http.sessionManagement()
-                .sessionFixation().changeSessionId()
-                .maximumSessions(1)
-                .expiredUrl("/")
-                .maxSessionsPreventsLogin(true);
-
-        http.logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"))
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .deleteCookies("JSESSIONID", "remember-me");
-        http.exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler());
-        http.cors();
-        return http.build();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
-        return new ServletListenerRegistrationBean<>(new HttpSessionEventPublisher());
-    }
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                // token을 사용하는 방식이기 때문에 csrf를 disable합니다.
+                .csrf().disable()
 
-    @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
-        return new CustomAccessDeniedHandler();
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
+
+                // enable h2-console
+                .and()
+                .headers()
+                .frameOptions()
+                .sameOrigin()
+
+                // 세션을 사용하지 않기 때문에 STATELESS로 설정
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+                .and()
+                .authorizeHttpRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정하겠다.
+                .antMatchers("/api/authenticate").permitAll() // 로그인 api
+                .antMatchers("/api/signup").permitAll() // 회원가입 api
+                .requestMatchers(PathRequest.toH2Console()).permitAll()// h2-console, favicon.ico 요청 인증 무시
+                .antMatchers("/favicon.ico").permitAll()
+                .anyRequest().authenticated() // 그 외 인증 없이 접근X
+
+                .and()
+                .apply(new JwtSecurityConfig(tokenProvider)); // JwtFilter를 addFilterBefore로 등록했던 JwtSecurityConfig class 적용
+
+        return httpSecurity.build();
     }
 
     @Bean

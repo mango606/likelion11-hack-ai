@@ -49,7 +49,7 @@ public class PostService {
                 .user(user)
                 .content(postRequestDto.getContent())
                 .title(postRequestDto.getTitle())
-                .writer(user.getNickName())
+                .writer(user.getNickname())
                 .commentCount(0)
                 .likeCount(0)
                 .viewCount(0)
@@ -144,7 +144,7 @@ public class PostService {
         postDTO.setViewCount(post.getViewCount());
         postDTO.setCreatedDate(post.getCreatedDate());
         postDTO.setComments(convertCommentsToDTOs(post.getComments()));
-        postDTO.setUserId(post.getUser().getId());
+        postDTO.setUserId(post.getUser().getUserId());
         return postDTO;
     }
 

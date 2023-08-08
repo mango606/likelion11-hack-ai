@@ -35,7 +35,7 @@ public class PostDto {
     public PostDto(Post post) {
         this.postId = post.getId();
         this.createdDate = post.getCreatedDate();
-        this.userId = post.getUser().getId();
+        this.userId = post.getUser().getUserId();
         this.title = post.getTitle();
         this.content = post.getContent();
         this.writer = post.getWriter();

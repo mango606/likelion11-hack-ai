@@ -46,7 +46,7 @@ public class ReplyService {
                 .comment(comment)
                 .user(user)
                 .delCheck(false)
-                .writer(user.getNickName())
+                .writer(user.getNickname())
                 .build();
 
         post.setCommentCount(post.getCommentCount() + 1);
