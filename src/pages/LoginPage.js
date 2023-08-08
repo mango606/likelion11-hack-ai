@@ -29,7 +29,7 @@ const LoginPage = () => {
     try {
       const response = await axios.post('/login', { username, password });
       const token = response.data.token;
-      console.log(data);
+      console.log(response.data);
       localStorage.setItem('jwt', token);
     } catch (error) {
       console.error('로그인 실패', error);
