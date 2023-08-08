@@ -11,6 +11,7 @@ import NewsPage from './pages/NewsPage';
 import RecommendationPage from './pages/RecommendationPage';
 import InformationPage from './pages/InformationPage';
 import DetailPage from './pages/detail';
+import Mypage from './pages/Mypage';
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
         <Route element={<LoginPage />} path="/login" />
         <Route element={<Join />} path="/join" />
         <Route element={<DetailPage />} path="/detail" />
+        <Route element={<Mypage />} path="/Mypage" />
       </Routes>
       </box>
     </div>
