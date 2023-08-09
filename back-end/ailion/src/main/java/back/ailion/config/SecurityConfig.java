@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,6 +24,7 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig {
 
     private final TokenProvider tokenProvider;
@@ -62,6 +64,7 @@ public class SecurityConfig {
                 .antMatchers("/api/signup").permitAll() // 회원가입 api
                 .requestMatchers(PathRequest.toH2Console()).permitAll()// h2-console, favicon.ico 요청 인증 무시
                 .antMatchers("/favicon.ico").permitAll()
+                .antMatchers("/swagger-ui/index.html").permitAll()
                 .anyRequest().authenticated() // 그 외 인증 없이 접근X
 
                 .and()

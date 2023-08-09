@@ -1,14 +1,17 @@
 package back.ailion.config;
 
 import org.springframework.boot.web.servlet.view.MustacheViewResolver;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+
+//    private String URI = "localhost:8080";
+    private String URI = "";
+
+
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         MustacheViewResolver resolver = new MustacheViewResolver();
@@ -50,4 +53,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedMethods(ALLOWED_METHOD_NAMES.split(","));
     }
+    
+
 }
