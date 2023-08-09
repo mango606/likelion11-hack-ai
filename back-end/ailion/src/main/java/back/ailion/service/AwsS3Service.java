@@ -62,4 +62,19 @@ public class AwsS3Service {
 
         return new DownloadDto(contentDisposition, resource);
     }
+
+    public DownloadDto downloadAttachFile(Long imageId) throws MalformedURLException {
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(() -> new RuntimeException("Could not found image id "));
+
+        String storeFileName = image.getAttachFile().getStoreFileName();
+        String uploadFileName = image.getAttachFile().getUploadFileName();
+
+        UrlResource resource = new UrlResource(commonUtils.getFullPath(storeFileName));
+
+        String encodedUploadFileName = UriUtils.encode(uploadFileName, StandardCharsets.UTF_8);
+        String contentDisposition = "attachment; filename=\"" + encodedUploadFileName + "\"";
+
+        return new DownloadDto(contentDisposition, resource);
+    }
 }

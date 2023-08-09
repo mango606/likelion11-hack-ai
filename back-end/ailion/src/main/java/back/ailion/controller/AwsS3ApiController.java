@@ -43,4 +43,15 @@ public class AwsS3ApiController {
                 .body(downloadDto.getResource());
 
     }
+
+    // 파일을 다운로드 받는 컨트롤러를 만들어야 한다.
+    @GetMapping("/attachment/download/{imageId}")
+    public ResponseEntity<Resource> downloadAttachFile(@PathVariable Long imageId) throws MalformedURLException {
+
+        DownloadDto downloadDto = awsS3Service.downloadAttachFile(imageId);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, downloadDto.getContentDisposition())
+                .body(downloadDto.getResource());
+    }
 }
