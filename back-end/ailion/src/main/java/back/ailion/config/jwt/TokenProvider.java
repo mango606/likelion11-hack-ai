@@ -97,4 +97,8 @@ public class TokenProvider implements InitializingBean {
         }
         return false;
     }
+
+    public String getUserPk(String token){
+        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
+    }
 }

@@ -1,5 +1,6 @@
 package back.ailion.controller;
 
+import back.ailion.config.jwt.GetIdFromToken;
 import back.ailion.model.dto.UserDto;
 import back.ailion.model.entity.User;
 import back.ailion.service.UserService;
@@ -25,7 +26,7 @@ public class UserController {
 
     @GetMapping("/user")
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-    public ResponseEntity<User> getMyUserInfo() {
+    public ResponseEntity<User> getMyUserInfo(@GetIdFromToken String username) {
         return ResponseEntity.ok(userService.getMyUserWithAuthorities().get());
     }
 
