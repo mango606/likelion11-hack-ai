@@ -147,7 +147,7 @@ public class PostService {
         postDTO.setViewCount(post.getViewCount());
         postDTO.setCreatedDate(post.getCreatedDate());
         postDTO.setComments(convertCommentsToDTOs(post.getComments()));
-        postDTO.setUserId(post.getUser().getUserId());
+        postDTO.setUserId(post.getUser().getId());
         return postDTO;
     }
 
