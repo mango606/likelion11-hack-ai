@@ -1,6 +1,7 @@
 package back.ailion.controller;
 
 import back.ailion.model.dto.PostDto;
+import back.ailion.model.dto.PostLikeDto;
 import back.ailion.model.dto.Result;
 import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateDto;
@@ -42,11 +43,12 @@ public class PostApiController {
         return postService.deletePost(postId);
     }
 
-    @GetMapping("/{id}")
-    public PostDto getPost(@PathVariable("id") Long postId, HttpServletRequest req, HttpServletResponse res) {
+    @GetMapping("/{postId}/{userId}")
+    public PostLikeDto getPost(@PathVariable("postId") Long postId, @PathVariable("userId") Long userId,
+                               HttpServletRequest req, HttpServletResponse res) {
 
         viewCountUp(postId, req, res);
-        return postService.getPost(postId);
+        return postService.getPost(postId, userId);
     }
 
     @GetMapping("/{category}/list")
