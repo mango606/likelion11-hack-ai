@@ -2,8 +2,6 @@ package back.ailion.config.jwt;
 
 import back.ailion.exception.BaseException;
 import back.ailion.exception.BaseExceptionCode;
-import net.bytebuddy.implementation.attribute.AnnotationRetention;
-import org.jboss.jandex.AnnotationTarget;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
