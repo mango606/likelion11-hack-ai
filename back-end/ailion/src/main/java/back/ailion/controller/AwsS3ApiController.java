@@ -23,8 +23,8 @@ public class AwsS3ApiController {
 
     private final AwsS3Service awsS3Service;
 
-    @PostMapping("/upload")
-    public FileUploadResponse uploadFile(@RequestParam("postId") Long postId,
+    @PostMapping("/upload/{postId}")
+    public FileUploadResponse uploadFile(@PathVariable("postId") Long postId,
                                          @RequestPart(value = "attachFile") MultipartFile attachFile,
                                          @RequestPart(value = "imageFiles") List<MultipartFile> imageFiles) throws IOException {
 
@@ -32,7 +32,7 @@ public class AwsS3ApiController {
         return awsS3Service.uploadFile(fileUploadRequest);
     }
 
-    // 이미지를 다운로드 받는 컨트롤러
+    // 이미지 다운로드 컨트롤러
     @GetMapping("/image/download/{filename}")
     public ResponseEntity<Resource> downloadImageFile(@PathVariable String filename) throws MalformedURLException {
 
@@ -44,7 +44,7 @@ public class AwsS3ApiController {
 
     }
 
-    // 파일을 다운로드 받는 컨트롤러를 만들어야 한다.
+    // 첨부파일 다운로드 컨트롤러
     @GetMapping("/attachment/download/{imageId}")
     public ResponseEntity<Resource> downloadAttachFile(@PathVariable Long imageId) throws MalformedURLException {
 

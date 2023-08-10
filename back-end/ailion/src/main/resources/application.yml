@@ -87,7 +87,8 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
 
-
+file:
+  dir: https://sample-ai-project.kr.object.ncloudstorage.com/
 
 #  spring.datasource.url=jdbc:mysql://localhost:3306/auth
 #  spring.datasource.username=root
