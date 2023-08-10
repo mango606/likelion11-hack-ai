@@ -2,6 +2,8 @@ package back.ailion.service;
 
 
 import back.ailion.config.auth.SecurityUtil;
+import back.ailion.exception.BaseException;
+import back.ailion.exception.BaseExceptionCode;
 import back.ailion.model.dto.UserDto;
 import back.ailion.model.entity.Authority;
 import back.ailion.model.entity.User;
@@ -24,7 +26,7 @@ public class UserService {
     @Transactional
     public User signup(UserDto userDto) {
         if (userRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다.");
+            throw new BaseException(BaseExceptionCode.USER_ID_CONFLICT);
         }
 
         // 가입되어 있지 않은 회원이면,
@@ -58,5 +60,14 @@ public class UserService {
     public Optional<User> getMyUserWithAuthorities() {
         return SecurityUtil.getCurrentUsername()
                 .flatMap(userRepository::findOneWithAuthoritiesByUsername);
+    }
+
+    public Boolean isValidId(String id) {
+        if (userRepository.findOneWithAuthoritiesByUsername(id).orElse(null) != null) {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

@@ -35,4 +35,9 @@ public class UserController {
     public ResponseEntity<User> getUserInfo(@PathVariable String username) {
         return ResponseEntity.ok(userService.getUserWithAuthorities(username).get());
     }
+
+    @PostMapping("/signup/validId")
+    public ResponseEntity<Boolean> isValidId(@RequestBody String id){
+        return ResponseEntity.ok(userService.isValidId(id));
+    }
 }
