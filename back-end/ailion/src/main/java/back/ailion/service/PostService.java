@@ -1,15 +1,13 @@
 package back.ailion.service;
 
-import back.ailion.model.dto.CommentDto;
-import back.ailion.model.dto.ReplyDto;
-import back.ailion.model.dto.Result;
+import back.ailion.model.dto.*;
 import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateDto;
 import back.ailion.model.entity.Comment;
 import back.ailion.model.entity.Reply;
 import back.ailion.model.entity.User;
 import back.ailion.model.entity.Post;
-import back.ailion.model.dto.PostDto;
+import back.ailion.repository.HeartRepository;
 import back.ailion.repository.UserRepository;
 import back.ailion.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +32,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final HeartRepository heartRepository;
 
     private PostDto PostToPostDto(Post post) {
         return new PostDto(post);
@@ -126,11 +125,15 @@ public class PostService {
         return postRepository.findByDelCheckFalse(pageable);
     }
 
-    public PostDto getPost(Long postId) {
+    public PostLikeDto getPost(Long postId, Long userId) {
 
         Post post = postRepository.findByIdWithComments(postId);
 
-        return convertPostToDTO(post);
+        if (heartRepository.findByPostIdAndUserId(postId, userId).isPresent()) {
+            return new PostLikeDto(true, convertPostToDTO(post));
+        }
+
+        return new PostLikeDto(false, convertPostToDTO(post));
     }
 
     private PostDto convertPostToDTO(Post post) {
@@ -144,7 +147,7 @@ public class PostService {
         postDTO.setViewCount(post.getViewCount());
         postDTO.setCreatedDate(post.getCreatedDate());
         postDTO.setComments(convertCommentsToDTOs(post.getComments()));
-        postDTO.setUserId(post.getUser().getUserId());
+        postDTO.setUserId(post.getUser().getId());
         return postDTO;
     }
 
