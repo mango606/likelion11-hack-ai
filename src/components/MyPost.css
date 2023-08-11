@@ -1,0 +1,131 @@
+/* 프로필 */
+#my-background {
+    height: 200px;
+    padding-top: 28.5px;
+    margin-bottom: 50px;
+    background-color: #D9D9D9;
+}
+
+#my-profile {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border-radius: 100%;
+    margin-left: 30px;
+    margin-top: 125px;
+    border: 1px solid #f5f5f5;
+  }
+
+#intro {
+    display: flex;
+    align-items: center;
+    margin: 0px 0 25px 25px;
+}
+
+#my-txt {
+    font-size: 15px;
+    margin-left: 25px;
+    margin-right: auto;
+}
+
+#my-likes {
+    font-size: 15px;
+    margin-left: 20px;
+}
+
+#likes-number {
+    font-weight: bold;
+}
+
+#my-name {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+hr {
+    background: #d0d0d0;
+    height: 0.9px;
+    border: 0;
+    margin: 30px 0 20px 0;
+}
+
+/* 내가 쓴 글 */
+#post-menu {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+  }
+
+#post-img {
+    width: 20px;
+    height: 20px;
+    padding: 0 15px 0 15px;
+ }
+
+/* 게시글 START */
+ul {
+    list-style: none;
+}
+
+li {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #d0d0d0;
+    border-radius: 10px;
+    display: flex;
+}
+
+li:hover {
+    background-color: #f5f5f5;
+}
+
+.post-category {
+    height: 28px;
+    color: #020D6E;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.post-title {
+    height: 28px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.post-message {
+    width: 800px;
+    height: 28px;
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 게시글 내용 */
+#post-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+}
+
+.post-img2 {
+    width: 10px;
+    height: 10px;
+}
+
+.post-likes {
+    margin-right: 15px;
+}
+
+.post-comments {
+    margin-right: 15px;
+}
+
+.post-img3 {
+    width: 100px;
+    height: 100px;
+    margin-left: auto;
+    border-radius: 10px;
+}
+/* 게시글 END */

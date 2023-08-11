@@ -1,12 +1,13 @@
 import React from 'react';
 import Sidebar from '../Sidebar';
+import Community from '../components/Community';
 
 const CommunityPage = () => {
     return (
         <>
           <Sidebar />
           <article>
-            커뮤니티
+            <Community />
           </article>
         </>
       );

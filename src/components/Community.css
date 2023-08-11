@@ -1,0 +1,40 @@
+h3 {
+    margin-left: 20px;
+}
+
+#wrap1, #wrap2 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#wrap1 {
+    margin-top: 10px;
+}
+
+#wrap2 {
+    margin-bottom: 30px;
+}
+
+#wrap1 > button, #wrap2 > button {
+    width: 300px;
+    height: 45px;
+    font-size: 18px;
+    text-align: center;
+    margin: 0 5px 0 5px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background: #A8A6A6;
+    color: white;
+}
+
+#wrap1 > button:hover, #wrap2 > button:hover {
+    background: #706262;
+    font-weight: bold;
+}
+
+#hot {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+}
