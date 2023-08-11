@@ -31,7 +31,7 @@ public class AiInfoApiController {
 
     }
     //카테고리별 조회
-    @GetMapping("/api/aiInfo/{category}")
+    @GetMapping("/api/aiInfo/category/{category}")
     public ResponseEntity<List<AiInfoResponseDto>> findAllByCategory(@PathVariable String category){
         List<AiInfoResponseDto> aiInfo = aiInfoService.findByCategory(category)
                 .stream()
