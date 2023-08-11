@@ -18,11 +18,15 @@ public enum BaseExceptionCode {
     // 404 NOT FOUND
     USER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "아이디가 존재하지 않습니다."),
 
-    POST_NOT_FOUND(404,  "게시글이 존재하지 없습니다."),
+    POST_NOT_FOUND(HttpStatus.BAD_REQUEST.value(),  "게시글이 존재하지 없습니다."),
 
-    COMMENT_NOT_FOUND(404,  "댓글이 존재하지 없습니다."),
+    COMMENT_NOT_FOUND(HttpStatus.BAD_REQUEST.value(),  "댓글이 존재하지 없습니다."),
 
-    REPLY_NOT_FOUND(404,  "대댓글이 존재하지 없습니다.");
+    REPLY_NOT_FOUND(HttpStatus.BAD_REQUEST.value(),  "대댓글이 존재하지 없습니다."),
+
+    HEART_NOT_FOUND(HttpStatus.BAD_REQUEST.value(),  "좋아요 및 취소를 할 수 없습니다."),
+
+    ALREADY_LIKED(HttpStatus.BAD_REQUEST.value(),  "이미 공감한 글입니다.");
 
 
     private final int httpStatusCode;

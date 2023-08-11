@@ -1,5 +1,8 @@
 package back.ailion.service;
 
+import back.ailion.exception.BaseExceptionCode;
+import back.ailion.exception.custom.AlreadyExecutedException;
+import back.ailion.exception.custom.NotFoundException;
 import back.ailion.model.dto.HeartDto;
 import back.ailion.model.dto.request.HeartRequestDto;
 import back.ailion.model.entity.Heart;
@@ -28,15 +31,15 @@ public class HeartService {
     public HeartDto like(HeartRequestDto heartRequestDto) {
 
         User user = userRepository.findById(heartRequestDto.getUserId())
-                .orElseThrow(() -> new RuntimeException("Could not found user id : " + heartRequestDto.getUserId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.USER_NOT_FOUND));
 
         Post post = postRepository.findById(heartRequestDto.getPostId())
-                .orElseThrow(() -> new RuntimeException("Could not found post id : " + heartRequestDto.getPostId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.POST_NOT_FOUND));
 
         // 이미 좋아요 되어있으면 오류 반환
         if (heartRepository.findByUserAndPost(user, post).isPresent()){
 
-            throw new RuntimeException("좋아요가 이미 존재");
+            throw new AlreadyExecutedException(BaseExceptionCode.ALREADY_LIKED);
         }
 
         Heart heart = Heart.builder()
@@ -52,13 +55,13 @@ public class HeartService {
     public boolean cancelLike(HeartRequestDto heartRequestDto) {
 
         User user = userRepository.findById(heartRequestDto.getUserId())
-                .orElseThrow(() -> new RuntimeException("Could not found user id : " + heartRequestDto.getUserId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.USER_NOT_FOUND));
 
         Post post = postRepository.findById(heartRequestDto.getPostId())
-                .orElseThrow(() -> new RuntimeException("Could not found post id : " + heartRequestDto.getPostId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.POST_NOT_FOUND));
 
         Heart heart = heartRepository.findByUserAndPost(user, post)
-                .orElseThrow(() -> new RuntimeException("Could not found heart id"));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.HEART_NOT_FOUND));
 
         heartRepository.delete(heart);
         postRepository.subLikeCount(post);
