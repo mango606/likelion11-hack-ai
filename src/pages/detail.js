@@ -4,7 +4,7 @@ import Sidebar from "../Sidebar";
 import { useState } from "react";
 import CommentsList from "../components/CommentsList";
 
-import { data } from "./detailtest.js";
+import { data } from "../components/detailtest";
 
 class Post {
   constructor(data) {

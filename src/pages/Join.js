@@ -1,7 +1,7 @@
 // Join.js
 import React from 'react';
 import './Join.css';
-import useForm from './useForm';
+import useForm from '../components/useForm';
 import { useState } from 'react';
 
 const Join = () => {
