@@ -2,30 +2,25 @@
       color: black;
       text-decoration: none;
 }
-.mycomments_area{
-      margin: 0;
-}
-.mycomments_title{
+
+.topbar-container{
       display: flex;
-      
       margin-bottom: 10px;
-      /* background-color: aqua; */
       border-bottom: 1px solid #ccc;
 }
-.mycomments_title div{
+.topbar-container div{
       margin: 0 auto;
       font-weight: 600;
 }
-.mycomments_contents{
-      padding-top: 15px;
+.title-text{
       height: 35px;
-      /* background-color: antiquewhite; */
+      padding-top: 15px;
 }
-.mycomments_img{
+.btn_back{
       position: absolute;
-      margin-top: 10px;
-      margin-left:10px;
       height: 30px;    
+      margin-top: 10px;
+      margin-left:10px; 
 }
 
 .mycomments_box{
@@ -43,6 +38,7 @@
 .comment_content{
       margin: 10px;
       font-weight:600;
+      
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;

@@ -33,31 +33,30 @@ const MyCommentsPage = () => {
   return (
     <>
       <Sidebar />
-      <article className='mycomments_area'>
-            <div className='mycomments_title'>            
-                  <NavLink to="/Mypage">
-                        <img className="mycomments_img" alt="뒤로가기 이미지" src="img/arrow_back.png" />
-                  </NavLink>
-                  <div className='mycomments_contents'>내 댓글 보기</div>
+      <article>
+        {/* 상단 타이틀 */}
+        <div className='topbar-container'>            
+              <NavLink to="/Mypage">
+                    <img className="btn_back" alt="뒤로가기 이미지" src="img/arrow_back.png" />
+              </NavLink>
+              <div className='title-text'>내 댓글 보기</div>
+        </div>
+        {/* 댓글 목록 */}
+        <ul>
+        {dummyComments.map((comment) => (
+          <li key={comment.commentId}>
+            <div className='mycomments_box'>
+                <div className='comment_category'>게시글 카테고리</div>
+                <hr/>
+                <div className='comment_content'>{comment.content}</div>
+              <div className='comment_title'>{comment.postTitle}</div>
+                <div className='comment_date'>
+                  {new Date(comment.createdDate).toLocaleString()}
+                </div>
             </div>
-
-             <ul>
-             {dummyComments.map((comment) => (
-                <li key={comment.commentId}>
-                  <div className='mycomments_box'>
-                      <div className='comment_category'>게시글 카테고리</div>
-                      <hr/>
-                      <div className='comment_content'>{comment.content}</div>
-                    <div className='comment_title'>{comment.postTitle}</div>
-                      <div className='comment_date'>
-                        {new Date(comment.createdDate).toLocaleString()}
-                      </div>
-                  </div>
-                </li>
-                ))}
-              </ul>
-
-      
+          </li>
+          ))}
+        </ul>
       </article>
     </>
   );
