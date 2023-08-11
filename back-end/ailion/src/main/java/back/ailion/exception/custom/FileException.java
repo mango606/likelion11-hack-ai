@@ -11,4 +11,9 @@ public class FileException extends RuntimeException{
     public FileException(BaseExceptionCode baseExceptionCode) {
         this.baseExceptionCode = baseExceptionCode;
     }
+
+    public FileException(BaseExceptionCode baseExceptionCode, Throwable cause) {
+        super(cause);
+        this.baseExceptionCode = baseExceptionCode;
+    }
 }

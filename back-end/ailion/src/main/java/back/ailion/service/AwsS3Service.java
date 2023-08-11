@@ -62,6 +62,8 @@ public class AwsS3Service {
 
     public DownloadDto downloadImageFile(String filename) throws MalformedURLException {
 
+        commonUtils.validateFileExistsAtUrl(filename);
+
         UrlResource resource = new UrlResource(commonUtils.getFullPath(filename));
 
         String encodedUploadFileName = UriUtils.encode(filename, StandardCharsets.UTF_8);
@@ -72,10 +74,12 @@ public class AwsS3Service {
 
     public DownloadDto downloadAttachFile(Long imageId) throws MalformedURLException {
         Image image = imageRepository.findById(imageId)
-                .orElseThrow(() -> new RuntimeException("Could not found image id "));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.FILE_NOT_FOUND));
 
         String storeFileName = image.getAttachFile().getStoreFileName();
         String uploadFileName = image.getAttachFile().getUploadFileName();
+
+        commonUtils.validateFileExistsAtUrl(storeFileName);
 
         UrlResource resource = new UrlResource(commonUtils.getFullPath(storeFileName));
 
@@ -90,12 +94,12 @@ public class AwsS3Service {
 
         // 업로드된 파일이 없는 경우
         if (multipartFile == null) {
-            throw new FileException(BaseExceptionCode.MissingFileException);
+            throw new FileException(BaseExceptionCode.MISSING_FILE);
         }
 
         // 업로드된 파일이 비어 있는 경우
         if (multipartFile.isEmpty()) {
-            throw new FileException(BaseExceptionCode.EmptyFileException);
+            throw new FileException(BaseExceptionCode.EMPTY_FILE);
         }
     }
 

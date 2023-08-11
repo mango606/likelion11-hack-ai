@@ -1,5 +1,8 @@
 package back.ailion.service;
 
+import back.ailion.exception.BaseExceptionCode;
+import back.ailion.exception.custom.FileException;
+import back.ailion.exception.custom.NotFoundException;
 import back.ailion.model.entity.FileUpload;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -87,7 +90,7 @@ public class S3CommonUtils {
             s3.putObject(new PutObjectRequest(bucketName, storeFileName, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new FileException(BaseExceptionCode.FILE_UPLOAD_FAILED, e);
         }
 
         return s3.getUrl(bucketName, storeFileName).toString();
@@ -115,10 +118,17 @@ public class S3CommonUtils {
                         .withCannedAcl(CannedAccessControlList.PublicRead));
                 fileUrls.add(s3.getUrl(bucketName, storeFileName).toString());
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new FileException(BaseExceptionCode.FILE_UPLOAD_FAILED, e);
             }
         }
 
         return fileUrls;
+    }
+
+    public void validateFileExistsAtUrl(String resourcePath) {
+
+        if (!s3.doesObjectExist(bucketName, resourcePath)) {
+            throw new NotFoundException(BaseExceptionCode.FILE_NOT_FOUND);
+        }
     }
 }

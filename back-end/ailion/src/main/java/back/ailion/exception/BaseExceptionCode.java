@@ -30,9 +30,13 @@ public enum BaseExceptionCode {
 
     FILE_SIZE_EXCEED(HttpStatus.BAD_REQUEST.value(), "업로드 할 수 있는 파일의 최대 크기는 20MB 입니다."),
 
-    EmptyFileException(HttpStatus.BAD_REQUEST.value(), "파일이 비어있습니다. 다시 파일을 첨부해주세요"),
+    EMPTY_FILE(HttpStatus.BAD_REQUEST.value(), "파일이 비어있습니다. 다시 파일을 첨부해주세요"),
 
-    MissingFileException(HttpStatus.BAD_REQUEST.value(), "파일이 없습니다. 파일을 첨부해주세요");
+    MISSING_FILE(HttpStatus.BAD_REQUEST.value(), "파일이 없습니다. 파일을 첨부해주세요"),
+
+    FILE_UPLOAD_FAILED(HttpStatus.BAD_REQUEST.value(), "파일 업로드에 실패했습니다."),
+
+    FILE_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "파일을 찾을 수 없습니다.");
 
 
     private final int httpStatusCode;
