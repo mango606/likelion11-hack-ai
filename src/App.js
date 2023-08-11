@@ -13,14 +13,11 @@ import InformationPage from './pages/InformationPage';
 import DetailPage from './pages/detail';
 import Mypage from './pages/Mypage';
 import MyCommentsPage from './pages/MyCommentsPage'
-
+import MyPostPage from './pages/MyPostPage';
 
 const App = () => {
   return (
-
     <div className="App">
-
-
       <box>
       <Routes>
         <Route element={<HomePage />} path='/'/>
@@ -32,8 +29,10 @@ const App = () => {
         <Route element={<LoginPage />} path="/login" />
         <Route element={<Join />} path="/join" />
         <Route element={<DetailPage />} path="/detail" />
-        <Route element={<Mypage />} path="/Mypage" />
-        <Route element={<MyCommentsPage />} path="/MyComments" />
+        <Route element={<Mypage />} path="/mypage">
+          <Route path="/mypage/posts" element={<MyPostPage />} />
+          <Route path="/mypage/comments" element={<MyCommentsPage />} />
+        </Route>
       </Routes>
       </box>
     </div>
