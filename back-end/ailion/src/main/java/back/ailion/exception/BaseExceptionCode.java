@@ -12,11 +12,18 @@ public enum BaseExceptionCode {
     // 403 FORBIDDEN
     NOT_YOUR_POST(HttpStatus.FORBIDDEN.value(), "작성자가 아닙니다."),
 
+    // 409 CONFLICT
+    USER_ID_CONFLICT(HttpStatus.CONFLICT.value(), "아이디가 중복입니다."),
+
     // 404 NOT FOUND
     USER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "아이디가 존재하지 않습니다."),
 
-    // 409 CONFLICT
-    USER_ID_CONFLICT(HttpStatus.CONFLICT.value(), "아이디가 중복입니다.");
+    POST_NOT_FOUND(404,  "게시글이 존재하지 없습니다."),
+
+    COMMENT_NOT_FOUND(404,  "댓글이 존재하지 없습니다."),
+
+    REPLY_NOT_FOUND(404,  "대댓글이 존재하지 없습니다.");
+
 
     private final int httpStatusCode;
     private final String message;

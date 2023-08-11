@@ -1,5 +1,6 @@
 package back.ailion.exception;
 
+import back.ailion.exception.custom.NotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -13,4 +14,13 @@ public class GlobalExceptionHandler {
                 .status(e.getBaseExceptionCode().getHttpStatusCode())
                 .body(new ExceptionResponse(e.getBaseExceptionCode().getHttpStatusCode(), e.getBaseExceptionCode().getMessage()));
     }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ExceptionResponse> notFoundExceptionHandler(NotFoundException e) {
+        return ResponseEntity
+                .status(e.getBaseExceptionCode().getHttpStatusCode())
+                .body(new ExceptionResponse(e.getBaseExceptionCode().getHttpStatusCode(), e.getBaseExceptionCode().getMessage()));
+    }
+
+
 }
