@@ -1,0 +1,9 @@
+#write-box {
+    display: flex;
+    justify-content: center;
+}
+
+#write-form {
+    width: 800px;
+    height: 100%;
+}
