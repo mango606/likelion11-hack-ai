@@ -1,0 +1,55 @@
+*{
+      color: black;
+      text-decoration: none;
+}
+.mycomments_area{
+      margin: 0;
+}
+.mycomments_title{
+      display: flex;
+      
+      margin-bottom: 10px;
+      /* background-color: aqua; */
+      border-bottom: 1px solid #ccc;
+}
+.mycomments_title div{
+      margin: 0 auto;
+      font-weight: 600;
+}
+.mycomments_contents{
+      padding-top: 15px;
+      height: 35px;
+      /* background-color: antiquewhite; */
+}
+.mycomments_img{
+      position: absolute;
+      margin-top: 10px;
+      margin-left:10px;
+      height: 30px;    
+}
+
+.mycomments_box{
+      width: 70%;
+      height: fit-content;
+      margin: 10px auto;
+      border: 1px solid #d8d8d8;
+      border-radius: 10px;
+}
+.comment_category{
+      margin: 10px;
+      color: gray;
+      font-size: 13px;
+}
+.comment_content{
+      margin: 10px;
+      font-weight:600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+}
+.comment_title, .comment_date{
+      margin-bottom: 3px;
+      margin-left: 10px;
+      color: gray;
+      font-size: 13px;
+}
