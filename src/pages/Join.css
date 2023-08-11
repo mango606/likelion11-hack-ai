@@ -4,8 +4,8 @@
 	display: flex;
 }
 
-.joinForm form {
-	width : 800px;
+.joinForm .jForm {
+	width : 600px;
 }
 
 
@@ -41,7 +41,7 @@
     border: 2px solid blue;
 }
 
-.idForm input{
+.idForm .joinInput{
 	width:100%;
 	border : none;
 	box-sizing: border-box;
@@ -49,7 +49,7 @@
 	margin : 0;
 }
 
-.idForm button {
+.idForm .dupButton {
 	width: 100px;
 	margin-right: 10px;
 	border-radius: 20px;
@@ -71,7 +71,7 @@
     border: 2px solid blue;
 }
 
-.emailForm input{
+.emailForm .joinInput{
 	width:100%;
 	border : none;
 	box-sizing: border-box;
@@ -100,7 +100,7 @@
     border: 2px solid blue;
 }
 
-.passwordForm input{
+.passwordForm .joinInput{
 	width:100%;
 	border : none;
 	box-sizing: border-box;
@@ -122,7 +122,7 @@
     border: 2px solid blue;
 }
 
-.passwordCheckForm input{
+.passwordCheckForm .joinInput{
 	width:100%;
 	border : none;
 	box-sizing: border-box;
@@ -141,7 +141,7 @@
 	align-items: center;
 }
 
-.birthForm input {
+.birthForm .joinInput {
 	width:100%;
 	border : none;
 	box-sizing: border-box;
@@ -168,7 +168,7 @@
     border: 2px solid blue;
 }
 
-.nicknameForm input {
+.nicknameForm .joinInput {
 	width:100%;
 	border : none;
 	box-sizing: border-box;
@@ -182,7 +182,7 @@
 	margin-bottom: 5%;
 }
 
-.interestForm input {
+.interestForm .joinInput {
 	height: 10px;
 }
 
@@ -267,7 +267,7 @@
     letter-spacing: normal;
 }
 
-select {
+.joinSelect {
 	margin-left : 10px;
 	width: 150px;
 	height: 35px;
@@ -276,7 +276,7 @@ select {
 	border-radius: 4px;
 	outline: 0 none;
 }
-select option {
+.joinOption {
 	background: black;
 	color: #fff;
 	padding: 3px 0;
