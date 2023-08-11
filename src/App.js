@@ -12,6 +12,7 @@ import RecommendationPage from './pages/RecommendationPage';
 import InformationPage from './pages/InformationPage';
 import DetailPage from './pages/detail';
 import Mypage from './pages/Mypage';
+import MyCommentsPage from './pages/MyCommentsPage'
 
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
         <Route element={<Join />} path="/join" />
         <Route element={<DetailPage />} path="/detail" />
         <Route element={<Mypage />} path="/Mypage" />
+        <Route element={<MyCommentsPage />} path="/MyComments" />
       </Routes>
       </box>
     </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import Sidebar from '../Sidebar';
 
 import './Mypage.css';
@@ -206,7 +207,9 @@ const MyPage = () => {
       <div className="subindex_box">
         <div className="content">내 게시글</div>
         <hr/>
-        <div className="content">댓글 단 글</div>
+        <NavLink to="/MyComments">
+          <div className="content">댓글 단 글</div>
+        </NavLink>
       </div>
       {/* 문의 */}
       <div>문의는 <a href="mailto:qwer1234@likelion.org"> qwer1234@likelion.org</a>로 연락 바랍니다.</div>
