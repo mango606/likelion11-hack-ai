@@ -60,17 +60,6 @@ public class S3CommonUtils {
 
     public FileUpload convertFile(MultipartFile multipartFile) throws IOException {
 
-        if (multipartFile != null && !multipartFile.isEmpty()) {
-            String originalFilename = multipartFile.getOriginalFilename();
-            if (originalFilename != null) {
-                String ext = extractExt(originalFilename);
-            } else {
-                // originalFilename이 null인 경우 처리할 코드 작성
-            }
-        } else {
-            // attachFile이 null 또는 비어있는 경우 처리할 코드 작성
-        }
-
         String originalFilename = multipartFile.getOriginalFilename();
         String storeFileName = createStoreFileName(originalFilename);
         return new FileUpload(originalFilename, storeFileName);

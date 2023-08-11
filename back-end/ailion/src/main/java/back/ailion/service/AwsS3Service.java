@@ -1,5 +1,8 @@
 package back.ailion.service;
 
+import back.ailion.exception.BaseExceptionCode;
+import back.ailion.exception.custom.FileException;
+import back.ailion.exception.custom.NotFoundException;
 import back.ailion.model.dto.DownloadDto;
 import back.ailion.model.dto.FileUploadResponse;
 import back.ailion.model.dto.request.FileUploadRequest;
@@ -31,7 +34,11 @@ public class AwsS3Service {
     public FileUploadResponse uploadFile(FileUploadRequest fileUploadRequest) throws IOException {
 
         Post post = postRepository.findById(fileUploadRequest.getPostId())
-                .orElseThrow(() -> new RuntimeException("no id" + fileUploadRequest.getPostId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.POST_NOT_FOUND));
+
+        // 파일이 들어있는지 확인하는 메서드
+        validateFileExists(fileUploadRequest.getAttachFile());
+        validateFilesExists(fileUploadRequest.getImageFiles());
 
         // MultipartFile을 FileUpload로 변환
         FileUpload attachFile = commonUtils.convertFile(fileUploadRequest.getAttachFile());
@@ -76,5 +83,26 @@ public class AwsS3Service {
         String contentDisposition = "attachment; filename=\"" + encodedUploadFileName + "\"";
 
         return new DownloadDto(contentDisposition, resource);
+    }
+
+
+    public void validateFileExists(MultipartFile multipartFile) {
+
+        // 업로드된 파일이 없는 경우
+        if (multipartFile == null) {
+            throw new FileException(BaseExceptionCode.MissingFileException);
+        }
+
+        // 업로드된 파일이 비어 있는 경우
+        if (multipartFile.isEmpty()) {
+            throw new FileException(BaseExceptionCode.EmptyFileException);
+        }
+    }
+
+    public void validateFilesExists(List<MultipartFile> multipartFiles) {
+
+        for (MultipartFile multipartFile : multipartFiles) {
+            validateFileExists(multipartFile);
+        }
     }
 }

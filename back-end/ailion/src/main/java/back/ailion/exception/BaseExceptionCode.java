@@ -26,7 +26,13 @@ public enum BaseExceptionCode {
 
     HEART_NOT_FOUND(HttpStatus.BAD_REQUEST.value(),  "좋아요 및 취소를 할 수 없습니다."),
 
-    ALREADY_LIKED(HttpStatus.BAD_REQUEST.value(),  "이미 공감한 글입니다.");
+    ALREADY_LIKED(HttpStatus.BAD_REQUEST.value(),  "이미 공감한 글입니다."),
+
+    FILE_SIZE_EXCEED(HttpStatus.BAD_REQUEST.value(), "업로드 할 수 있는 파일의 최대 크기는 20MB 입니다."),
+
+    EmptyFileException(HttpStatus.BAD_REQUEST.value(), "파일이 비어있습니다. 다시 파일을 첨부해주세요"),
+
+    MissingFileException(HttpStatus.BAD_REQUEST.value(), "파일이 없습니다. 파일을 첨부해주세요");
 
 
     private final int httpStatusCode;
