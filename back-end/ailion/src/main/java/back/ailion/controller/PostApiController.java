@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
@@ -26,13 +27,13 @@ public class PostApiController {
     private final PostService postService;
 
     @PostMapping
-    public PostDto savePost(@RequestBody PostRequestDto postRequestDto) {
+    public PostDto savePost(@Valid @RequestBody PostRequestDto postRequestDto) {
 
         return postService.savePost(postRequestDto);
     }
 
     @PatchMapping
-    public PostDto updatePost(@RequestBody PostUpdateDto postUpdateDto) {
+    public PostDto updatePost(@Valid @RequestBody PostUpdateDto postUpdateDto) {
 
         return postService.updatePost(postUpdateDto);
     }
