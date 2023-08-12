@@ -70,6 +70,7 @@ public class SecurityConfig {
                 .antMatchers("/reply/**").permitAll()
                 .antMatchers("/hearts/**").permitAll()
                 .antMatchers("/files/**").permitAll()
+                .antMatchers("/favorite/**").permitAll()
                 .anyRequest().authenticated() // 그 외 인증 없이 접근X
 
                 .and()
