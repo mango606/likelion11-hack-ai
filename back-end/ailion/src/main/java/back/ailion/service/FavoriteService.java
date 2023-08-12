@@ -35,12 +35,12 @@ public class FavoriteService {
                 .orElseThrow(() -> new NotFoundException(BaseExceptionCode.USER_NOT_FOUND));
 
         AiInfo aiInfo = aiInfoRepository.findById(favoriteRequestDto.getAiInfoId())
-                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.POST_NOT_FOUND));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.AI_INFO_NOT_FOUND));
 
         // 이미 즐겨찾기 되어있으면 오류 반환
         if (favoriteRepository.findByUserAndAiInfo(user, aiInfo).isPresent()){
 
-            throw new AlreadyExecutedException(BaseExceptionCode.ALREADY_LIKED);
+            throw new AlreadyExecutedException(BaseExceptionCode.ALREADY_FAVORITE);
         }
 
         Favorite favorite = Favorite.builder()
@@ -55,7 +55,7 @@ public class FavoriteService {
     public boolean cancelFavorite(FavoriteDeleteDto favoriteDeleteDto) {
 
         Favorite favorite = favoriteRepository.findById(favoriteDeleteDto.getFavoriteId())
-                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.HEART_NOT_FOUND));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.FAVORITE_NOT_FOUND));
 
         favoriteRepository.delete(favorite);
         return true;
