@@ -1,4 +1,4 @@
-// 테스트용 더미 데이터
+// Post 테스트용 임시 데이터
 
 const getRandomNumber = (min, max) => {
     return parseInt(Math.random() * (Number(max) - Number(min) + 2));

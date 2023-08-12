@@ -2,11 +2,22 @@ import React from 'react';
 import { dummyPosts } from "../dummyData";
 import { useNavigate } from "react-router-dom";
 import './MyPost.css';
+import './PostStyle.css';
 
 const MyPost = () => {
    // username이 000인 요소만 있는 배열을 할당함.
   const filteredPosts = dummyPosts.filter((post) => post.username === "kimcoding");
   const navigate = useNavigate();
+
+  // createdDate 포맷 변환
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}/${month}/${day}`;
+  };
+
   return (
     <section id="my-info">
       <div id="my-background">
@@ -29,7 +40,7 @@ const MyPost = () => {
         {/* 000이 작성한 포스트만 나옴. */}
         {filteredPosts.map((post) => (
         <li class="post" key={post.id}>
-          <div id="post-content">
+          <div class="post-box">
           <div class="post-category">{post.category}</div>
             <div class="post-title">{post.title}</div>
             <div class="post-message">{post.content}</div>
@@ -38,7 +49,7 @@ const MyPost = () => {
                 <a class="post-likes">{post.likes}</a>
                 <img class="post-img2" src="./img/comment-dots.png"></img>
                 <a class="post-comments">{post.comments}</a>
-                <span class="post-createdAt">{post.createdAt}</span>
+                <span class="post-createdAt">{formatDate(post.createdAt)}</span>
             </div>
           </div>
           <img class="post-img3" src={post.picture}></img>

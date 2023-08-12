@@ -1,0 +1,32 @@
+#hot-title {
+  margin-left: 20px;
+}
+
+.hot-table {
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    border-spacing: 0;
+    padding: 10px 0 20px 0;
+  }
+  
+  .hot-table-header-column {
+    border-bottom: 1px solid #d0d0d0;
+    padding: 0;
+    font-size: 14px;
+    padding: 10px 5px;
+    font-weight: bold;
+  }
+
+  .hot-table-row {
+    font-size: 12px;
+  }
+  
+  .hot-table-row:hover {
+    background-color: #eceaea;
+    cursor: pointer;
+  }
+  
+  .hot-table-column {
+    padding: 10px 5px;
+  }
