@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/favorite")
+@RequestMapping("/ailion/favorite")
 @RequiredArgsConstructor
 public class FavoriteApiController {
 

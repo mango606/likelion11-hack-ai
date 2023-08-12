@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/reply")
+@RequestMapping("/ailion/reply")
 @RequiredArgsConstructor
 public class ReplyApiController {
 

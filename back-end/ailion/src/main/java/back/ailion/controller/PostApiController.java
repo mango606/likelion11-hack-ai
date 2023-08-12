@@ -20,7 +20,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/ailion/posts")
 @RequiredArgsConstructor
 public class PostApiController {
 
@@ -44,6 +44,7 @@ public class PostApiController {
         return postService.deletePost(postId);
     }
 
+    // 상세 게시글
     @GetMapping("/{postId}/{userId}")
     public PostLikeDto getPost(@PathVariable("postId") Long postId, @PathVariable("userId") Long userId,
                                HttpServletRequest req, HttpServletResponse res) {
@@ -52,7 +53,8 @@ public class PostApiController {
         return postService.getPost(postId, userId);
     }
 
-    @GetMapping("/{category}/list")
+    // 카테고리 게시글
+    @GetMapping("/api/{category}/list")
     public Page<PostDto> getCategoryPosts(
             @PathVariable("category") String category,
             @RequestParam(value="page", defaultValue="0") int page) {
@@ -61,13 +63,15 @@ public class PostApiController {
         return paging.map(post -> new PostDto(post));
     }
 
-    @GetMapping("/best/list")
+    // 인기 게시글
+    @GetMapping("/api/best/list")
     public Result getBestPosts() {
 
         return postService.getBestPosts();
     }
 
-    @GetMapping("/list")
+    // 복수 게시글
+    @GetMapping("/api/list")
     public Page<PostDto> getPosts(@RequestParam(value="page", defaultValue="0") int page) {
 
         Page<Post> paging = postService.getPosts(page);

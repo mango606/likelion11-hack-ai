@@ -17,7 +17,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/files")
+@RequestMapping("/ailion/files")
 @RequiredArgsConstructor
 public class AwsS3ApiController {
 
