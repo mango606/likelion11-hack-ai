@@ -13,4 +13,7 @@ public class FavoriteDeleteDto {
 
     @Positive
     private Long favoriteId;
+
+    @Positive
+    private Long aiInfoId;
 }

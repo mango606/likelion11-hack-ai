@@ -48,6 +48,7 @@ public class FavoriteService {
                 .aiInfo(aiInfo)
                 .build();
 
+        aiInfoRepository.addFavoriteCount(aiInfo);
         return FavoriteToFavoriteDto(favoriteRepository.save(favorite));
     }
 
@@ -57,7 +58,11 @@ public class FavoriteService {
         Favorite favorite = favoriteRepository.findById(favoriteDeleteDto.getFavoriteId())
                 .orElseThrow(() -> new NotFoundException(BaseExceptionCode.FAVORITE_NOT_FOUND));
 
+        AiInfo aiInfo = aiInfoRepository.findById(favoriteDeleteDto.getAiInfoId())
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.AI_INFO_NOT_FOUND));
+
         favoriteRepository.delete(favorite);
+        aiInfoRepository.subFavoriteCount(aiInfo);
         return true;
     }
 }
