@@ -1,10 +1,10 @@
-package back.ailion.web;
+package back.ailion.controller;
 
 import back.ailion.model.entity.AiInfo;
 import back.ailion.service.AiInfoService;
-import back.ailion.web.dto.AddAiInfoRequest;
-import back.ailion.web.dto.AiInfoResponseDto;
-import back.ailion.web.dto.UpdateAiInfoRequestDto;
+import back.ailion.model.dto.request.AddAiInfoRequest;
+import back.ailion.model.dto.AiInfoResponseDto;
+import back.ailion.model.dto.request.UpdateAiInfoRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

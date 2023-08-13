@@ -1,4 +1,4 @@
-package back.ailion.web.dto;
+package back.ailion.model.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

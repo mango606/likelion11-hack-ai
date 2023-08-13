@@ -1,4 +1,4 @@
-package back.ailion.web.dto;
+package back.ailion.model.dto;
 
 import back.ailion.model.entity.AiInfo;
 import lombok.Data;
