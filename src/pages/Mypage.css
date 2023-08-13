@@ -1,0 +1,92 @@
+.profile{
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+}
+.profile_img{
+      width: 50px;
+      box-shadow: 0 3px 6px 0 rgba(29,34,53,.08);
+      border-radius: 50%;
+}
+.myname{
+      display: flex;
+      margin-left: 10px;
+}
+      .myname .btn_change:first-of-type {
+            width: 49px;
+            margin-left: 90px;
+      }
+
+.dimmed {
+      display: flex; 
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(0,0,0,.5);
+      z-index: 200;
+}
+.popup_layer_content{
+      width: 350px;
+      padding: 30px 24px 30px;
+      border-radius: 12px;
+      background-color: #fff;
+      box-sizing: border-box;
+      text-align: left;
+}
+
+.interest_radio {
+      margin-top: 10px;
+}
+.interest_index {
+      width: 150px;
+      margin: 20px auto;
+      background-color: #fff;
+}
+.btn_popup{
+      display: flex; 
+      justify-content: center;
+      margin-top: 10px;
+}
+
+.btn_change {
+      width: 50px;
+      height: fit-content;
+      margin-top: 13px;
+      margin-left: 150px;
+      padding: 3px 10px;
+      background-color: rgb(228, 228, 228);
+      color: gray;
+      border: 1px solid gray;
+      border-radius: 5px;
+      font-size: 10px;
+    }
+
+.subindex_box{
+      background-color: white;
+      width: 300px;
+      height: fit-content;
+      
+      padding-left: 10px;
+      padding-right: 10px;
+
+      margin: 20px;
+      border: 1px solid gray;
+      border-radius: 20px;
+}
+.subindex_row{
+      display: flex;
+}
+.content_title{
+      right: 130px;
+      font-weight: 600;
+}
+.content{
+      margin-top: 15px;
+      margin-bottom: 15px;
+      width: 100px;
+      font-size: 10.1px;
+}

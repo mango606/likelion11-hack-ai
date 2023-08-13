@@ -1,0 +1,47 @@
+.topbar-container{
+      display: flex;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+}
+.topbar-container div{
+      margin: 0 auto;
+      padding-top: 15px;
+      font-weight: 600;
+}
+.title-text{
+      height: 35px;
+      width: fit-content;
+}
+.btn_back{
+      position: absolute;
+      height: 30px;    
+      margin-top: 10px;
+      margin-left:10px; 
+}
+
+.mycomments_box{
+      width: 70%;
+      height: fit-content;
+      margin: 10px auto;
+      border: 1px solid #d8d8d8;
+      border-radius: 10px;
+}
+.comment_category{
+      margin: 10px;
+      color: gray;
+      font-size: 13px;
+}
+.comment_content{
+      margin: 10px;
+      font-weight:600;
+      
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+}
+.comment_title, .comment_date{
+      margin-bottom: 3px;
+      margin-left: 10px;
+      color: gray;
+      font-size: 13px;
+}

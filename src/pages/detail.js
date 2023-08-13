@@ -4,7 +4,7 @@ import Sidebar from "../Sidebar";
 import { useState } from "react";
 import CommentsList from "../components/CommentsList";
 
-import { data } from "./detailtest.js";
+import { data } from "../components/detailtest";
 
 class Post {
   constructor(data) {
@@ -70,7 +70,7 @@ const DetailPage = () => {
             <p>{`${post.date} 조회 ${post.view}`}</p><br></br>
             <p>{`작성자 : ${post.author}`}</p><br></br>
             <div className="like">
-            <img onClick={handleLike} alt="likeImg" src={post.likeCheck === false ? "img/emptyLike.png" : "img/like.png"}></img><p>{`좋아요 ${post.like} 댓글 ${post.commentNum}`}</p>
+            <img className="likeImg" onClick={handleLike} alt="likeImg" src={post.likeCheck === false ? "img/emptyLike.png" : "img/like.png"}></img><p>{`좋아요 ${post.like} 댓글 ${post.commentNum}`}</p>
             </div>
           </div>
           <hr></hr>
@@ -81,12 +81,13 @@ const DetailPage = () => {
               alt="user"
             />
             <input
+              className="commentInput"
               type="text"
               placeholder="댓글 작성"
               value={comment}
               onChange={handleCommentChange}
             />
-            <button onClick={commentSubmit} >댓글 달기</button>
+            <button className="commentButton" onClick={commentSubmit} >댓글 달기</button>
           </div>
           <hr></hr>
           <div className="comment_wrap">

@@ -38,18 +38,19 @@
 	margin-left : 2%;
 }
 
-.commentForm input {
+.commentForm .commentInput {
 	margin : 0;
 	margin-left : 1%;
 	width: 400px;
 	border : none;
 }
 
-.commentForm button {
+.commentForm .commentButton {
 	margin : 0;
 	width : 100px;
 	margin-left: auto;
 	margin-right : 3%;
+	border-radius: 20px;
 }
 
 .comment_wrap {
@@ -68,8 +69,9 @@
 	margin-bottom : 2%;
 }
 
-.comment button {
+.comment .commentDelete {
 	width : 100px;
+	border-radius: 20px;
 }
 
 .replies {
@@ -81,7 +83,7 @@
 	margin-top : 2%;
 }
 
-.reply button {
+.reply .replyButton {
 	width : 100px;
 }
 
@@ -90,7 +92,7 @@
 	align-items: center;
 }
 
-.like img {
+.like .likeImg {
 	width : 30px;
 	margin-right: 10px;
 	cursor: pointer;
