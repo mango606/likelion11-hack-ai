@@ -1,4 +1,4 @@
-package back.ailion.config.oauth.provider;
+package back.ailion.config.auth.oauth.provider;
 
 import java.util.Map;
 

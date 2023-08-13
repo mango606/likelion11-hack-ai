@@ -1,11 +1,14 @@
 package back.ailion.model.entity;
 
+import back.ailion.config.auth.oauth.provider.AuthProvider;
 import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity @Getter @Setter @Builder @AllArgsConstructor
@@ -26,6 +29,9 @@ public class User extends BaseEntity {
     @Column(name = "username",length = 50, unique = true)
     private String username;
 
+    @Column(name = "email",length = 50, unique = true)
+    private String email;
+
     @Column(name = "nickname", length = 50)
     private String nickname;
 
@@ -37,9 +43,13 @@ public class User extends BaseEntity {
 
     private String phone;
 
-    private String provider;
+    private AuthProvider authProvider;
 
-    private String providerId;
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Heart> hearts = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

@@ -30,6 +30,21 @@ public class SecurityConfig {
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private static final String[] PERMIT_URL_ARRAY = {
+            /* swagger v2 */
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui/index.html",
+            "/webjars/**",
+            /* swagger v3 */
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+    };
+
+//    private final CookieAuthorizationRequestRepository cookieAuthorizationRequestRepository;
 
     // PasswordEncoder는 BCryptPasswordEncoder를 사용
     @Bean
@@ -60,14 +75,30 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeHttpRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정하겠다.
-                .antMatchers("/api/authenticate").permitAll() // 로그인 api
-                .antMatchers("/api/signup").permitAll() // 회원가입 api
+                .antMatchers("/oauth2/**").permitAll()
+                .antMatchers("/ailion/api/**").permitAll() // 로그인 api
                 .requestMatchers(PathRequest.toH2Console()).permitAll()// h2-console, favicon.ico 요청 인증 무시
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/swagger-ui/index.html").permitAll()
-                .anyRequest().authenticated() // 그 외 인증 없이 접근X
+                .antMatchers(PERMIT_URL_ARRAY).permitAll()
+                .anyRequest().authenticated(); // 그 외 인증 없이 접근X
 
-                .and()
+//                httpSecurity.oauth2Login()
+//                        .authorizationEndpoint().baseUri("/oauth2/authorize")
+//                        .authorizationRequestRepository(cookieAuthorizationRequestRepository)
+//                        .and()
+//                        .redirectionEndpoint().baseUri("/oauth2/callback/*")
+//                        .and()
+//                        .userInfoEndpoint().userService(customOAuth2UserService)
+//                        .and()
+//                        .successHandler(oAuth2AuthenticationSuccessHandler)
+//                        .failureHandler(oAuth2AuthenticationFailureHandler);
+
+//        httpSecurity.logout()
+//                .clearAuthentication(true)
+//                .deleteCookies("JSESSIONID");
+
+        httpSecurity
                 .apply(new JwtSecurityConfig(tokenProvider)); // JwtFilter를 addFilterBefore로 등록했던 JwtSecurityConfig class 적용
 
         return httpSecurity.build();

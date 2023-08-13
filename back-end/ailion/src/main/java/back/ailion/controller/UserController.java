@@ -13,11 +13,11 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/ailion")
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/signup")
+    @PostMapping("/api/signup")
     public ResponseEntity<User> signup(
             @Valid @RequestBody UserDto userDto
     ) {
