@@ -1,5 +1,6 @@
 package back.ailion.repository;
 
+import back.ailion.model.entity.Favorite;
 import back.ailion.model.entity.Heart;
 import back.ailion.model.entity.Post;
 import back.ailion.model.entity.User;
@@ -24,4 +25,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u.hearts FROM User u where u.id = ?1")
     List<Heart> findHeartsById(Long id);
+
+    @Query("SELECT u.favorites FROM User u where u.id = ?1")
+    List<Favorite> findFavoritesById(Long id);
 }
