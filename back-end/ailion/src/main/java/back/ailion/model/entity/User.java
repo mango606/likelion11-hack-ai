@@ -55,6 +55,9 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<Heart> hearts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Favorite> favorites = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(
             name = "user_authority",
