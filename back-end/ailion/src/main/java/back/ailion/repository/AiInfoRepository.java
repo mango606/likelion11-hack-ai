@@ -24,4 +24,6 @@ public interface AiInfoRepository extends JpaRepository<AiInfo, Long> {
     List<AiInfo> findByCategory(String category);
     // 페이지는 나중에 구현
     // Page<AiInfo> findByCategory(String category, Pageable pageable);
+
+    AiInfo findAiInfoById(Long id);
 }

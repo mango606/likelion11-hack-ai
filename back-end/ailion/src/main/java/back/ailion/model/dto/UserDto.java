@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -30,13 +31,12 @@ public class UserDto {
     @Size(min = 3, max = 50)
     private String nickname;
 
-    private String provider;
-
-    private String providerId;
 
     @NotNull
     @Size(min = 3, max = 50)
     private String name;
 
     private String phone;
+
+    private Map<String, Integer> recommends;
 }

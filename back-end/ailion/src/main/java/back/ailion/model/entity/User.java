@@ -1,6 +1,7 @@
 package back.ailion.model.entity;
 
 import back.ailion.config.auth.oauth.provider.AuthProvider;
+import back.ailion.model.global.ReportListConverter;
 import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
@@ -44,6 +45,9 @@ public class User extends BaseEntity {
     private String phone;
 
     private AuthProvider authProvider;
+
+    @Convert(converter = ReportListConverter.class)
+    private List<Recommend> recommends;
 
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();

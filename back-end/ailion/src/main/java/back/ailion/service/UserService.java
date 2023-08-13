@@ -6,6 +6,7 @@ import back.ailion.exception.BaseException;
 import back.ailion.exception.BaseExceptionCode;
 import back.ailion.model.dto.UserDto;
 import back.ailion.model.entity.Authority;
+import back.ailion.model.entity.Recommend;
 import back.ailion.model.entity.User;
 import back.ailion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +35,16 @@ public class UserService {
                 .authorityName("ROLE_USER")
                 .build();
 
+
+        Map<String, Integer> recommends = userDto.getRecommends();
+        List<Recommend> recommendList = new ArrayList<>();
+
+        for(String recommend : recommends.keySet()){
+            if(recommends.get(recommend) > 3){
+                recommendList.add(Recommend.valueOf(recommend));
+            }
+        }
+
         // 유저 정보를 만들어서 save
         User user = User.builder()
                 .username(userDto.getUsername())
@@ -44,6 +54,7 @@ public class UserService {
                 .activated(true)
                 .name(userDto.getName())
                 .phone(userDto.getPhone())
+                .recommends(recommendList)
                 .build();
 
         return userRepository.save(user);
@@ -63,7 +74,7 @@ public class UserService {
     }
 
     public Boolean isValidId(String id) {
-        if (userRepository.findOneWithAuthoritiesByUsername(id).orElse(null) != null) {
+        if (userRepository.findByUsername(id) != null) {
             return true;
         }
         else{
