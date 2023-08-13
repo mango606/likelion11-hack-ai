@@ -4,6 +4,7 @@ package back.ailion.service;
 import back.ailion.config.auth.SecurityUtil;
 import back.ailion.exception.BaseException;
 import back.ailion.exception.BaseExceptionCode;
+import back.ailion.model.dto.AiInfoResponseDto;
 import back.ailion.model.dto.PostDto;
 import back.ailion.model.dto.UserDto;
 import back.ailion.model.entity.*;
@@ -95,6 +96,15 @@ public class UserService {
         List<Heart> hearts = userRepository.findHeartsById(userId);
         List<PostDto> collect = hearts.stream()
                 .map(heart -> new PostDto(heart.getPost()))
+                .collect(Collectors.toList());
+
+        return collect;
+    }
+
+    public List<AiInfoResponseDto> myFavoriteAi(Long userId) {
+        List<Favorite> favorites = userRepository.findFavoritesById(userId);
+        List<AiInfoResponseDto> collect = favorites.stream()
+                .map(favorite -> new AiInfoResponseDto(favorite.getAiInfo()))
                 .collect(Collectors.toList());
 
         return collect;

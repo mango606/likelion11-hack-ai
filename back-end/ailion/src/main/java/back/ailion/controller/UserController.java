@@ -1,6 +1,7 @@
 package back.ailion.controller;
 
 import back.ailion.config.jwt.GetIdFromToken;
+import back.ailion.model.dto.AiInfoResponseDto;
 import back.ailion.model.dto.PostDto;
 import back.ailion.model.dto.UserDto;
 import back.ailion.model.entity.User;
@@ -53,5 +54,11 @@ public class UserController {
     public List<PostDto> myLikePosts(@PathVariable("userId") Long userId) {
 
         return userService.myLikePosts(userId);
+    }
+
+    @GetMapping("/my/favorite/ai/{userId}")
+    public List<AiInfoResponseDto> myFavoriteAi(@PathVariable("userId") Long userId) {
+
+        return userService.myFavoriteAi(userId);
     }
 }
