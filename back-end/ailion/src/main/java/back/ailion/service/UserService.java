@@ -6,10 +6,8 @@ import back.ailion.exception.BaseException;
 import back.ailion.exception.BaseExceptionCode;
 import back.ailion.model.dto.PostDto;
 import back.ailion.model.dto.UserDto;
-import back.ailion.model.entity.Authority;
-import back.ailion.model.entity.Post;
-import back.ailion.model.entity.Recommend;
-import back.ailion.model.entity.User;
+import back.ailion.model.entity.*;
+import back.ailion.repository.HeartRepository;
 import back.ailion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,7 +55,7 @@ public class UserService {
                 .activated(true)
                 .name(userDto.getName())
                 .phone(userDto.getPhone())
-                .recommends(recommendList)
+                //.recommends(recommendList)
                 .build();
 
         return userRepository.save(user);
@@ -90,6 +88,15 @@ public class UserService {
         List<PostDto> collect = posts.stream()
                 .map(post -> new PostDto(post))
                 .collect(Collectors.toList());
+        return collect;
+    }
+
+    public List<PostDto> myLikePosts(Long userId) {
+        List<Heart> hearts = userRepository.findHeartsById(userId);
+        List<PostDto> collect = hearts.stream()
+                .map(heart -> new PostDto(heart.getPost()))
+                .collect(Collectors.toList());
+
         return collect;
     }
 }

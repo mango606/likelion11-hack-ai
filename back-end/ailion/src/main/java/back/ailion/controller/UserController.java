@@ -48,4 +48,10 @@ public class UserController {
 
         return userService.myPosts(userId);
     }
+
+    @GetMapping("/my/like/posts/{userId}")
+    public List<PostDto> myLikePosts(@PathVariable("userId") Long userId) {
+
+        return userService.myLikePosts(userId);
+    }
 }
