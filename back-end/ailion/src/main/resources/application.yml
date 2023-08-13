@@ -15,7 +15,7 @@ spring:
 #    driver-class-name: org.h2.Driver
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://sg-0465627fa7cf06d6b/hackathon
+    url: jdbc:mysql://database-2.cuk6k0dwwstu.ap-northeast-2.rds.amazonaws.com/hackathon
     username: ailion
     password: ailion0818!
   sql:
@@ -25,7 +25,7 @@ spring:
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
