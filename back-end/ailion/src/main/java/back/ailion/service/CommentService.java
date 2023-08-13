@@ -1,5 +1,7 @@
 package back.ailion.service;
 
+import back.ailion.exception.BaseExceptionCode;
+import back.ailion.exception.custom.NotFoundException;
 import back.ailion.model.dto.CommentDto;
 import back.ailion.model.dto.request.CommentDeleteDto;
 import back.ailion.model.dto.request.CommentRequestDto;
@@ -30,10 +32,10 @@ public class CommentService {
     public CommentDto saveComment(CommentRequestDto commentRequestDto) {
 
         User user = userRepository.findById(commentRequestDto.getUserId())
-                .orElseThrow(() -> new RuntimeException("Could not found user id : " + commentRequestDto.getUserId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.USER_NOT_FOUND));
 
         Post post = postRepository.findById(commentRequestDto.getPostId())
-                .orElseThrow(() -> new RuntimeException("Could not found post id : " + commentRequestDto.getPostId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.POST_NOT_FOUND));
 
         Comment comment = Comment.builder()
                 .content(commentRequestDto.getContent())
@@ -51,7 +53,7 @@ public class CommentService {
     public CommentDto updateComment(CommentUpdateDto commentUpdateDto) {
 
         Comment comment = commentRepository.findById(commentUpdateDto.getCommentId())
-                .orElseThrow(() -> new RuntimeException("Could not found comment id : " + commentUpdateDto.getCommentId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.COMMENT_NOT_FOUND));
 
         comment.modifyContent(commentUpdateDto.getContent());
 
@@ -62,10 +64,10 @@ public class CommentService {
     public boolean deleteComment(CommentDeleteDto commentDeleteDto) {
 
         Comment comment = commentRepository.findById(commentDeleteDto.getCommentId())
-                .orElseThrow(() -> new RuntimeException("Could not found comment id : " + commentDeleteDto.getCommentId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.COMMENT_NOT_FOUND));
 
         Post post = postRepository.findById(commentDeleteDto.getPostId())
-                .orElseThrow(() -> new RuntimeException("Could not found post id : " + commentDeleteDto.getPostId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.POST_NOT_FOUND));
         post.setCommentCount(post.getCommentCount() - 1);
 
         if (commentRepository.countRepliesByCommentId(commentDeleteDto.getCommentId()) > 0) {

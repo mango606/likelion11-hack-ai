@@ -1,5 +1,8 @@
 package back.ailion.service;
 
+import back.ailion.exception.BaseExceptionCode;
+import back.ailion.exception.custom.FileException;
+import back.ailion.exception.custom.NotFoundException;
 import back.ailion.model.dto.DownloadDto;
 import back.ailion.model.dto.FileUploadResponse;
 import back.ailion.model.dto.request.FileUploadRequest;
@@ -31,7 +34,11 @@ public class AwsS3Service {
     public FileUploadResponse uploadFile(FileUploadRequest fileUploadRequest) throws IOException {
 
         Post post = postRepository.findById(fileUploadRequest.getPostId())
-                .orElseThrow(() -> new RuntimeException("no id" + fileUploadRequest.getPostId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.POST_NOT_FOUND));
+
+        // 파일이 들어있는지 확인하는 메서드
+        validateFileExists(fileUploadRequest.getAttachFile());
+        validateFilesExists(fileUploadRequest.getImageFiles());
 
         // MultipartFile을 FileUpload로 변환
         FileUpload attachFile = commonUtils.convertFile(fileUploadRequest.getAttachFile());
@@ -55,6 +62,8 @@ public class AwsS3Service {
 
     public DownloadDto downloadImageFile(String filename) throws MalformedURLException {
 
+        commonUtils.validateFileExistsAtUrl(filename);
+
         UrlResource resource = new UrlResource(commonUtils.getFullPath(filename));
 
         String encodedUploadFileName = UriUtils.encode(filename, StandardCharsets.UTF_8);
@@ -65,10 +74,12 @@ public class AwsS3Service {
 
     public DownloadDto downloadAttachFile(Long imageId) throws MalformedURLException {
         Image image = imageRepository.findById(imageId)
-                .orElseThrow(() -> new RuntimeException("Could not found image id "));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.FILE_NOT_FOUND));
 
         String storeFileName = image.getAttachFile().getStoreFileName();
         String uploadFileName = image.getAttachFile().getUploadFileName();
+
+        commonUtils.validateFileExistsAtUrl(storeFileName);
 
         UrlResource resource = new UrlResource(commonUtils.getFullPath(storeFileName));
 
@@ -76,5 +87,26 @@ public class AwsS3Service {
         String contentDisposition = "attachment; filename=\"" + encodedUploadFileName + "\"";
 
         return new DownloadDto(contentDisposition, resource);
+    }
+
+
+    public void validateFileExists(MultipartFile multipartFile) {
+
+        // 업로드된 파일이 없는 경우
+        if (multipartFile == null) {
+            throw new FileException(BaseExceptionCode.MISSING_FILE);
+        }
+
+        // 업로드된 파일이 비어 있는 경우
+        if (multipartFile.isEmpty()) {
+            throw new FileException(BaseExceptionCode.EMPTY_FILE);
+        }
+    }
+
+    public void validateFilesExists(List<MultipartFile> multipartFiles) {
+
+        for (MultipartFile multipartFile : multipartFiles) {
+            validateFileExists(multipartFile);
+        }
     }
 }

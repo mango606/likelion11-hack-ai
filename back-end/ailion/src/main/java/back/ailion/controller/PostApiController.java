@@ -7,6 +7,7 @@ import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateDto;
 import back.ailion.model.entity.Post;
 import back.ailion.service.PostService;
+import back.ailion.service.S3CommonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -15,24 +16,25 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/ailion/posts")
 @RequiredArgsConstructor
 public class PostApiController {
 
     private final PostService postService;
 
     @PostMapping
-    public PostDto savePost(@RequestBody PostRequestDto postRequestDto) {
+    public PostDto savePost(@Valid @RequestBody PostRequestDto postRequestDto) {
 
         return postService.savePost(postRequestDto);
     }
 
     @PatchMapping
-    public PostDto updatePost(@RequestBody PostUpdateDto postUpdateDto) {
+    public PostDto updatePost(@Valid @RequestBody PostUpdateDto postUpdateDto) {
 
         return postService.updatePost(postUpdateDto);
     }
@@ -43,6 +45,7 @@ public class PostApiController {
         return postService.deletePost(postId);
     }
 
+    // 상세 게시글
     @GetMapping("/{postId}/{userId}")
     public PostLikeDto getPost(@PathVariable("postId") Long postId, @PathVariable("userId") Long userId,
                                HttpServletRequest req, HttpServletResponse res) {
@@ -51,7 +54,8 @@ public class PostApiController {
         return postService.getPost(postId, userId);
     }
 
-    @GetMapping("/{category}/list")
+    // 카테고리 게시글
+    @GetMapping("/api/{category}/list")
     public Page<PostDto> getCategoryPosts(
             @PathVariable("category") String category,
             @RequestParam(value="page", defaultValue="0") int page) {
@@ -60,13 +64,15 @@ public class PostApiController {
         return paging.map(post -> new PostDto(post));
     }
 
-    @GetMapping("/best/list")
+    // 인기 게시글
+    @GetMapping("/api/best/list")
     public Result getBestPosts() {
 
         return postService.getBestPosts();
     }
 
-    @GetMapping("/list")
+    // 복수 게시글
+    @GetMapping("/api/list")
     public Page<PostDto> getPosts(@RequestParam(value="page", defaultValue="0") int page) {
 
         Page<Post> paging = postService.getPosts(page);
@@ -106,4 +112,9 @@ public class PostApiController {
 
     }
 
+    private final S3CommonUtils commonUtils;
+    @GetMapping("/test")
+    public void test() {
+        commonUtils.test();
+    }
 }

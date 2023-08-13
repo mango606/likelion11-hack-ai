@@ -63,7 +63,18 @@ public class User extends BaseEntity {
     }
 
 
-//    @Enumerated(EnumType.STRING)
+    //    @Enumerated(EnumType.STRING)
 //    private RoleType role;
-
+    @Builder
+    public User(String password, String username, String nickname, boolean activated,
+                String name, String phone, String email, Set<Authority> authorities) {
+        this.password = password;
+        this.username = username;
+        this.nickname = nickname;
+        this.activated = activated;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.authorities = authorities;
+    }
 }

@@ -4,11 +4,14 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AiInfo extends BaseEntity{
 
@@ -26,6 +29,10 @@ public class AiInfo extends BaseEntity{
     private String url;
 
     private String category;
+
+    @ColumnDefault("0")
+    @Column(name = "favorite_count",nullable = false)
+    private Integer favoriteCount;
 
     @Builder
     public AiInfo(String name, String eng_name, String content, String url, String category) {

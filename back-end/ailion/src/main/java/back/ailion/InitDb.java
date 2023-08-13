@@ -1,5 +1,6 @@
 //package back.ailion;
 //
+//import back.ailion.model.entity.Authority;
 //import back.ailion.model.entity.User;
 //import back.ailion.model.entity.Post;
 //import lombok.RequiredArgsConstructor;
@@ -8,6 +9,8 @@
 //
 //import javax.annotation.PostConstruct;
 //import javax.persistence.EntityManager;
+//import java.util.HashSet;
+//import java.util.Set;
 //
 //@Component
 //@RequiredArgsConstructor
@@ -28,13 +31,22 @@
 //        private final EntityManager em;
 //
 //        public void dbInit1() {
-//            User user1 = createMember("이메일1", "서울12", "닉넴", "이름", "010123");
+//
+//            // 권한 객체 생성
+//            Authority authority1 = new Authority("ROLE_USER");
+//            Authority authority2 = new Authority("ROLE_ADMIN");
+//
+//            // 권한 객체를 담을 Set 생성
+//            Set<Authority> authorities = new HashSet<>();
+//            authorities.add(authority1);
+//
+//            User user1 = createMember("비번1", "이메일1", "닉넴1", true, "이름1", "0101234", "카카오", "카카오1");
 //            em.persist(user1);
-//            User user2 = createMember("이메일2", "서울123", "닉넴2", "이름2", "0101234");
+//            User user2 = createMember("비번2", "이메일2", "닉넴2", true, "이름2", "0101235", "카카오", "카카오1");
 //            em.persist(user2);
-//            User user3 = createMember("이메일3", "서울1234", "닉넴3", "이름3", "010123124");
+//            User user3 = createMember("비번3", "이메일3", "닉넴3", true, "이름3", "0101236", "카카오", "카카오1");
 //            em.persist(user3);
-//            User user4 = createMember("이메일4", "서울12345", "닉넴4", "이름4", "0101212334");
+//            User user4 = createMember("비번4", "이메일4", "닉넴4", true, "이름4", "0101237", "카카오", "카카오1");
 //            em.persist(user4);
 //
 //            int count = 1;
@@ -42,14 +54,27 @@
 //                String writer = "write" + count;
 //                String title = "title" + count;
 //                String content = "content" + count;
-//                Post post = new Post(writer, title, content, user1, 0, 0, 0, false);
+//                String category = "category" + count;
+//                Post post = new Post(title, content, writer, user1, 0, 0, 0, false, category);
 //                em.persist(post);
 //                count += 1;
 //            }
 //        }
 //
-//        private User createMember(String email, String password, String nickname, String name, String phone) {
-//            User user = new User(email, password, nickname, name, phone, "Role_User", "", "");
+//        private User createMember(String password, String username, String nickname, boolean activated,
+//                                  String name, String phone, String provider, String providerId) {
+//            Set<Authority> authorities = new HashSet<>();
+//            User user = User.builder()
+//                    .password(password)
+//                    .username(username)
+//                    .nickname(nickname)
+//                    .activated(activated)
+//                    .name(name)
+//                    .phone(phone)
+//                    .provider(provider)
+//                    .providerId(providerId)
+//                    .authorities(authorities)
+//                    .build();
 //            return user;
 //        }
 //    }

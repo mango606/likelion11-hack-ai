@@ -1,5 +1,7 @@
 package back.ailion.service;
 
+import back.ailion.exception.BaseExceptionCode;
+import back.ailion.exception.custom.NotFoundException;
 import back.ailion.model.dto.*;
 import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateDto;
@@ -17,14 +19,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static lombok.Lombok.checkNotNull;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +40,7 @@ public class PostService {
     public PostDto savePost(PostRequestDto postRequestDto) {
 
         User user = userRepository.findById(postRequestDto.getUserId())
-                .orElseThrow(() -> new RuntimeException("Could not found user id : " + postRequestDto.getContent()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.USER_NOT_FOUND));
 
         Post post = Post.builder()
                 .user(user)
@@ -63,7 +61,7 @@ public class PostService {
     public PostDto updatePost(PostUpdateDto updateDto) {
 
         Post post = postRepository.findById(updateDto.getPostId())
-                .orElseThrow(() -> new RuntimeException("Could not found post id : " + updateDto.getPostId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.POST_NOT_FOUND));
 
         post.setTitle(updateDto.getTitle());
         post.setContent(updateDto.getContent());
@@ -76,7 +74,7 @@ public class PostService {
     public boolean deletePost(Long postId) {
 
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException("Could not found post id : " + postId));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.POST_NOT_FOUND));
 
         post.delete();
         return true;
@@ -91,7 +89,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public Post findById(Long postId) {
 //        checkNotNull(postId, "postId must be provided");
-        return postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Could not found board id : " + postId));
+        return postRepository.findById(postId).orElseThrow(() -> new NotFoundException(BaseExceptionCode.POST_NOT_FOUND));
     }
 
     public Page<Post> getCategoryPosts(String category, int page) {
