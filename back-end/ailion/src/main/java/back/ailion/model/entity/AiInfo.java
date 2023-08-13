@@ -20,24 +20,33 @@ public class AiInfo extends BaseEntity{
     @Column(name = "ai_info_id")
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
-    private String eng_name;
-
+    @Column(name = "content")
     private String content;
 
+    @Column(name = "url")
     private String url;
 
+    @Column(name = "category")
     private String category;
 
     @ColumnDefault("0")
     @Column(name = "favorite_count",nullable = false)
     private Integer favoriteCount;
+    private String click;
 
     @Builder
-    public AiInfo(String name, String eng_name, String content, String url, String category) {
+    public AiInfo(String name, String content, String url, String category) {
         this.name = name;
-        this.eng_name = eng_name;
+        this.content = content;
+        this.url = url;
+        this.category = category;
+    }
+
+    public void update(String name, String content, String url, String category) {
+        this.name = name;
         this.content = content;
         this.url = url;
         this.category = category;
