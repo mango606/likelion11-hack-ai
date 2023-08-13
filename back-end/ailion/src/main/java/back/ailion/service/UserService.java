@@ -4,8 +4,10 @@ package back.ailion.service;
 import back.ailion.config.auth.SecurityUtil;
 import back.ailion.exception.BaseException;
 import back.ailion.exception.BaseExceptionCode;
+import back.ailion.model.dto.PostDto;
 import back.ailion.model.dto.UserDto;
 import back.ailion.model.entity.Authority;
+import back.ailion.model.entity.Post;
 import back.ailion.model.entity.Recommend;
 import back.ailion.model.entity.User;
 import back.ailion.repository.UserRepository;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -80,5 +83,13 @@ public class UserService {
         else{
             return false;
         }
+    }
+
+    public List<PostDto> myPosts(Long userId) {
+        List<Post> posts = userRepository.findPostsById(userId);
+        List<PostDto> collect = posts.stream()
+                .map(post -> new PostDto(post))
+                .collect(Collectors.toList());
+        return collect;
     }
 }

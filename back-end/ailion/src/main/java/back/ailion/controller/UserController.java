@@ -1,6 +1,7 @@
 package back.ailion.controller;
 
 import back.ailion.config.jwt.GetIdFromToken;
+import back.ailion.model.dto.PostDto;
 import back.ailion.model.dto.UserDto;
 import back.ailion.model.entity.User;
 import back.ailion.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,5 +41,11 @@ public class UserController {
     @PostMapping("/signup/validId")
     public ResponseEntity<Boolean> isValidId(@RequestBody String id){
         return ResponseEntity.ok(userService.isValidId(id));
+    }
+
+    @GetMapping("/my/posts/{userId}")
+    public List<PostDto> myPosts(@PathVariable("userId") Long userId) {
+
+        return userService.myPosts(userId);
     }
 }
