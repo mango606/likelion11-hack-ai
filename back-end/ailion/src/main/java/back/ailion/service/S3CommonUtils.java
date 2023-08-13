@@ -28,9 +28,9 @@ public class S3CommonUtils {
 
     private final String endPoint = "https://kr.object.ncloudstorage.com";
     private final String regionName = "kr-standard";
-    private final String accessKey = "QEHyLagTdadMDvtKmj7s";
-    private final String secretKey = "VWQgtAGbqQoA59Tr71PiZSjX2DoOi7SrNEwcLpF3";
-    private final String bucketName = "sample-ai-project";
+    private final String accessKey = "accessKey";
+    private final String secretKey = "secretKey";
+    private final String bucketName = "bucketName";
 
 
     // S3 client
