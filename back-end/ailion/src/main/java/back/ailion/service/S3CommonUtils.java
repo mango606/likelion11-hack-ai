@@ -4,14 +4,13 @@ import back.ailion.exception.BaseExceptionCode;
 import back.ailion.exception.custom.FileException;
 import back.ailion.exception.custom.NotFoundException;
 import back.ailion.model.entity.FileUpload;
+import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -29,9 +28,9 @@ public class S3CommonUtils {
 
     private final String endPoint = "https://kr.object.ncloudstorage.com";
     private final String regionName = "kr-standard";
-    private final String accessKey = "accessKey";
-    private final String secretKey = "secretKey";
-    private final String bucketName = "bucketName";
+    private final String accessKey = "QEHyLagTdadMDvtKmj7s";
+    private final String secretKey = "VWQgtAGbqQoA59Tr71PiZSjX2DoOi7SrNEwcLpF3";
+    private final String bucketName = "sample-ai-project";
 
 
     // S3 client
@@ -129,6 +128,59 @@ public class S3CommonUtils {
 
         if (!s3.doesObjectExist(bucketName, resourcePath)) {
             throw new NotFoundException(BaseExceptionCode.FILE_NOT_FOUND);
+        }
+    }
+
+
+    public void test() {
+        // list all in the bucket
+        try {
+            ListObjectsRequest listObjectsRequest = new ListObjectsRequest()
+                    .withBucketName(bucketName)
+                    .withMaxKeys(300);
+
+            ObjectListing objectListing = s3.listObjects(listObjectsRequest);
+
+            System.out.println("Object List:");
+            while (true) {
+                for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+
+                    System.out.println("    name=" + objectSummary.getKey() + ", size=" + objectSummary.getSize() + ", owner=" + objectSummary.getOwner().getId());
+                }
+
+                if (objectListing.isTruncated()) {
+                    objectListing = s3.listNextBatchOfObjects(objectListing);
+                } else {
+                    break;
+                }
+            }
+        } catch (AmazonS3Exception e) {
+            System.err.println(e.getErrorMessage());
+            System.exit(1);
+        }
+
+        // top level folders and files in the bucket
+        try {
+            ListObjectsRequest listObjectsRequest = new ListObjectsRequest()
+                    .withBucketName(bucketName)
+                    .withDelimiter("/")
+                    .withMaxKeys(300);
+
+            ObjectListing objectListing = s3.listObjects(listObjectsRequest);
+
+            System.out.println("Folder List:");
+            for (String commonPrefixes : objectListing.getCommonPrefixes()) {
+                System.out.println("    name=" + commonPrefixes);
+            }
+
+            System.out.println("File List:");
+            for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+                System.out.println("    name=" + objectSummary.getKey() + ", size=" + objectSummary.getSize() + ", owner=" + objectSummary.getOwner().getId());
+            }
+        } catch (AmazonS3Exception e) {
+            e.printStackTrace();
+        } catch(SdkClientException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -7,6 +7,7 @@ import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateDto;
 import back.ailion.model.entity.Post;
 import back.ailion.service.PostService;
+import back.ailion.service.S3CommonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -111,4 +112,9 @@ public class PostApiController {
 
     }
 
+    private final S3CommonUtils commonUtils;
+    @GetMapping("/test")
+    public void test() {
+        commonUtils.test();
+    }
 }

@@ -65,12 +65,7 @@ public class SecurityConfig {
                 .requestMatchers(PathRequest.toH2Console()).permitAll()// h2-console, favicon.ico 요청 인증 무시
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/swagger-ui/index.html").permitAll()
-                .antMatchers("/posts/**").permitAll()
-                .antMatchers("/comments/**").permitAll()
-                .antMatchers("/reply/**").permitAll()
-                .antMatchers("/hearts/**").permitAll()
-                .antMatchers("/files/**").permitAll()
-                .antMatchers("/favorite/**").permitAll()
+                .antMatchers("/ailion/**").permitAll()
                 .anyRequest().authenticated() // 그 외 인증 없이 접근X
 
                 .and()
