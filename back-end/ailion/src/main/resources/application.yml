@@ -15,9 +15,9 @@ spring:
 #    driver-class-name: org.h2.Driver
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://db-ht7et.cdb.ntruss.com:3306/hackathon
-    username: ailion
-    password: ailion0818@
+    url: jdbc:mysql://localhost/hackathon
+    username: root
+    password: rootroot
   sql:
     init:
       mode:
