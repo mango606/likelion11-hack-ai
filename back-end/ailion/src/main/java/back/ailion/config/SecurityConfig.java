@@ -81,6 +81,7 @@ public class SecurityConfig {
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/swagger-ui/index.html").permitAll()
                 .antMatchers(PERMIT_URL_ARRAY).permitAll()
+                .antMatchers("/ailion/**").permitAll()
                 .anyRequest().authenticated(); // 그 외 인증 없이 접근X
 
 //                httpSecurity.oauth2Login()

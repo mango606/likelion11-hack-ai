@@ -6,20 +6,22 @@ import back.ailion.service.HeartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping("/hearts")
+@RequestMapping("/ailion/hearts")
 @RequiredArgsConstructor
 public class HeartApiController {
 
     private final HeartService heartService;
 
     @PostMapping
-    public HeartDto like(@RequestBody HeartRequestDto heartRequestDto) {
+    public HeartDto like(@Valid @RequestBody HeartRequestDto heartRequestDto) {
         return heartService.like(heartRequestDto);
     }
 
     @DeleteMapping
-    public boolean cancelLike(@RequestBody HeartRequestDto heartRequestDto) {
+    public boolean cancelLike(@Valid @RequestBody HeartRequestDto heartRequestDto) {
         return heartService.cancelLike(heartRequestDto);
     }
 

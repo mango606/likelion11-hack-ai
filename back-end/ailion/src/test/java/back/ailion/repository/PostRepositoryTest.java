@@ -26,12 +26,14 @@ class PostRepositoryTest {
     public void crudTest() {
 
         User user = User.builder()
-                .email("email")
+                .username("username")
                 .name("an")
                 .nickname("ph")
                 .password("123")
                 .phone("010123")
-                .role(RoleType.USER)
+                .activated(true)
+                .id(1L)
+                .providerId("")
                 .build();
 
         User savedUser = userRepository.save(user);

@@ -1,5 +1,7 @@
 package back.ailion.service;
 
+import back.ailion.exception.BaseExceptionCode;
+import back.ailion.exception.custom.NotFoundException;
 import back.ailion.model.dto.ReplyDto;
 import back.ailion.model.dto.request.ReplyDeleteDto;
 import back.ailion.model.dto.request.ReplyRequestDto;
@@ -33,13 +35,13 @@ public class ReplyService {
     public ReplyDto saveReply(ReplyRequestDto replyRequestDto) {
 
         User user = userRepository.findById(replyRequestDto.getUserId())
-                .orElseThrow(() -> new RuntimeException("Could not found user id : " + replyRequestDto.getUserId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.USER_NOT_FOUND));
 
         Comment comment = commentRepository.findById(replyRequestDto.getCommentId())
-                .orElseThrow(() -> new RuntimeException("Could not found comment id : " + replyRequestDto.getCommentId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.COMMENT_NOT_FOUND));
 
         Post post = postRepository.findById(replyRequestDto.getPostId())
-                .orElseThrow(() -> new RuntimeException("Could not found post id : " + replyRequestDto.getPostId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.POST_NOT_FOUND));
 
         Reply reply = Reply.builder()
                 .content(replyRequestDto.getContent())
@@ -57,7 +59,7 @@ public class ReplyService {
     public ReplyDto updateReply(ReplyUpdateDto replyUpdateDto) {
 
         Reply reply = replyRepository.findById(replyUpdateDto.getReplyId())
-                .orElseThrow(() -> new RuntimeException("Could not found reply id : " + replyUpdateDto.getReplyId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.REPLY_NOT_FOUND));
 
         reply.modifyContent(replyUpdateDto.getContent());
 
@@ -68,10 +70,10 @@ public class ReplyService {
     public boolean deleteReply(ReplyDeleteDto replyDeleteDto) {
 
         Reply reply = replyRepository.findById(replyDeleteDto.getReplyId())
-                .orElseThrow(() -> new RuntimeException("Could not found replyId : " + replyDeleteDto.getReplyId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.REPLY_NOT_FOUND));
 
         Post post = postRepository.findById(replyDeleteDto.getPostId())
-                .orElseThrow(() -> new RuntimeException("Could not found post id : " + replyDeleteDto.getPostId()));
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.POST_NOT_FOUND));
 
         post.setCommentCount(post.getCommentCount() - 1);
         replyRepository.delete(reply);

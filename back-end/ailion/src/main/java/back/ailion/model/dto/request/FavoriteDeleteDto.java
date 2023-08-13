@@ -9,11 +9,11 @@ import javax.validation.constraints.Positive;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReplyDeleteDto {
+public class FavoriteDeleteDto {
 
     @Positive
-    private Long replyId;
+    private Long favoriteId;
 
     @Positive
-    private Long postId;
+    private Long aiInfoId;
 }
