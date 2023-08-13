@@ -1,22 +1,24 @@
 package back.ailion.controller;
 
-import back.ailion.model.dto.PostDto;
-import back.ailion.model.dto.PostLikeDto;
-import back.ailion.model.dto.Result;
+import back.ailion.model.dto.*;
+import back.ailion.model.dto.request.FileUploadRequest;
 import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateDto;
 import back.ailion.model.entity.Post;
+import back.ailion.service.AwsS3Service;
 import back.ailion.service.PostService;
 import back.ailion.service.S3CommonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -26,11 +28,17 @@ import java.util.List;
 public class PostApiController {
 
     private final PostService postService;
+    private final AwsS3Service awsS3Service;
 
     @PostMapping
-    public PostDto savePost(@Valid @RequestBody PostRequestDto postRequestDto) {
+    public MediaPost savePostWithFile(@Valid @RequestPart PostRequestDto postRequestDto,
+                              @RequestPart(value = "attachFile") MultipartFile attachFile,
+                              @RequestPart(value = "imageFiles") List<MultipartFile> imageFiles) throws IOException {
 
-        return postService.savePost(postRequestDto);
+        PostDto postDto = postService.savePostWithFile(postRequestDto);
+        FileUploadResponse fileUploadResponse = awsS3Service.uploadFile(new FileUploadRequest(postDto.getPostId(), attachFile, imageFiles));
+        
+        return new MediaPost(postDto, fileUploadResponse);
     }
 
     @PatchMapping

@@ -37,7 +37,7 @@ public class PostService {
     }
 
     @Transactional
-    public PostDto savePost(PostRequestDto postRequestDto) {
+    public PostDto savePostWithFile(PostRequestDto postRequestDto) {
 
         User user = userRepository.findById(postRequestDto.getUserId())
                 .orElseThrow(() -> new NotFoundException(BaseExceptionCode.USER_NOT_FOUND));
