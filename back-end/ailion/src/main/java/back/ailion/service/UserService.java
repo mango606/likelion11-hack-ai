@@ -12,6 +12,7 @@ import back.ailion.model.entity.*;
 import back.ailion.repository.HeartRepository;
 import back.ailion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -89,16 +91,18 @@ public class UserService {
         }
     }
 
-    public List<PostDto> myPosts(Long userId) {
-        List<Post> posts = userRepository.findPostsById(userId);
+    public List<PostDto> myPosts(String username) {
+
+        List<Post> posts = userRepository.findPostsById(userRepository.findByUsername(username).get().getId());
         List<PostDto> collect = posts.stream()
                 .map(post -> new PostDto(post))
                 .collect(Collectors.toList());
         return collect;
     }
 
-    public List<PostDto> myLikePosts(Long userId) {
-        List<Heart> hearts = userRepository.findHeartsById(userId);
+    public List<PostDto> myLikePosts(String username) {
+
+        List<Heart> hearts = userRepository.findHeartsById(userRepository.findByUsername(username).get().getId());
         List<PostDto> collect = hearts.stream()
                 .map(heart -> new PostDto(heart.getPost()))
                 .collect(Collectors.toList());
@@ -106,8 +110,9 @@ public class UserService {
         return collect;
     }
 
-    public List<AiInfoResponseDto> myFavoriteAi(Long userId) {
-        List<Favorite> favorites = userRepository.findFavoritesById(userId);
+    public List<AiInfoResponseDto> myFavoriteAi(String username) {
+
+        List<Favorite> favorites = userRepository.findFavoritesById(userRepository.findByUsername(username).get().getId());
         List<AiInfoResponseDto> collect = favorites.stream()
                 .map(favorite -> new AiInfoResponseDto(favorite.getAiInfo()))
                 .collect(Collectors.toList());

@@ -15,6 +15,6 @@ public class HeartDto {
 
     public HeartDto(Heart heart) {
         this.userId = heart.getUser().getId();
-        this.postId = heart.getPost().getUser().getId();
+        this.postId = heart.getPost().getId();
     }
 }

@@ -44,22 +44,22 @@ public class UserController {
         return ResponseEntity.ok(userService.isValidId(id));
     }
 
-    @GetMapping("/my/posts/{userId}")
-    public List<PostDto> myPosts(@PathVariable("userId") Long userId) {
+    @GetMapping("/my/posts")
+    public List<PostDto> myPosts(@GetIdFromToken String username) {
 
-        return userService.myPosts(userId);
+        return userService.myPosts(username);
     }
 
-    @GetMapping("/my/like/posts/{userId}")
-    public List<PostDto> myLikePosts(@PathVariable("userId") Long userId) {
+    @GetMapping("/my/like/posts")
+    public List<PostDto> myLikePosts(@GetIdFromToken String username) {
 
-        return userService.myLikePosts(userId);
+        return userService.myLikePosts(username);
     }
 
-    @GetMapping("/my/favorite/ai/{userId}")
-    public List<AiInfoResponseDto> myFavoriteAi(@PathVariable("userId") Long userId) {
+    @GetMapping("/my/favorite/ai")
+    public List<AiInfoResponseDto> myFavoriteAi(@GetIdFromToken String username) {
 
-        return userService.myFavoriteAi(userId);
+        return userService.myFavoriteAi(username);
     }
 
     @GetMapping("/my/profile")
