@@ -58,6 +58,7 @@ public class UserService {
                 .nickname(userDto.getNickname())
                 .authorities(Collections.singleton(authority))
                 .activated(true)
+                .email(userDto.getEmail())
                 .name(userDto.getName())
                 .phone(userDto.getPhone())
                 //.recommends(recommendList)
