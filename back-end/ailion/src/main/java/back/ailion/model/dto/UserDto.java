@@ -1,5 +1,6 @@
 package back.ailion.model.dto;
 
+import back.ailion.model.entity.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -39,4 +40,13 @@ public class UserDto {
     private String phone;
 
     private Map<String, Integer> recommends;
+
+    public UserDto(User user) {
+        this.email = user.getEmail();
+        this.name = user.getName();
+        this.username = user.getUsername();
+        this.nickname = user.getNickname();
+        this.phone = user.getPhone();
+        this.password = user.getPassword();
+    }
 }

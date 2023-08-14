@@ -4,6 +4,7 @@ package back.ailion.service;
 import back.ailion.config.auth.SecurityUtil;
 import back.ailion.exception.BaseException;
 import back.ailion.exception.BaseExceptionCode;
+import back.ailion.exception.custom.NotFoundException;
 import back.ailion.model.dto.AiInfoResponseDto;
 import back.ailion.model.dto.PostDto;
 import back.ailion.model.dto.UserDto;
@@ -24,6 +25,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    public UserDto UserToUserDto(User user) {
+        return new UserDto(user);
+    }
 
     @Transactional
     public User signup(UserDto userDto) {
@@ -108,5 +112,13 @@ public class UserService {
                 .collect(Collectors.toList());
 
         return collect;
+    }
+
+    public UserDto getMyProfile(String username) {
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.USER_NOT_FOUND));
+
+        return UserToUserDto(user);
     }
 }

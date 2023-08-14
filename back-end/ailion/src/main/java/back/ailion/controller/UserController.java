@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping("/signup/validId")
-    public ResponseEntity<Boolean> isValidId(@RequestBody String id){
+    public ResponseEntity<Boolean> isValidId(@RequestBody String id) {
         return ResponseEntity.ok(userService.isValidId(id));
     }
 
@@ -60,5 +60,11 @@ public class UserController {
     public List<AiInfoResponseDto> myFavoriteAi(@PathVariable("userId") Long userId) {
 
         return userService.myFavoriteAi(userId);
+    }
+
+    @GetMapping("/my/profile")
+    public UserDto getMyProfile(@GetIdFromToken String username) {
+
+        return userService.getMyProfile(username);
     }
 }

@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    public User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
     Optional<User> findOneWithAuthoritiesByUsername(String username);
 
@@ -28,4 +28,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u.favorites FROM User u where u.id = ?1")
     List<Favorite> findFavoritesById(Long id);
+
 }
