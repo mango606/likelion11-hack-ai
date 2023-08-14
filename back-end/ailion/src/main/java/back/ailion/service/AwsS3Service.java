@@ -20,6 +20,7 @@ import org.springframework.web.util.UriUtils;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,27 +38,33 @@ public class AwsS3Service {
                 .orElseThrow(() -> new NotFoundException(BaseExceptionCode.POST_NOT_FOUND));
 
         // 파일이 들어있는지 확인하는 메서드
-        validateFileExists(fileUploadRequest.getAttachFile());
-        validateFilesExists(fileUploadRequest.getImageFiles());
+//        validateFileExists(fileUploadRequest.getAttachFile());
+//        validateFilesExists(fileUploadRequest.getImageFiles());
 
         // MultipartFile을 FileUpload로 변환
-        FileUpload attachFile = commonUtils.convertFile(fileUploadRequest.getAttachFile());
-        List<FileUpload> storeImageFiles = commonUtils.convertFiles(fileUploadRequest.getImageFiles());
+        FileUpload attachFile = null;
+        if (fileUploadRequest.getAttachFile() != null) {
+            attachFile = commonUtils.convertFile(fileUploadRequest.getAttachFile());
+        }
 
-        Image image = Image.builder()
-                .post(post)
-                .attachFile(attachFile)
-                .imageFiles(storeImageFiles)
-                .build();
+        List<FileUpload> storeImageFiles = new ArrayList<>();
+        List<String> fileUrls = new ArrayList<>();
+        if (fileUploadRequest.getImageFiles() != null) {
+            storeImageFiles = commonUtils.convertFiles(fileUploadRequest.getImageFiles());
+            fileUrls = commonUtils.storeFiles(fileUploadRequest.getImageFiles());
+        }
 
-        imageRepository.save(image);
+        if (attachFile != null || storeImageFiles != null) {
+            Image image = Image.builder()
+                    .post(post)
+                    .attachFile(attachFile)
+                    .imageFiles(storeImageFiles)
+                    .build();
 
-        List<String> fileUrls = commonUtils.storeFiles(fileUploadRequest.getImageFiles());
+            imageRepository.save(image);
+        }
 
-        MultipartFile multipartFile = fileUploadRequest.getAttachFile();
-        String storeFileName = attachFile.getStoreFileName();
-
-        return new FileUploadResponse(commonUtils.storeFile(multipartFile, storeFileName), fileUrls);
+        return new FileUploadResponse(attachFile != null ? commonUtils.storeFile(fileUploadRequest.getAttachFile(), attachFile.getStoreFileName()) : null, fileUrls);
     }
 
     public DownloadDto downloadImageFile(String filename) throws MalformedURLException {

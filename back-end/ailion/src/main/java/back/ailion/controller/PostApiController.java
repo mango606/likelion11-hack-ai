@@ -1,5 +1,7 @@
 package back.ailion.controller;
 
+import back.ailion.exception.BaseExceptionCode;
+import back.ailion.exception.custom.FileException;
 import back.ailion.model.dto.*;
 import back.ailion.model.dto.request.FileUploadRequest;
 import back.ailion.model.dto.request.PostRequestDto;
@@ -32,12 +34,16 @@ public class PostApiController {
 
     @PostMapping
     public MediaPost savePostWithFile(@Valid @RequestPart PostRequestDto postRequestDto,
-                              @RequestPart(value = "attachFile") MultipartFile attachFile,
-                              @RequestPart(value = "imageFiles") List<MultipartFile> imageFiles) throws IOException {
+                              @RequestPart(value = "attachFile", required = false) MultipartFile attachFile,
+                              @RequestPart(value = "imageFiles", required = false) List<MultipartFile> imageFiles) throws IOException {
 
         PostDto postDto = postService.savePostWithFile(postRequestDto);
-        FileUploadResponse fileUploadResponse = awsS3Service.uploadFile(new FileUploadRequest(postDto.getPostId(), attachFile, imageFiles));
-        
+        FileUploadResponse fileUploadResponse = new FileUploadResponse();
+
+        if (attachFile != null || imageFiles != null) {
+            fileUploadResponse = awsS3Service.uploadFile(new FileUploadRequest(postDto.getPostId(), attachFile, imageFiles));
+        }
+
         return new MediaPost(postDto, fileUploadResponse);
     }
 
