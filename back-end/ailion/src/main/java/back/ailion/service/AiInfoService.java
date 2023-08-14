@@ -2,8 +2,8 @@ package back.ailion.service;
 
 import back.ailion.model.entity.AiInfo;
 import back.ailion.repository.AiInfoRepository;
-import back.ailion.web.dto.AddAiInfoRequest;
-import back.ailion.web.dto.UpdateAiInfoRequestDto;
+import back.ailion.model.dto.request.AddAiInfoRequest;
+import back.ailion.model.dto.request.UpdateAiInfoRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

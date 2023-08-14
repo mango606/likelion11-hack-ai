@@ -4,10 +4,11 @@ package back.ailion.service;
 import back.ailion.config.auth.SecurityUtil;
 import back.ailion.exception.BaseException;
 import back.ailion.exception.BaseExceptionCode;
+import back.ailion.model.dto.AiInfoResponseDto;
+import back.ailion.model.dto.PostDto;
 import back.ailion.model.dto.UserDto;
-import back.ailion.model.entity.Authority;
-import back.ailion.model.entity.Recommend;
-import back.ailion.model.entity.User;
+import back.ailion.model.entity.*;
+import back.ailion.repository.HeartRepository;
 import back.ailion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +56,7 @@ public class UserService {
                 .activated(true)
                 .name(userDto.getName())
                 .phone(userDto.getPhone())
-                .recommends(recommendList)
+                //.recommends(recommendList)
                 .build();
 
         return userRepository.save(user);
@@ -80,5 +82,31 @@ public class UserService {
         else{
             return false;
         }
+    }
+
+    public List<PostDto> myPosts(Long userId) {
+        List<Post> posts = userRepository.findPostsById(userId);
+        List<PostDto> collect = posts.stream()
+                .map(post -> new PostDto(post))
+                .collect(Collectors.toList());
+        return collect;
+    }
+
+    public List<PostDto> myLikePosts(Long userId) {
+        List<Heart> hearts = userRepository.findHeartsById(userId);
+        List<PostDto> collect = hearts.stream()
+                .map(heart -> new PostDto(heart.getPost()))
+                .collect(Collectors.toList());
+
+        return collect;
+    }
+
+    public List<AiInfoResponseDto> myFavoriteAi(Long userId) {
+        List<Favorite> favorites = userRepository.findFavoritesById(userId);
+        List<AiInfoResponseDto> collect = favorites.stream()
+                .map(favorite -> new AiInfoResponseDto(favorite.getAiInfo()))
+                .collect(Collectors.toList());
+
+        return collect;
     }
 }

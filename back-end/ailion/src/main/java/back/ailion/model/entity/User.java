@@ -1,6 +1,7 @@
 package back.ailion.model.entity;
 
 import back.ailion.config.auth.oauth.provider.AuthProvider;
+//import back.ailion.model.global.ReportListConverter;
 import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;

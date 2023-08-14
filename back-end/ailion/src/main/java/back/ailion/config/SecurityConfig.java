@@ -77,7 +77,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정하겠다.
                 .antMatchers("/oauth2/**").permitAll()
                 .antMatchers("/ailion/api/**").permitAll() // 로그인 api
-//                .requestMatchers(PathRequest.toH2Console()).permitAll()// h2-console, favicon.ico 요청 인증 무시
+                .antMatchers("/ailion/**").permitAll()
+                .requestMatchers(PathRequest.toH2Console()).permitAll()// h2-console, favicon.ico 요청 인증 무시
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/swagger-ui/index.html").permitAll()
                 .antMatchers(PERMIT_URL_ARRAY).permitAll()

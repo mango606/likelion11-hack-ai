@@ -37,7 +37,7 @@ public class PostService {
     }
 
     @Transactional
-    public PostDto savePost(PostRequestDto postRequestDto) {
+    public PostDto savePostWithFile(PostRequestDto postRequestDto) {
 
         User user = userRepository.findById(postRequestDto.getUserId())
                 .orElseThrow(() -> new NotFoundException(BaseExceptionCode.USER_NOT_FOUND));
@@ -103,7 +103,7 @@ public class PostService {
 
     public Result getBestPosts() {
 
-        Pageable pageable = PageRequest.of(0, 10);
+        Pageable pageable = PageRequest.of(0, 5);
 
         List<Post> posts = postRepository.findBestPostsByLike(pageable);
         List<PostDto> collect = posts.stream()
