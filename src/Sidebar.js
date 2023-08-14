@@ -1,7 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+
+  const navigate = useNavigate();
+
+  const handleMypageClick = () => {
+
+    axios.get('ailion/user/', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    })
+    .then((res) => {
+      const queryParams = new URLSearchParams({
+        id: res.data.id,
+        username: res.data.username,
+        password: res.data.password,
+        email: res.data.email,
+        interest: res.data.interest,
+        nickname: res.data.nickname,
+        birth: res.data.birth,
+      });
+      console.log(res.data);
+      navigate(`/Mypage?${queryParams}`);
+    })
+    .catch((err) => {
+      console.log(err);
+      navigate('/login');
+    });
+
+
+  }
+
   return (
     <>
       <sidebar>
@@ -53,9 +86,14 @@ const Sidebar = () => {
         <Link to="/write">
           <button id="side-bt">+ 글 작성</button>
         </Link>
-        <Link to="/login">
+        {localStorage.getItem('jwt') ? (
+          <button id="side-bt2" onClick={handleMypageClick}>마이페이지</button>
+        ):(
+          <Link to="/login">
           <button id="side-bt2">로그인</button>
         </Link>
+        ) }
+        
       </sidebar>
     </>
   );

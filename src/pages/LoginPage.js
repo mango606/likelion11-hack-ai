@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import React, { useState } from "react";
 import "./LoginPage.css";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -11,10 +12,12 @@ const LoginPage = () => {
   // const [loginSuccess, setLoginSuccess] = useState(false);
   const [loginError, setLoginError] = useState("");
 
+  const navigate = useNavigate();
+
   // 로그인 버튼 클릭시
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    
 
     if (username === "") {
       setLoginError("아이디를 입력해주세요.");
@@ -27,10 +30,11 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await axios.post('/login', { username, password });
+      const response = await axios.post('/ailion/api/authenticate', { username, password });
       const token = response.data.token;
       console.log(response.data);
       localStorage.setItem('jwt', token);
+      navigate('/');
     } catch (error) {
       console.error('로그인 실패', error);
     }

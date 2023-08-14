@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Sidebar from '../Sidebar';
 
+
 import './Mypage.css';
 
 // 팝업창 부분
@@ -66,11 +67,11 @@ const MyPage = () => {
   const [BirthDatePopupOpen, setBirthDatePopupOpen] = useState(false);
   const [InterestsPopupOpen, setInterestsPopupOpen] = useState(false);
 
-  const [nickname, setNickname] = useState('이름이름');
-  const [email, setEmail] = useState('qwertasdf134@gmail.com');
-  const [password, setPassword] = useState('password');
-  const [birthDate, setBirthDate] = useState('20011111');
-  const [interests, setInterests] = useState('영상');
+  const [nickname, setNickname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [interests, setInterests] = useState('');
 
   const [newNickname, setNewNickname] = useState('');
   const [newEmail, setNewEmail] = useState('');
@@ -80,6 +81,7 @@ const MyPage = () => {
 
   const interestOptions = ['영상', '음악', '글쓰기', '검색엔진', '없음'];
 
+  
 
   const handleInputChange = (event, setter) => {
     setter(event.target.value);

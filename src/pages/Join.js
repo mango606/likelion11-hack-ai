@@ -3,7 +3,8 @@ import React from 'react';
 import './Join.css';
 import useForm from '../components/useForm';
 import { useState } from 'react';
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const Join = () => {
   const {
     Id,
@@ -30,19 +31,26 @@ const Join = () => {
     handleIdDuplication
     } = useForm();
 
+    const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const user = {
-      Id,
-      email,
-      password,
-      Nickname,
-      Birth,
-      interest
+      "username" : Id,
+      "email" : email,
+      "password" : password,
+      "nickname" : Nickname,
+      "name" : "test",
     };
-    console.log(user);
-  }
+    try {
+      await axios.post('/ailion/api/signup/', user);
+      navigate('/login');
+    } catch (error) {
+      console.error(error);
+    }
+    //      Birth,
+    //interest
+}
 
   const [idFocused, setIdFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
@@ -61,7 +69,7 @@ const Join = () => {
 
   return (
   <div className="joinForm">
-    <form className="jForm" onSubmit={handleSubmit}>
+    <div className="jForm">
       <h2>AILION</h2>
 
     <div className="form_list">
@@ -70,7 +78,7 @@ const Join = () => {
         <input className="joinInput" type="text"
         onFocus={() => setIdFocused(true)}
         onBlur={() => setIdFocused(false)}
-        placeholder='아이디' value={Id} onChange={handleIdChange} />
+        placeholder='아이디' value={Id} onChange={handleIdChange} disabled={isDuplicated === true} />
         <button className="dupButton" onClick={handleIdDuplication}>중복 체크</button>
       </div>
 
@@ -100,9 +108,7 @@ const Join = () => {
     </div>
 
     <div className="errorList">
-      {isDuplicated !== null && (
-        <p className='errorMessage'>{isDuplicated ? '아이디가 중복됩니다.' : '사용 가능한 아이디입니다.'}</p>
-      )}
+      {isDuplicated && <p className={isDuplicated === true ? 'trueMessage' : 'errorMessage'}>{isDuplicated === true ? "중복확인 되었습니다.": "아이디가 중복됩니다."}</p>}
       {IdError && <p className='errorMessage'> 아이디는 5~15자리의 영문 대소문자와 숫자로만 입력해주세요.</p>}
       {emailError && <p className='errorMessage'>이메일 형식이 잘못되었습니다.</p>}
       {passwordError && <p className='errorMessage'>비밀번호는 8자리 이상이며 숫자, 대소문자 알파벳을 포함해야 합니다.</p>}
@@ -147,14 +153,15 @@ const Join = () => {
         <button
         className="w-btn w-btn-indigo"
         type="submit"
+        onClick={handleSubmit}
         disabled={
           passwordError || emailError || IdError || passwordCheckError ||
           !Id || NicknameError || BirthError || !Nickname || !Birth || !password ||
-          !passwordCheck || !email }>
+          !passwordCheck || !email  || !isDuplicated }>
         회원가입
         </button>
     </div>
-    </form>
+    </div>
   </div>
   );
 };

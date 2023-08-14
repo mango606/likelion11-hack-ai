@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 export default function useForm() {
-  const [isDuplicated, setIsDuplicated] = useState(null);
+  const [isDuplicated, setIsDuplicated] = useState(false);
   const [Id, setId] = useState('');
   const [IdError, setIdError] = useState(false);
   const [email, setEmail] = useState('');
@@ -19,21 +19,19 @@ export default function useForm() {
 
 
   const handleIdDuplication = async (event) => {
-  // try {
-  //   const response = await fetch(`https://your-api-endpoint/check-username?username=${id}`);
+    event.preventDefault();
+    if (IdError) {
+      return;
+    }
+  
 
-  //   if (!response.ok) {
-  //     throw new Error("Network response was not ok");
-  //   }
+  if (Id === 'testt') {
+    setIsDuplicated('duplicate');
+    console.log(isDuplicated);
+  } else {
 
-  //   const data = await response.json();
-
-  //   setIsDuplicated(data.isDuplicated);
-
-  // } catch (error) {
-  //     console.error("Error during duplication check:", error);
-  // }
-  setIsDuplicated(null); // 임시
+    setIsDuplicated(true); // 임시
+  }
 }
 
   const handleInterestChange = (event) => {
@@ -59,7 +57,7 @@ export default function useForm() {
 
   const handleIdChange = (event) => {
     const newName = event.target.value;
-
+    setIsDuplicated(false);
     if (!validateId(newName)) {
       setIdError(true);
     } else {

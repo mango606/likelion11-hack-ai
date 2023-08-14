@@ -16,6 +16,12 @@
 	margin-bottom: 5%;
 }
 
+.joinForm .trueMessage {
+	color : blue;
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+
 .form_list {
 	margin-top : 5%;
 	margin-bottom: 5%;
@@ -47,12 +53,20 @@
 	box-sizing: border-box;
 	height: 80px;
 	margin : 0;
+	outline: none;
+}
+
+.idForm .joinInput:disabled{
+	color : gray;
+	background-color: transparent;
+
 }
 
 .idForm .dupButton {
 	width: 100px;
 	margin-right: 10px;
 	border-radius: 20px;
+	border: 1px solid #e5e5e5;
 }
 
 
@@ -77,6 +91,7 @@
 	box-sizing: border-box;
 	height: 80px;
 	margin : 0;
+	outline: none;
 }
 
 .passwordImg {
@@ -106,6 +121,7 @@
 	box-sizing: border-box;
 	height: 80px;
 	margin : 0;
+	outline: none;
 }
 
 .passwordCheckImg {
@@ -128,6 +144,7 @@
 	box-sizing: border-box;
 	height: 80px;
 	margin : 0;
+	outline: none;
 }
 
 .birthImg {
@@ -147,6 +164,7 @@
 	box-sizing: border-box;
 	height: 80px;
 	margin : 0;
+	outline: none;
 }
 
 .birthForm.focused {
@@ -174,6 +192,7 @@
 	box-sizing: border-box;
 	height: 80px;
 	margin : 0;
+	outline: none;
 }
 
 .interestForm {
