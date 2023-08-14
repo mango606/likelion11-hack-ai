@@ -7,10 +7,7 @@ import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity @Getter @Setter @Builder @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -45,6 +42,8 @@ public class User extends BaseEntity {
     private String phone;
 
     private AuthProvider authProvider;
+
+    private Date date;
 
     @ElementCollection(targetClass = Recommend.class)
     @CollectionTable(name = "user_recommendes", joinColumns = @JoinColumn(name = "user_id"))

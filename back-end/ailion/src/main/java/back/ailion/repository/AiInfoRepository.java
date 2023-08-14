@@ -26,4 +26,8 @@ public interface AiInfoRepository extends JpaRepository<AiInfo, Long> {
     // Page<AiInfo> findByCategory(String category, Pageable pageable);
 
     AiInfo findAiInfoById(Long id);
+
+    @Query(value = "SELECT ai.ai_info_id FROM AiInfo ai WHERE ai.category = :category order by ai.name desc, rand() limit 3", nativeQuery = true)
+    List<Long> findRecommendList(String category);
+
 }

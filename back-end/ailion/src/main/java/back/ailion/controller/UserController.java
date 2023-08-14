@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -39,7 +40,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserWithAuthorities(username).get());
     }
 
-    @PostMapping("/signup/validId")
+    @PostMapping("/api/signup/validId")
     public ResponseEntity<Boolean> isValidId(@RequestBody String id){
         return ResponseEntity.ok(userService.isValidId(id));
     }
@@ -61,4 +62,26 @@ public class UserController {
 
         return userService.myFavoriteAi(userId);
     }
+
+    @PostMapping("/my/nickname")
+    public UserDto setNickname(@GetIdFromToken String username, @RequestBody String nickname){
+        return userService.setNickname(nickname, username);
+    }
+
+    @PostMapping("/my/email")
+    public UserDto setEmail(@GetIdFromToken String username, @RequestBody String email){
+        return userService.setEmail(email, username);
+    }
+
+    @PostMapping("/my/date")
+    public UserDto setDate(@GetIdFromToken String username, @RequestBody Date date){
+        return userService.setDate(date, username);
+    }
+
+    @PostMapping("/my/password")
+    public UserDto setPassword(@GetIdFromToken String username, @RequestBody String password){
+        return userService.setPassword(password, username);
+    }
+
+
 }

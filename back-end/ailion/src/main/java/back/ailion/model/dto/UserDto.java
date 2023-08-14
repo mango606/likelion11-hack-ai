@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.Map;
 
 @Getter
@@ -31,6 +32,7 @@ public class UserDto {
     @Size(min = 3, max = 50)
     private String nickname;
 
+    private Date date;
 
     @NotNull
     @Size(min = 3, max = 50)

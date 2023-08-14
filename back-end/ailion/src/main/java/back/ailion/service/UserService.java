@@ -24,7 +24,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-
     @Transactional
     public User signup(UserDto userDto) {
         if (userRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {
@@ -108,5 +107,54 @@ public class UserService {
                 .collect(Collectors.toList());
 
         return collect;
+    }
+
+    public UserDto setNickname(String nickname, String username){
+        User user = userRepository.setNickname(nickname, username);
+
+        return UserDto.builder()
+                .nickname(user.getNickname())
+                .phone(user.getPhone())
+                .email(user.getEmail())
+                .name(user.getName())
+                .date(user.getDate())
+                .build();
+    }
+
+    public UserDto setEmail(String email, String username){
+        User user = userRepository.setEmail(email, username);
+
+        return UserDto.builder()
+                .nickname(user.getNickname())
+                .phone(user.getPhone())
+                .email(user.getEmail())
+                .name(user.getName())
+                .date(user.getDate())
+                .build();
+    }
+
+    public UserDto setDate(Date date, String username){
+        User user = userRepository.setDate(date, username);
+
+        return UserDto.builder()
+                .nickname(user.getNickname())
+                .phone(user.getPhone())
+                .email(user.getEmail())
+                .name(user.getName())
+                .date(user.getDate())
+                .build();
+    }
+
+    public UserDto setPassword(String password, String username){
+        String encodePassword = "{bcrypt}"+ passwordEncoder.encode(password);
+        User user = userRepository.setPassword(encodePassword, username);
+
+        return UserDto.builder()
+                .nickname(user.getNickname())
+                .phone(user.getPhone())
+                .email(user.getEmail())
+                .name(user.getName())
+                .date(user.getDate())
+                .build();
     }
 }
