@@ -1,10 +1,7 @@
 package back.ailion.controller;
 
 import back.ailion.config.jwt.GetIdFromToken;
-import back.ailion.model.dto.AiInfoResponseDto;
-import back.ailion.model.dto.FileUploadResponse;
-import back.ailion.model.dto.PostDto;
-import back.ailion.model.dto.UserDto;
+import back.ailion.model.dto.*;
 import back.ailion.model.entity.User;
 import back.ailion.service.AwsS3Service;
 import back.ailion.service.UserService;
@@ -69,7 +66,7 @@ public class UserController {
     }
 
     @GetMapping("/my/profile")
-    public UserDto getMyProfile(@GetIdFromToken String username) {
+    public ProfileDto getMyProfile(@GetIdFromToken String username) {
 
         return userService.getMyProfile(username);
     }

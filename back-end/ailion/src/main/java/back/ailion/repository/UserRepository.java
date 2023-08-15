@@ -45,4 +45,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("UPDATE User u SET u.password = :password WHERE u.username = :username")
     User setPassword(@Param("password") String password, @Param("username") String username);
 
+    @Query(value = "select count(h.post_id) as userLike from Post p inner join Heart h on p.post_id = h.post_id where p.user_id = :userId and p.post_id = h.post_id", nativeQuery=true)
+    int findHeartCountById(@Param("userId") Long userId);
 }

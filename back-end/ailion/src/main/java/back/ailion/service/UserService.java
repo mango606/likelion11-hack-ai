@@ -7,6 +7,7 @@ import back.ailion.exception.BaseExceptionCode;
 import back.ailion.exception.custom.NotFoundException;
 import back.ailion.model.dto.AiInfoResponseDto;
 import back.ailion.model.dto.PostDto;
+import back.ailion.model.dto.ProfileDto;
 import back.ailion.model.dto.UserDto;
 import back.ailion.model.entity.*;
 import back.ailion.repository.UserRepository;
@@ -167,11 +168,12 @@ public class UserService {
                 .date(user.getDate())
                 .build();
     }
-    public UserDto getMyProfile(String username) {
+
+    public ProfileDto getMyProfile(String username) {
 
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new NotFoundException(BaseExceptionCode.USER_NOT_FOUND));
 
-        return UserToUserDto(user);
+        return new ProfileDto(userRepository.findHeartCountById(user.getId()), UserToUserDto(user));
     }
 }
