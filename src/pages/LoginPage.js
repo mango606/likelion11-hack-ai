@@ -53,7 +53,7 @@ const LoginPage = () => {
       <NavLink to="/">
         <div className="title"> AILION </div>
       </NavLink>
-      <form onSubmit={handleLogin}>
+      <div>
         <label>
           <input
             type="text"
@@ -96,7 +96,7 @@ const LoginPage = () => {
         </label>
         {loginError && <div className="error_message">{loginError}</div>}
         {loginError === "" && <div className="error_message"> </div>}
-        <button className="btn_login" type="submit">
+        <button className="btn_login" onClick={handleLogin}>
           로그인
         </button>
         <div className="txt_line"> 또는 </div>
@@ -108,7 +108,7 @@ const LoginPage = () => {
         <NavLink to="/Join">
           <div className="link_join">회원가입</div>
         </NavLink>
-      </form>
+      </div>
     </div>
   );
 };
