@@ -28,9 +28,9 @@ public class S3CommonUtils {
 
     private final String endPoint = "https://kr.object.ncloudstorage.com";
     private final String regionName = "kr-standard";
-    private final String accessKey = "accessKey";
-    private final String secretKey = "secretKey";
-    private final String bucketName = "bucketName";
+    private final String accessKey = "QEHyLagTdadMDvtKmj7s";
+    private final String secretKey = "VWQgtAGbqQoA59Tr71PiZSjX2DoOi7SrNEwcLpF3";
+    private final String bucketName = "sample-ai-project";
 
 
     // S3 client
@@ -103,7 +103,7 @@ public class S3CommonUtils {
         // 파일 업로드 갯수를 정합니다(10개 이하로 정의)
         for (MultipartFile multipartFile : multipartFiles) {
             if (fileUrls.size() > 10) {
-                throw new RuntimeException();
+                throw new FileException(BaseExceptionCode.FILE_UPLOAD_EXCEEDED);
             }
 
             FileUpload fileUpload = convertFile(multipartFile);
