@@ -4,13 +4,14 @@ package back.ailion.service;
 import back.ailion.config.auth.SecurityUtil;
 import back.ailion.exception.BaseException;
 import back.ailion.exception.BaseExceptionCode;
+import back.ailion.exception.custom.NotFoundException;
 import back.ailion.model.dto.AiInfoResponseDto;
 import back.ailion.model.dto.PostDto;
 import back.ailion.model.dto.UserDto;
 import back.ailion.model.entity.*;
-import back.ailion.repository.HeartRepository;
 import back.ailion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +19,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    public UserDto UserToUserDto(User user) {
+        return new UserDto(user);
+    }
 
     @Transactional
     public User signup(UserDto userDto) {
@@ -53,6 +59,7 @@ public class UserService {
                 .nickname(userDto.getNickname())
                 .authorities(Collections.singleton(authority))
                 .activated(true)
+                .email(userDto.getEmail())
                 .name(userDto.getName())
                 .phone(userDto.getPhone())
                 .recommends(recommendList)
@@ -83,16 +90,18 @@ public class UserService {
         }
     }
 
-    public List<PostDto> myPosts(Long userId) {
-        List<Post> posts = userRepository.findPostsById(userId);
+    public List<PostDto> myPosts(String username) {
+
+        List<Post> posts = userRepository.findPostsById(userRepository.findByUsername(username).get().getId());
         List<PostDto> collect = posts.stream()
                 .map(post -> new PostDto(post))
                 .collect(Collectors.toList());
         return collect;
     }
 
-    public List<PostDto> myLikePosts(Long userId) {
-        List<Heart> hearts = userRepository.findHeartsById(userId);
+    public List<PostDto> myLikePosts(String username) {
+
+        List<Heart> hearts = userRepository.findHeartsById(userRepository.findByUsername(username).get().getId());
         List<PostDto> collect = hearts.stream()
                 .map(heart -> new PostDto(heart.getPost()))
                 .collect(Collectors.toList());
@@ -100,8 +109,9 @@ public class UserService {
         return collect;
     }
 
-    public List<AiInfoResponseDto> myFavoriteAi(Long userId) {
-        List<Favorite> favorites = userRepository.findFavoritesById(userId);
+    public List<AiInfoResponseDto> myFavoriteAi(String username) {
+
+        List<Favorite> favorites = userRepository.findFavoritesById(userRepository.findByUsername(username).get().getId());
         List<AiInfoResponseDto> collect = favorites.stream()
                 .map(favorite -> new AiInfoResponseDto(favorite.getAiInfo()))
                 .collect(Collectors.toList());
@@ -145,8 +155,8 @@ public class UserService {
                 .build();
     }
 
-    public UserDto setPassword(String password, String username){
-        String encodePassword = "{bcrypt}"+ passwordEncoder.encode(password);
+    public UserDto setPassword(String password, String username) {
+        String encodePassword = "{bcrypt}" + passwordEncoder.encode(password);
         User user = userRepository.setPassword(encodePassword, username);
 
         return UserDto.builder()
@@ -156,5 +166,12 @@ public class UserService {
                 .name(user.getName())
                 .date(user.getDate())
                 .build();
+    }
+    public UserDto getMyProfile(String username) {
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException(BaseExceptionCode.USER_NOT_FOUND));
+
+        return UserToUserDto(user);
     }
 }

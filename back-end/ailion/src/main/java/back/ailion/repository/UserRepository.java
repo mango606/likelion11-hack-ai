@@ -14,20 +14,20 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    public User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
     Optional<User> findOneWithAuthoritiesByUsername(String username);
 
     Optional<User> findByEmail(String email);
 
-    @Query("SELECT u.posts FROM User u where u.id = ?1")
-    List<Post> findPostsById(Long id);
+    @Query("SELECT u.posts FROM User u where u.id = :userId")
+    List<Post> findPostsById(@Param("userId") Long userId);
 
-    @Query("SELECT u.hearts FROM User u where u.id = ?1")
-    List<Heart> findHeartsById(Long id);
+    @Query("SELECT u.hearts FROM User u where u.id = :userId")
+    List<Heart> findHeartsById(@Param("userId") Long userId);
 
-    @Query("SELECT u.favorites FROM User u where u.id = ?1")
-    List<Favorite> findFavoritesById(Long id);
+    @Query("SELECT u.favorites FROM User u where u.id = :userId")
+    List<Favorite> findFavoritesById(@Param("userId") Long userId);
 
     @Modifying
     @Query("UPDATE User u SET u.nickname = :nickname WHERE u.username = :username")
