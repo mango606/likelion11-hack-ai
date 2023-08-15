@@ -1,10 +1,7 @@
 package back.ailion.config;
 
 import back.ailion.config.jwt.GetIdFromTokenArgumentResolver;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.view.MustacheViewResolver;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.*;
@@ -45,11 +42,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/static/js/js/**")
                 .addResourceLocations("classpath:/static/js/");
 
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+//        registry.addResourceHandler("swagger-ui.html")
+//                .addResourceLocations("classpath:/META-INF/resources/");
+//
+//        registry.addResourceHandler("/webjars/**")
+//                .addResourceLocations("classpath:/META-INF/resources/webjars/");
 //        registry.addResourceHandler("/img/**")
 //                .addResourceLocations("classpath:/static/img/");
 //
