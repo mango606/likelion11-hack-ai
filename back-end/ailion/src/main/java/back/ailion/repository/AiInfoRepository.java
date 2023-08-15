@@ -18,6 +18,8 @@ public interface AiInfoRepository extends JpaRepository<AiInfo, Long> {
     @Query("UPDATE AiInfo a SET a.favoriteCount = a.favoriteCount - 1 WHERE a = :selectedAiInfo")
     void subFavoriteCount(@Param("selectedAiInfo") AiInfo aiInfo);
 
+    @Query(value = "SELECT ai.ai_info_id FROM AiInfo ai order by ai.favorite_count desc limit 5", nativeQuery = true)
+    List<Long> top5AI();
 
     AiInfo findByName(String name);
 

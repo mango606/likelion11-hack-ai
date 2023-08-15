@@ -42,7 +42,7 @@ public class UserService {
 
         for(String recommend : recommends.keySet()){
             if(recommends.get(recommend) > 3){
-                recommendList.add(Recommend.valueOf(recommend));
+                recommendList.add(Recommend.valueOf(recommend.toUpperCase()));
             }
         }
 
@@ -55,7 +55,7 @@ public class UserService {
                 .activated(true)
                 .name(userDto.getName())
                 .phone(userDto.getPhone())
-                //.recommends(recommendList)
+                .recommends(recommendList)
                 .build();
 
         return userRepository.save(user);

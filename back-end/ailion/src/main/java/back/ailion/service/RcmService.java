@@ -26,17 +26,12 @@ public class RcmService {
     private final UserRepository userRepository;
 
     public List<AiInfo> top5AI() {
-        List<StarDto> stars = favoriteRepository.top5AI()
-                .stream()
-                .map(star -> new StarDto(star.getId(), star.stars()))
-                .toList();
-
-
+        List<Long> aiInfoIds = aiInfoRepository.top5AI();
 
         List<AiInfo> aiInfos = new ArrayList<>();
 
-        for(StarDto star : stars){
-            aiInfos.add(aiInfoRepository.findAiInfoById(star.getId()));
+        for(Long id : aiInfoIds){
+            aiInfos.add(aiInfoRepository.findAiInfoById(id));
         }
 
         return aiInfos;

@@ -12,6 +12,6 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
 
     Optional<Favorite> findByUserAndAiInfo(User user, AiInfo aiInfo);
 
-    @Query(value = "SELECT f.ai_info_id as id, count(f.ai_info_id) as stars from Favorite f group by f.ai_info_id order by stars desc limit 5", nativeQuery = true)
-    public List<Star> top5AI();
+//    @Query(value = "SELECT f.ai_info_id as id, count(f.ai_info_id) as stars from Favorite f group by f.ai_info_id order by stars desc limit 5", nativeQuery = true)
+//    public List<Star> top5AI();
 }
