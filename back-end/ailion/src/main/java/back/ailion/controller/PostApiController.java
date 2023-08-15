@@ -6,6 +6,7 @@ import back.ailion.model.dto.*;
 import back.ailion.model.dto.request.FileUploadRequest;
 import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateDto;
+import back.ailion.model.dto.request.SearchPostDto;
 import back.ailion.model.entity.Post;
 import back.ailion.service.AwsS3Service;
 import back.ailion.service.PostService;
@@ -13,6 +14,9 @@ import back.ailion.service.S3CommonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -126,9 +130,10 @@ public class PostApiController {
 
     }
 
-    private final S3CommonUtils commonUtils;
-    @GetMapping("/test")
-    public void test() {
-        commonUtils.test();
+    @GetMapping("/api/search")
+    public Page<PostDto> searchPosts(@RequestBody SearchPostDto searchPost,
+                                     @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC, size = 10) Pageable pageable) {
+
+        return postService.searchPosts(searchPost, pageable);
     }
 }

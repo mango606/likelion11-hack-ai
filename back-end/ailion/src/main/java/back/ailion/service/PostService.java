@@ -5,6 +5,7 @@ import back.ailion.exception.custom.NotFoundException;
 import back.ailion.model.dto.*;
 import back.ailion.model.dto.request.PostRequestDto;
 import back.ailion.model.dto.request.PostUpdateDto;
+import back.ailion.model.dto.request.SearchPostDto;
 import back.ailion.model.entity.Comment;
 import back.ailion.model.entity.Reply;
 import back.ailion.model.entity.User;
@@ -19,6 +20,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +81,12 @@ public class PostService {
 
         post.delete();
         return true;
+    }
+
+    public Page<PostDto> searchPosts(SearchPostDto searchPost, Pageable pageable) {
+
+        Page<Post> searchResult = postRepository.findByTitleContainingAndWriterContainingAndDelCheckFalse(searchPost.getTitle(), searchPost.getWriter(), pageable);
+        return searchResult.map(post -> new PostDto(post));
     }
 
     @Transactional
