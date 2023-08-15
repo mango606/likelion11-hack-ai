@@ -1,6 +1,7 @@
 package back.ailion.controller;
 
 import back.ailion.config.jwt.GetIdFromToken;
+import back.ailion.model.dto.AiInfoResponseDto;
 import back.ailion.model.entity.AiInfo;
 import back.ailion.service.RcmService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class RcmController {
     private final RcmService rcmService;
 
     @GetMapping("/api/top5")
-    public List<AiInfo> top5AI(){
+    public List<AiInfoResponseDto> top5AI(){
         return rcmService.top5AI();
     }
 

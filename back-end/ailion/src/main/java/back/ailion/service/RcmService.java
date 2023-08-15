@@ -1,6 +1,7 @@
 package back.ailion.service;
 
 import back.ailion.config.jwt.GetIdFromToken;
+import back.ailion.model.dto.AiInfoResponseDto;
 import back.ailion.model.entity.AiInfo;
 import back.ailion.model.entity.Recommend;
 import back.ailion.model.entity.User;
@@ -22,13 +23,14 @@ public class RcmService {
     private final AiInfoRepository aiInfoRepository;
     private final UserRepository userRepository;
 
-    public List<AiInfo> top5AI() {
+    public List<AiInfoResponseDto> top5AI() {
         List<Long> aiInfoIds = aiInfoRepository.top5AI();
 
-        List<AiInfo> aiInfos = new ArrayList<>();
+        List<AiInfoResponseDto> aiInfos = new ArrayList<>();
 
         for(Long id : aiInfoIds){
-            aiInfos.add(aiInfoRepository.findAiInfoById(id));
+            AiInfo aiInfo = aiInfoRepository.findAiInfoById(id);
+            aiInfos.add(new AiInfoResponseDto(aiInfo));
         }
 
         return aiInfos;

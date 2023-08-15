@@ -78,7 +78,7 @@ public class SecurityConfig {
                 .antMatchers("/oauth2/**").permitAll()
                 .antMatchers("/ailion/api/**").permitAll() // 로그인 api
                 .antMatchers("/ailion/**").permitAll()
-//                .requestMatchers(PathRequest.toH2Console()).permitAll()// h2-console, favicon.ico 요청 인증 무시
+//
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/swagger-ui/index.html").permitAll()
                 .antMatchers(PERMIT_URL_ARRAY).permitAll()
