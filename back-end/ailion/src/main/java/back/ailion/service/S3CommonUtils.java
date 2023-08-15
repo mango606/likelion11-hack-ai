@@ -103,7 +103,7 @@ public class S3CommonUtils {
         // 파일 업로드 갯수를 정합니다(10개 이하로 정의)
         for (MultipartFile multipartFile : multipartFiles) {
             if (fileUrls.size() > 10) {
-                throw new RuntimeException();
+                throw new FileException(BaseExceptionCode.FILE_UPLOAD_EXCEEDED);
             }
 
             FileUpload fileUpload = convertFile(multipartFile);

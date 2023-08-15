@@ -42,6 +42,8 @@ public enum BaseExceptionCode {
 
     FILE_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "파일을 찾을 수 없습니다."),
 
+    FILE_UPLOAD_EXCEEDED(HttpStatus.BAD_REQUEST.value(), "파일 업로드 개수는 10개 이하여야 합니다."),
+
     ALREADY_FAVORITE(HttpStatus.BAD_REQUEST.value(), "이미 즐겨찾기한 AI 입니다.");
 
 

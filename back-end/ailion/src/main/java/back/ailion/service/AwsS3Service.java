@@ -14,6 +14,7 @@ import back.ailion.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 
@@ -31,7 +32,7 @@ public class AwsS3Service {
     private final PostRepository postRepository;
     private final ImageRepository imageRepository;
 
-
+    @Transactional
     public FileUploadResponse uploadFile(FileUploadRequest fileUploadRequest) throws IOException {
 
         Post post = postRepository.findById(fileUploadRequest.getPostId())
@@ -65,6 +66,25 @@ public class AwsS3Service {
         }
 
         return new FileUploadResponse(attachFile != null ? commonUtils.storeFile(fileUploadRequest.getAttachFile(), attachFile.getStoreFileName()) : null, fileUrls);
+    }
+
+    @Transactional
+    public FileUploadResponse changeProfileImage(MultipartFile multipartFile) throws IOException {
+
+        // 파일이 들어있는지 확인하는 메서드
+        validateFileExists(multipartFile);
+
+        // MultipartFile을 FileUpload로 변환
+        FileUpload profileImage = commonUtils.convertFile(multipartFile);
+
+        Image image = Image.builder()
+                .attachFile(profileImage)
+                .build();
+        imageRepository.save(image);
+
+        String storeFileName = profileImage.getStoreFileName();
+
+        return new FileUploadResponse(commonUtils.storeFile(multipartFile, storeFileName));
     }
 
     public DownloadDto downloadImageFile(String filename) throws MalformedURLException {

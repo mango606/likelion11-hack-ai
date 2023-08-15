@@ -13,4 +13,8 @@ public class FileUploadResponse {
 
     String attachFileName;
     List<String> imageFileUrls;
+
+    public FileUploadResponse(String attachFileName) {
+        this.attachFileName = attachFileName;
+    }
 }
