@@ -48,14 +48,15 @@ const LoginPage = () => {
 return (
   <div className="container">
          <NavLink to="/"><div className="title"> AILION </div></NavLink>
-        <form onSubmit={handleLogin}>
-              <label>
+        <form onSubmit={handleLogin} className="login_form">
+              <label className="login_label">
                     <input 
-                          type="text"  
-                          placeholder="아이디" 
-                          id="username"
-                          value={id} 
-                          onChange={(e) => setId(e.target.value)} 
+                        className="login_input"
+                        type="text"  
+                        placeholder="아이디" 
+                        id="username"
+                        value={id} 
+                        onChange={(e) => setId(e.target.value)} 
                     />
                     {id && <div type="button" className="btn_clear" onClick={handleClearId}>
                           <img className="btn_clear_img" alt="close_icon" src="img/clear.png" />
@@ -63,11 +64,12 @@ return (
               </label>
               <label>
                     <input 
-                          type="password" 
-                          placeholder="비밀번호" 
-                          id="password" 
-                          value={password} 
-                          onChange={(e) => setPassword(e.target.value)} 
+                        className="login_input"
+                        type="password" 
+                        placeholder="비밀번호" 
+                        id="password" 
+                        value={password} 
+                        onChange={(e) => setPassword(e.target.value)} 
                     />
                     {password && <div type="button" className="btn_clear" onClick={handleClearPassword}>
                                       <img className="btn_clear_img" alt="close_icon" src="img/clear.png" />

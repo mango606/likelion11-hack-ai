@@ -36,7 +36,7 @@ const MyCommentsPage = () => {
       <article>
         {/* 상단 타이틀 */}
         <div className='topbar-container'>            
-              <NavLink to="/Mypage">
+              <NavLink to="/mypage">
                     <img className="btn_back" alt="뒤로가기 이미지" src="img/arrow_back.png" />
               </NavLink>
               <div className='title-text'>내 댓글 보기</div>

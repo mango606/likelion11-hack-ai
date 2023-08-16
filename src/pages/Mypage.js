@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import Sidebar from '../Sidebar';
 
 import './Mypage.css';
@@ -205,17 +205,17 @@ const MyPage = () => {
       {/* 내 활동 내역 */}
       <div className="content_title">내 활동 내역</div>
       <div className="subindex_box">
-        <div className="content">내 게시글</div>
+        <Link to="/mypage/posts">
+          <div className="content">내가 쓴 글</div>
+        </Link>
         <hr/>
-        <NavLink to="/MyComments">
-        <div className="content">댓글 단 글</div>
-        </NavLink>
+        <Link to="/mypage/comments">
+          <div className="content">댓글 단 글</div>
+        </Link>
       </div>
       {/* 문의 */}
       <div>문의는 <a href="mailto:qwer1234@likelion.org"> qwer1234@likelion.org</a>로 연락 바랍니다.</div>
-
       </article>
-     
     </>
   );
 };

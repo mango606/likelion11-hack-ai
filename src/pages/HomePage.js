@@ -6,7 +6,7 @@ const HomePage = () => {
     <>
       <Sidebar />
       <article>
-      홈
+        홈
       </article>
     </>
   );
