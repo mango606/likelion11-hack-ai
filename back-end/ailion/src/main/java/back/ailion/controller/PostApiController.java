@@ -1,7 +1,5 @@
 package back.ailion.controller;
 
-import back.ailion.exception.BaseExceptionCode;
-import back.ailion.exception.custom.FileException;
 import back.ailion.model.dto.*;
 import back.ailion.model.dto.request.FileUploadRequest;
 import back.ailion.model.dto.request.PostRequestDto;
@@ -10,7 +8,6 @@ import back.ailion.model.dto.request.SearchPostDto;
 import back.ailion.model.entity.Post;
 import back.ailion.service.AwsS3Service;
 import back.ailion.service.PostService;
-import back.ailion.service.S3CommonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -29,14 +26,14 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/ailion/posts")
+@RequestMapping("/ailion")
 @RequiredArgsConstructor
 public class PostApiController {
 
     private final PostService postService;
     private final AwsS3Service awsS3Service;
 
-    @PostMapping
+    @PostMapping("/posts")
     public MediaPost savePostWithFile(@Valid @RequestPart PostRequestDto postRequestDto,
                               @RequestPart(value = "attachFile", required = false) MultipartFile attachFile,
                               @RequestPart(value = "imageFiles", required = false) List<MultipartFile> imageFiles) throws IOException {
@@ -51,20 +48,20 @@ public class PostApiController {
         return new MediaPost(postDto, fileUploadResponse);
     }
 
-    @PatchMapping
+    @PatchMapping("/posts")
     public PostDto updatePost(@Valid @RequestBody PostUpdateDto postUpdateDto) {
 
         return postService.updatePost(postUpdateDto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/posts/{id}")
     public boolean deletePost(@PathVariable("id") Long postId) {
 
         return postService.deletePost(postId);
     }
 
     // 상세 게시글
-    @GetMapping("/{postId}/{userId}")
+    @GetMapping("/posts/{postId}/{userId}")
     public PostLikeDto getPost(@PathVariable("postId") Long postId, @PathVariable("userId") Long userId,
                                HttpServletRequest req, HttpServletResponse res) {
 
@@ -73,7 +70,7 @@ public class PostApiController {
     }
 
     // 카테고리 게시글
-    @GetMapping("/api/{category}/list")
+    @GetMapping("/api/posts/{category}/list")
     public Page<PostDto> getCategoryPosts(
             @PathVariable("category") String category,
             @RequestParam(value="page", defaultValue="0") int page) {
@@ -83,14 +80,14 @@ public class PostApiController {
     }
 
     // 인기 게시글
-    @GetMapping("/api/best/list")
+    @GetMapping("/api/posts/best/list")
     public Result getBestPosts() {
 
         return postService.getBestPosts();
     }
 
     // 복수 게시글
-    @GetMapping("/api/list")
+    @GetMapping("/api/posts/list")
     public Page<PostDto> getPosts(@RequestParam(value="page", defaultValue="0") int page) {
 
         Page<Post> paging = postService.getPosts(page);
@@ -130,7 +127,7 @@ public class PostApiController {
 
     }
 
-    @GetMapping("/api/search")
+    @GetMapping("/api/posts/search")
     public Page<PostDto> searchPosts(@RequestBody SearchPostDto searchPost,
                                      @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC, size = 10) Pageable pageable) {
 
