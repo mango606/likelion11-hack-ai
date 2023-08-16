@@ -112,7 +112,10 @@ public class PostService {
 
     public Result getBestPosts() {
 
-        Pageable pageable = PageRequest.of(0, 5);
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createdDate"));
+
+        Pageable pageable = PageRequest.of(0, 5, Sort.by(sorts));
 
         List<Post> posts = postRepository.findBestPostsByLike(pageable);
         List<PostDto> collect = posts.stream()
