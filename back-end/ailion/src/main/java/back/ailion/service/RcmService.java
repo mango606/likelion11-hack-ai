@@ -36,7 +36,7 @@ public class RcmService {
         return aiInfos;
     }
 
-    public Map<String, List<AiInfo>> recommendAi(String uid){
+    public Map<String, List<AiInfoResponseDto>> recommendAi(String uid){
         Optional<User> optionalUser = userRepository.findByUsername(uid);
 
         User user = optionalUser.get();
@@ -47,15 +47,15 @@ public class RcmService {
             return recommendAi();
         }
         else {
-            Map<String, List<AiInfo>> recommendMap = new HashMap<>();
-            List<AiInfo> aiInfoList;
+            Map<String, List<AiInfoResponseDto>> recommendMap = new HashMap<>();
+            List<AiInfoResponseDto> aiInfoList;
 
             for (Recommend recommend : recommendList) {
                 aiInfoList = new ArrayList<>();
                 List<Long> idList = aiInfoRepository.findRecommendList(recommend.toString());
 
                 for (Long id : idList) {
-                    aiInfoList.add(aiInfoRepository.findAiInfoById(id));
+                    aiInfoList.add(new AiInfoResponseDto(aiInfoRepository.findAiInfoById(id)));
                 }
 
                 recommendMap.put(recommend.toString(), aiInfoList);
@@ -65,7 +65,7 @@ public class RcmService {
         }
     }
 
-    public Map<String, List<AiInfo>> recommendAi(){
+    public Map<String, List<AiInfoResponseDto>> recommendAi(){
         List<Recommend> recommendList = new ArrayList<>();
 
         recommendList.add(Recommend.IMAGE);
@@ -74,16 +74,16 @@ public class RcmService {
         recommendList.add(Recommend.SEARCH);
         recommendList.add(Recommend.VIDEO);
 
-        Map<String, List<AiInfo>> recommendMap = new HashMap<>();
+        Map<String, List<AiInfoResponseDto>> recommendMap = new HashMap<>();
 
-        List<AiInfo> aiInfoList;
+        List<AiInfoResponseDto> aiInfoList;
 
         for(Recommend recommend : recommendList){
             aiInfoList = new ArrayList<>();
             List<Long> idList = aiInfoRepository.findRecommendList(recommend.toString());
 
             for(Long id : idList){
-                aiInfoList.add(aiInfoRepository.findAiInfoById(id));
+                aiInfoList.add(new AiInfoResponseDto(aiInfoRepository.findAiInfoById(id)));
             }
 
             recommendMap.put(recommend.toString(), aiInfoList);

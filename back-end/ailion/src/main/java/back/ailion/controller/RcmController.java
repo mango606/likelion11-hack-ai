@@ -25,12 +25,12 @@ public class RcmController {
 
 
     @GetMapping("/userRecommend")
-    public Map<String, List<AiInfo>> userRecommend(@GetIdFromToken String username){
+    public Map<String, List<AiInfoResponseDto>> userRecommend(@GetIdFromToken String username){
         return rcmService.recommendAi(username);
     }
 
     @GetMapping("/api/userRecommend")
-    public Map<String, List<AiInfo>> userRecommend(){
+    public Map<String, List<AiInfoResponseDto>> userRecommend(){
         return rcmService.recommendAi();
     }
 }
