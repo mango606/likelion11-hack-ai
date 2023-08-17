@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+
   const [selectedMenu, setSelectedMenu] = useState("홈");
 
   // 메뉴 클릭
@@ -32,6 +35,41 @@ const Sidebar = () => {
         break;
     }
   }, []);
+
+
+  const navigate = useNavigate();
+
+  const handleMypageClick = () => {
+
+    axios.get('ailion/user/', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    })
+    .then((res) => {
+      const queryParams = new URLSearchParams({
+        id: res.data.id,
+        username: res.data.username,
+        password: res.data.password,
+        email: res.data.email,
+        interest: res.data.interest,
+        nickname: res.data.nickname,
+        birth: res.data.birth,
+      });
+      console.log(res.data);
+      navigate(`/Mypage?${queryParams}`);
+    })
+    .catch((err) => {
+      console.log(err);
+      navigate('/login');
+    });
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    navigate('/');
+  }
+
 
   return (
     <>
@@ -101,11 +139,22 @@ const Sidebar = () => {
           <button id="side-bt">글쓰기</button>
           <img id="side-user" alt='write_icon' src="img/side-write.png" />
         </Link>
+
         </div>
-        <Link to="/login">
+
+        {localStorage.getItem('jwt') ? (
+          <div>
+          <button id="side-bt2" onClick={handleMypageClick}>마이페이지</button>
+          <button id="side-bt2" onClick={handleLogout}>로그아웃</button>
+          </div>
+        ):(
+          <Link to="/login">
+
           <button id="side-bt2">로그인</button>
           <img id="side-user" alt='user_icon' src="img/user.png" />
         </Link>
+        ) }
+
       </sidebar>
     </>
   );

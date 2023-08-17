@@ -1,3 +1,4 @@
+
 * {
   font-family: 'sans-serif';
 }
@@ -97,7 +98,7 @@ sidebar {
 }
 
 #side-bt2:hover {
-  background: #5E548E; 
+  background: #5E548E;
 }
 
 #side-user {
@@ -119,7 +120,7 @@ article {
 }
 
 @media (max-width: 1280px) {
-  
+
   sidebar {
     width: 65px;
     display: flex;
@@ -130,7 +131,7 @@ article {
     padding-left: 1%;
     position:sticky;
     top: 0px;
-  
+
     align-items: flex-start;
   }
 
@@ -147,6 +148,7 @@ article {
   #side-txt {
     display: none;
   }
+
 
   #side-bt {
     display: none;

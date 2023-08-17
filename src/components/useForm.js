@@ -1,8 +1,9 @@
 // useForm.js
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function useForm() {
-  const [isDuplicated, setIsDuplicated] = useState(null);
+  const [isDuplicated, setIsDuplicated] = useState(false);
   const [Id, setId] = useState('');
   const [IdError, setIdError] = useState(false);
   const [email, setEmail] = useState('');
@@ -15,29 +16,47 @@ export default function useForm() {
   const [NicknameError, setNicknameError] = useState(false);
   const [Birth, setBirth] = useState('');
   const [BirthError, setBirthError] = useState(false);
-  const [interest, setInterest] = useState('없음');
+
+  const [music , setMusic] = useState('1');
+  const [video , setVideo] = useState('1');
+  const [novel , setNovel] = useState('1');
+  const [search , setSearch] = useState('1');
+
 
 
   const handleIdDuplication = async (event) => {
-  // try {
-  //   const response = await fetch(`https://your-api-endpoint/check-username?username=${id}`);
+    event.preventDefault();
+    if (IdError) {
+      return;
+    }
+    try {
+      const response = await axios.post('/ailion/api/signup/validId',"string", { headers: { "Content-Type": "text/plain" } });
+      if (response.data === true) {
+        setIsDuplicated(true);
+      } else {
+        setIsDuplicated('duplicate');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    setIsDuplicated(true);
 
-  //   if (!response.ok) {
-  //     throw new Error("Network response was not ok");
-  //   }
-
-  //   const data = await response.json();
-
-  //   setIsDuplicated(data.isDuplicated);
-
-  // } catch (error) {
-  //     console.error("Error during duplication check:", error);
-  // }
-  setIsDuplicated(null); // 임시
 }
 
   const handleInterestChange = (event) => {
-    setInterest(event.target.value);
+
+    if (event.target.name === 'music') {
+      setMusic(event.target.value);
+    } else if (event.target.name === 'search') {
+      setSearch(event.target.value);
+    } else if (event.target.name === 'video') {
+      setVideo(event.target.value);
+
+    } else if (event.target.name === 'novel') {
+      setNovel(event.target.value);
+
+    }
+
   }
 
   const validatePassword = (password) => {
@@ -59,7 +78,7 @@ export default function useForm() {
 
   const handleIdChange = (event) => {
     const newName = event.target.value;
-
+    setIsDuplicated(false);
     if (!validateId(newName)) {
       setIdError(true);
     } else {
@@ -202,7 +221,10 @@ export default function useForm() {
     BirthError,
     handleNicknameChange,
     handleBirthChange,
-    interest,
+    music,
+    video,
+    novel,
+    search,
     handleInterestChange,
     isDuplicated,
     handleIdDuplication

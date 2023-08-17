@@ -1,290 +1,354 @@
 .joinForm {
-	margin-left : 30%;
-	align-items: center;
-	display: flex;
+  margin-top : 3%;
+  margin-left: 30%;
+  align-items: center;
+  display: flex;
 }
 
 .joinForm .jForm {
-	width : 600px;
+  width: 600px;
 }
 
-
-
 .joinForm .errorMessage {
-	color: red;
-	margin-top: 5%;
-	margin-bottom: 5%;
+  color: red;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.joinForm .trueMessage {
+  color: blue;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 .form_list {
-	margin-top : 5%;
-	margin-bottom: 5%;
-	border: 1px solid lightgray;
-	border-radius: 5px;
-	overflow: hidden;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  border: 1px solid lightgray;
+  border-radius: 50px;
+  overflow: hidden;
 }
 
-
+.form_list.focused {
+  border: 2px solid blue;
+}
 
 .idImg {
-	margin-left: 10px;
-	margin-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .idForm {
-	border-bottom: 1px solid #e5e5e5;
-	display : flex;
-	align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
 }
 
-.idForm.focused {
-    border: 2px solid blue;
+.idForm .joinInput {
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  height: 60px;
+  margin: 0;
+  outline: none;
 }
 
-.idForm .joinInput{
-	width:100%;
-	border : none;
-	box-sizing: border-box;
-	height: 80px;
-	margin : 0;
+.idForm .joinInput:disabled {
+  color: gray;
+  background-color: transparent;
 }
 
 .idForm .dupButton {
-	width: 100px;
-	margin-right: 10px;
-	border-radius: 20px;
+  width: 100px;
+  margin-right: 10px;
+  border-radius: 20px;
+  border: 1px solid #e5e5e5;
+  cursor: pointer;
 }
 
-
 .emailImg {
-	margin-left: 10px;
-	margin-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .emailForm {
-	border-bottom: 1px solid #e5e5e5;
-	display : flex;
-	align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
 }
 
 .emailForm.focused {
-    border: 2px solid blue;
+  border: 2px solid blue;
 }
 
-.emailForm .joinInput{
-	width:100%;
-	border : none;
-	box-sizing: border-box;
-	height: 80px;
-	margin : 0;
+.emailForm .joinInput {
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  height: 60px;
+  margin: 0;
+  outline: none;
 }
 
 .passwordImg {
-	margin-left: 10px;
-	margin-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .passwordViewImg {
-	margin-left: 10px;
-	margin-right: 10px;
-	cursor: pointer;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 .passwordForm {
-	border-bottom: 1px solid #e5e5e5;
-	display: flex;
-	align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
 }
 
 .passwordForm.focused {
-    border: 2px solid blue;
+  border: 2px solid blue;
 }
 
-.passwordForm .joinInput{
-	width:100%;
-	border : none;
-	box-sizing: border-box;
-	height: 80px;
-	margin : 0;
+.passwordForm .joinInput {
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  height: 60px;
+  margin: 0;
+  outline: none;
 }
 
 .passwordCheckImg {
-	margin-left: 10px;
-	margin-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .passwordCheckForm {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .passwordCheckForm.focused {
-    border: 2px solid blue;
+  border: 2px solid blue;
 }
 
-.passwordCheckForm .joinInput{
-	width:100%;
-	border : none;
-	box-sizing: border-box;
-	height: 80px;
-	margin : 0;
+.passwordCheckForm .joinInput {
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  height: 60px;
+  margin: 0;
+  outline: none;
 }
 
 .birthImg {
-	margin-left: 10px;
-	margin-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .birthForm {
-	border-bottom : 1px solid #e5e5e5;
-	display: flex;
-	align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
 }
 
 .birthForm .joinInput {
-	width:100%;
-	border : none;
-	box-sizing: border-box;
-	height: 80px;
-	margin : 0;
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  height: 60px;
+  margin: 0;
+  outline: none;
 }
 
 .birthForm.focused {
-    border: 2px solid blue;
+  border: 2px solid blue;
 }
 
 .nicknameImg {
-	margin-left: 10px;
-	margin-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .nicknameForm {
-	border-bottom : 1px solid #e5e5e5;
-	display: flex;
-	align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
 }
 
 .nicknameForm.focused {
-    border: 2px solid blue;
+  border: 2px solid blue;
 }
 
 .nicknameForm .joinInput {
-	width:100%;
-	border : none;
-	box-sizing: border-box;
-	height: 80px;
-	margin : 0;
-}
-
-.interestForm {
-	font-size : 0.8em;
-	height: 50px;
-	margin-bottom: 5%;
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  height: 60px;
+  margin: 0;
+  outline: none;
 }
 
 .interestForm .joinInput {
-	height: 10px;
+  height: 10px;
 }
 
 .w-btn {
-    position: relative;
-    border: none;
-    display: inline-block;
-    padding: 15px 30px;
-    border-radius: 15px;
-    font-family: "paybooc-Light", sans-serif;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.25s;
-
+  position: relative;
+  border: none;
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: 15px;
+  font-family: "paybooc-Light", sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
 }
 
 .w-btn-outline {
-    position: relative;
-    padding: 15px 30px;
-    border-radius: 15px;
-    font-family: "paybooc-Light", sans-serif;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.25s;
+  position: relative;
+  padding: 15px 30px;
+  border-radius: 15px;
+  font-family: "paybooc-Light", sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
 }
 
 .w-btn-indigo {
-    background-color: aliceblue;
-    color: #1e6b7b;
+  background-color: #231942;
+  color: #ECE6F4;
 }
 
 .w-btn-indigo-outline {
-    border: 3px solid aliceblue;
-    color: #1e6b7b;
+  border: 3px solid #231942;
+  color: #ECE6F4;
 }
 
 .w-btn-indigo-outline:hover {
-    color: #1e6b7b;
-    background: aliceblue;
+  color: #ECE6F4;
+  background: #231942;
 }
 
 .w-btn:hover {
-    letter-spacing: 2px;
-    transform: scale(1.2);
-    cursor: pointer;
+  letter-spacing: 2px;
+  transform: scale(1.2);
+  cursor: pointer;
 }
 
 .w-btn-outline:hover {
-    letter-spacing: 2px;
-    transform: scale(1.2);
-    cursor: pointer;
+  letter-spacing: 2px;
+  transform: scale(1.2);
+  cursor: pointer;
 }
 
 .w-btn:active {
-    transform: scale(1.5);
+  transform: scale(1.5);
 }
 
 .w-btn-outline:active {
-    transform: scale(1.5);
+  transform: scale(1.5);
 }
 
 .w-btn:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;  /* disabled 상태일 때의 투명도 */
-    /* 추가로 disabled 상태일 때의 스타일을 정의할 수 있습니다. */
+  cursor: not-allowed;
+  opacity: 0.5; /* disabled 상태일 때의 투명도 */
+  /* 추가로 disabled 상태일 때의 스타일을 정의할 수 있습니다. */
 }
 
 .w-btn:disabled:hover {
-    transform: none;
-    letter-spacing: normal;
+  transform: none;
+  letter-spacing: normal;
 }
 
 .w-btn-outline:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .w-btn-outline:disabled:hover {
-    transform: none;
-    letter-spacing: normal;
+  transform: none;
+  letter-spacing: normal;
 }
 
 .joinSelect {
-	margin-left : 10px;
-	width: 150px;
-	height: 35px;
-	background-size: 20px;
-	padding: 5px 30px 5px 10px;
-	border-radius: 4px;
-	outline: 0 none;
+  margin-left: 10px;
+  width: 150px;
+  height: 35px;
+  background-size: 20px;
+  padding: 5px 30px 5px 10px;
+  border-radius: 4px;
+  outline: 0 none;
 }
 .joinOption {
-	background: black;
-	color: #fff;
-	padding: 3px 0;
+  background: black;
+  color: #fff;
+  padding: 3px 0;
 }
 
 .buttonWrap {
-	display: flex;
-	justify-content: center;
-	margin-top : 5%;
-	margin-bottom: 5%;
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.interestWords {
+  margin-bottom: 3%;
+  color : #5E548E;
+  font-size : 20px;
+}
+
+.interestWord {
+  margin-bottom: 4%;
+  margin-top: 4%;
+  color : #5E548E;
+  font-size : 15px;
+}
+
+.radioButton {
+  margin-left: 20px;
+  margin-right: 20px;
+  vertical-align: middle;
+  appearance: none;
+  border: max(2px, 0.1em) solid gray;
+  border-radius: 50%;
+  width: 1.7em;
+  height: 1.7em;
+  transition: border 0.1s linear;
+}
+
+.radioButton:checked {
+  border: 0.4em solid #5E548E;
+}
+
+.radioButton:focus-visible {
+  outline: max(2px, 0.1em) dotted #5E548E;
+  outline-offset: max(2px, 0.1em);
+}
+
+.radioButton:hover {
+  box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+  cursor: pointer;
+}
+
+.radioButton:disabled {
+  background-color: lightgray;
+  box-shadow: none;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.interestForm {
+  font-size: 0.8em;
+  margin-bottom: 5%;
+  text-align: center;
+}
+
+.joinLogo {
+  width : 40px;
 }
