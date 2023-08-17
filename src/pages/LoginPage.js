@@ -63,10 +63,10 @@ return (
                               type="text"
                               placeholder="아이디"
                               id="username"
-                              value={id}
-                              onChange={(e) => setId(e.target.value)}
+                              value={username}
+                              onChange={(e) => setUsername(e.target.value)}
                         />
-                        {id && <div type="button" className="btn-clear" onClick={handleClearId}>
+                        {username && <div type="button" className="btn-clear" onClick={handleClearId}>
                               <img className="btn-clear-img" alt="close_icon" src="img/clear.png" />
                         </div>}
                   </div>

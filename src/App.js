@@ -32,6 +32,7 @@ const App = () => {
         <Route path="/mypage" element={<Mypage />} > {/* 마이페이지 */}
           <Route path="/mypage/posts" element={<MyPostPage />} />
           <Route path="/mypage/comments" element={<MyCommentsPage />} />
+
         </Route>
       </Routes>
       </box>
