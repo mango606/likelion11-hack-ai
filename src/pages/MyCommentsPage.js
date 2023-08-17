@@ -10,7 +10,7 @@ const MyCommentsPage = () => {
   return (
     <>
       <Sidebar />
-      <article>
+      <article className='mycomments'>
         {/* 상단 프로필 */}
         <div className='profile_box'>
           <img className="profile_bgimg" alt="배경 이미지" src="img/back2.jpg" />
@@ -27,20 +27,20 @@ const MyCommentsPage = () => {
           </Link>
           <h3 className='title-text'>댓글 단 글</h3>
         </div>
-        <ul class="my-page" >
-            <li class="post-comments-box">
+        <ul className='comments-box'>
+          <li class="comments-list">
             <div class="post-box">
-                <div class="post-category"> 게시판</div>
-                    <div class="post-title"> 제목</div>
-                    <div class="post-message">내용</div>
-                    <div class="post-content">
-                        <img class="post-img2" alt='하트이미지' src="./img/heart.png"></img>
-                        <div class="post-likes">3</div>
-                        <img class="post-img2" alt='댓글이미지' src="./img/comment-dots.png"></img>
-                        <div class="post-comments">3</div>
-                        <span class="post-createdAt">2024</span>
-                </div>
-            </div>
+              <div class="post-category"> 게시판</div>
+              <div class="post-title"> 제목</div>
+              <div class="mycomments-post-message">내용</div>
+              <div class="post-content">
+                  <img class="post-img2" alt='하트이미지' src="./img/heart.png"></img>
+                  <span class="post-likes">3</span>
+                  <img class="post-img2" alt='댓글이미지' src="./img/comment-dots.png"></img>
+                  <span class="post-comments">3</span>
+                  <span class="post-createdAt">2024</span>
+              </div>
+              </div>
             </li>
         </ul>
       </article>
