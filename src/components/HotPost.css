@@ -1,32 +1,64 @@
 #hot-title {
-  margin-left: 20px;
+  padding-top: 40px;
+  margin-left: 50px;
+  font-size: 36px;
+  font-weight: bold;
+  color: #231942;
+}
+
+#hot-box {
+  justify-content: center;
+  display: flex;
+  padding: 20px 15px 40px 30px;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.hot-post {
+  margin: 15px 20px 20px 0px;
+  padding: 15px;
+  border: 1px solid #d0d0d0;
+  border-radius: 10px;
+  display: flex;
+}
+
+.hot-post:hover {
+  background-color: #f5f5f5;
 }
 
 .hot-table {
-    width: 70%;
+    width: 140px;
+    height: 120px;
     margin: 0 auto;
-    text-align: center;
+    text-align: left;
     border-spacing: 0;
-    padding: 10px 0 20px 0;
+    color: black;
   }
-  
-  .hot-table-header-column {
-    border-bottom: 1px solid #d0d0d0;
-    padding: 0;
-    font-size: 14px;
-    padding: 10px 5px;
+
+  .hot-category {
+    color: #5E548E;
+    padding-top: 10px;
+    font-size: 16px;
     font-weight: bold;
   }
 
-  .hot-table-row {
-    font-size: 12px;
+  .hot-title {
+    padding-top: 2px;
+    font-size: 16px;
+    font-size: 16px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
-  
-  .hot-table-row:hover {
-    background-color: #eceaea;
-    cursor: pointer;
-  }
-  
-  .hot-table-column {
-    padding: 10px 5px;
+
+  .hot-message {
+    padding-top: 2px;
+    height: 44px;
+    font-size: 11px;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 줄 수 */
+    -webkit-box-orient: vertical;
   }

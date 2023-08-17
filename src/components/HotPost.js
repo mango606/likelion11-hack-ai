@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import HotPostTable from './HotPostTable';
@@ -18,20 +19,25 @@ function GetData() {
   };
 
   useEffect(() => {
-    axios.get('https://8287722c-6f79-48df-a597-93bbdb51645b.mock.pstmn.io/posts/best/list').then((response)=> {
+    axios.defaults.baseURL = 'https://b233b880-2048-4890-965f-6ad3e1839bf0.mock.pstmn.io';
+    axios.get('/ailion/posts/api/best/list').then((response)=> {
       setData(response.data.data);
     })
   }, []);
 
-  const top5Post = (Object.values(data)).slice(0, 5);   // 상위 5개의 게시글만 보여주기
+  const top5Post = (Object.values(data)).slice(0, 5);   // 5개의 게시글만 보여주기
   const item = top5Post.map((item) => (
-    <HotPostTableRow key={item.postId}>
-      <HotPostTableColumn>{item.postId}</HotPostTableColumn>
-      <HotPostTableColumn>{item.title}</HotPostTableColumn>
-      <HotPostTableColumn>{item.writer}</HotPostTableColumn>
-      <HotPostTableColumn>{formatDate(item.createdDate)}</HotPostTableColumn>
-      <HotPostTableColumn>{item.viewCount}</HotPostTableColumn>
-    </HotPostTableRow>
+    <ul class="hot-form" key={item.postId}>
+        <li class="hot-post">
+        <Link to={`/comm/${item.userId}/${item.postId}`} className="post-link">
+        <div class="hot-table">
+          <div class="hot-category">{item.category}</div>
+          <div class="hot-title">{item.title}</div>
+          <div class="hot-message">{item.content}</div>
+        </div>
+        </Link>
+        </li>
+    </ul>
   ));
 
   return item;
@@ -40,12 +46,14 @@ function GetData() {
 function HotPost() {
     const item = GetData();
 
-    return (<>
-    <h3 id="hot-title">HOT 게시글</h3>
-        <HotPostTable headersName={['글번호', '제목', '작성자', '등록일', '조회수']}>
-        {item}
-        </HotPostTable>
-    </>);
+    return (
+        <div id="hot-padding">
+        <h3 id="hot-title">인기 게시글 TOP5</h3>
+        <div id="hot-box">
+            {item}
+        </div>
+        </div>
+    );
 }
   
 export default HotPost;

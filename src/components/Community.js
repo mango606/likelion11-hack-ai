@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import "./Community.css";
 import './PostStyle.css';
 
@@ -11,7 +12,7 @@ const Community = () => {
 
     // axios 사용
     useEffect(() => {
-      axios.get('https://8287722c-6f79-48df-a597-93bbdb51645b.mock.pstmn.io/posts/카테고리11/list').then((response)=> {
+        axios.get(`/ailion/posts/api/lists`).then((response)=> {
         setData(response.data.content);
         setFilteredData(response.data.content); // 초기에 모든 데이터를 표시하기 위해 filteredData 초기화
       })
@@ -21,8 +22,9 @@ const Community = () => {
     const items = (Object.values(data)).map((item) => (
         <ul class="my-page" key={item.postId}>
             <li class="post">
+            <Link to={`/comm/${item.userId}/${item.postId}`} className="post-link">
             <div class="post-box">
-                <div class="post-category">{item.category} 게시판</div>
+                <div class="post-category">{item.category}</div>
                     <div class="post-title">{item.title}</div>
                     <div class="post-message">{item.content}</div>
                     <div class="post-content">
@@ -33,6 +35,7 @@ const Community = () => {
                         <span class="post-createdAt">{item.createdDate}</span>
                 </div>
             </div>
+            </Link>
             </li>
         </ul>
     ));
@@ -78,50 +81,14 @@ const filterData = (keyword, category) => {
     // console.log(testData.content[0].content);
     return (
         <section>
-            <h3 id="com-title">커뮤니티</h3>
-            <div id="com-btn">
-                <div id="com-wrap1">
-                <button
-                        onClick={() => handleCategoryClick("all")}
-                        className={selectedCategory === "all" ? "selected" : ""}
-                    >
-                        모두 보기
-                    </button>
-                    <button
-                        onClick={() => handleCategoryClick("자신만의 AI 노하우")}
-                        className={selectedCategory === "자신만의 AI 노하우" ? "selected" : ""}
-                    >
-                        자신만의 AI 노하우
-                    </button>
-                    <button
-                        onClick={() => handleCategoryClick("AI 결과물 자랑")}
-                        className={selectedCategory === "AI 결과물 자랑" ? "selected" : ""}
-                    >
-                        AI 결과물 자랑
-                    </button>
-                </div>
-                <div id="com-wrap2">
-                <button
-                        onClick={() => handleCategoryClick("자유")}
-                        className={selectedCategory === "자유" ? "selected" : ""}
-                    >
-                        자유
-                    </button>
-                    <button
-                        onClick={() => handleCategoryClick("수익 창출 공유")}
-                        className={selectedCategory === "수익 창출 공유" ? "selected" : ""}
-                    >
-                        수익 창출 공유
-                    </button>
-                </div>
-            </div>
+            <h3 id="com-title">최근 게시글</h3>
 
-            <div>
+            <div id="com-search-center">
             <form id="com-search-box" className="search">
             <input
                         id="com-search"
                         name="keyword"
-                        placeholder="검색어를 입력하세요."
+                        placeholder="검색어를 입력해 주세요."
                         className="text"
                         value={searchKeyword}
                         onChange={handleSearchChange}
@@ -130,9 +97,45 @@ const filterData = (keyword, category) => {
                 </form>
             </div>
 
+            <div id="com-btn">
+                <div id="com-wrap">
+                <button
+                        onClick={() => handleCategoryClick("all")}
+                        className={selectedCategory === "all" ? "selected" : ""}
+                >
+                        전체
+                </button>
+                <button
+                        onClick={() => handleCategoryClick("자유")}
+                        className={selectedCategory === "자유" ? "selected" : ""}
+                >
+                    자유
+                </button>
+                <button
+                        onClick={() => handleCategoryClick("자신만의 AI 노하우")}
+                        className={selectedCategory === "자신만의 AI 노하우" ? "selected" : ""}
+                >
+                    나만의 AI 노하우
+                </button>
+                <button
+                    onClick={() => handleCategoryClick("AI 결과물 자랑")}
+                    className={selectedCategory === "AI 결과물 자랑" ? "selected" : ""}
+                >
+                    결과물 자랑
+                </button>
+                <button
+                    onClick={() => handleCategoryClick("수익 창출 공유")}
+                    className={selectedCategory === "수익 창출 공유" ? "selected" : ""}
+                >
+                    수익 창출 공유
+                </button>
+                </div>
+            </div>
+
             {filteredData.length > 0 ? (
                 filteredData.map(item => (
                     <ul className="my-page" key={item.postId}>
+                        <Link to={`/comm/${item.userId}/${item.postId}`} className="post-link">
                         <li className="post">
                             <div className="post-box">
                                 <div className="post-category">{item.category} 게시판</div>
@@ -146,7 +149,9 @@ const filterData = (keyword, category) => {
                                     <span className="post-createdAt">{formatDate(item.createdDate)}</span>
                                 </div>
                             </div>
+                            <img class="post-img3" src='https://cdn.pixabay.com/photo/2023/07/18/02/24/ai-generated-8133842_640.jpg'></img>
                         </li>
+                        </Link>
                     </ul>
                 ))
             ) : (

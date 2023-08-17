@@ -4,7 +4,7 @@
 }
 
 .post {
-    margin: 15px 20px;
+    margin: 20px 70px 20px 70px;
     padding: 15px;
     border: 1px solid #d0d0d0;
     border-radius: 10px;
@@ -13,6 +13,10 @@
 
 .post:hover {
     background-color: #f5f5f5;
+}
+
+.post-box {
+    color: black;
 }
 
 .post-category {
@@ -29,7 +33,7 @@
 }
 
 .post-message {
-    width: 880px;
+    width: 810px;
     height: 24px;
     font-size: 12px;
     overflow: hidden;
@@ -71,7 +75,7 @@
 }
 
 .post-none {
-    margin-top: 120px;
+    margin-top: 64px;
     font-size: 14px;
 }
 /* 게시글 END */
