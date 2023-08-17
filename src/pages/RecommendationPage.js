@@ -66,7 +66,7 @@ const RecommendationPage = () => {
                 <div className='rec_category'>{ai.category}</div>
                 <div className="rec_content">{ai.content}</div>
               </div>
-              <img className="rec_img" alt="인기 AI 이미지" src={ai.img} />
+              <img className="rec_img" alt={`${ai.name} 로고`} src={ai.img} />
             </li>
           ))}
         </ul>
@@ -76,6 +76,7 @@ const RecommendationPage = () => {
             <p className="post-none">게시글이 존재하지 않습니다.</p>
           </div>
         )}
+
         </div>
       </article>
     </>

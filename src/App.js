@@ -14,7 +14,7 @@ import DetailPage from './pages/detail';
 import Mypage from './pages/Mypage';
 import MyCommentsPage from './pages/MyCommentsPage'
 import MyPostPage from './pages/MyPostPage';
-import Sidebar from './Sidebar';
+
 
 const App = () => {
   return (
@@ -33,9 +33,9 @@ const App = () => {
         <Route element={<DetailPage />} path="/detail" />
         <Route element={<Mypage />} path="/mypage">
           <Route path="/mypage/posts" element={<MyPostPage />} />
-
+          <Route path="/mypage/comments" element={<MyCommentsPage />} />
         </Route>
-        <Route path="/comments" element={<MyCommentsPage />} />
+        
       </Routes>
       </box>
     </div>
