@@ -1,60 +1,110 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
+  const [selectedMenu, setSelectedMenu] = useState("홈");
+
+  // 메뉴 클릭
+  const handleMenuClick = (menu) => {
+    setSelectedMenu(selectedMenu => menu);
+  };
+
+  // 페이지가 로드될 때 실행되는 useEffect
+  useEffect(() => {
+    // 현재 페이지의 경로를 가져와서 selectedMenu 업데이트
+    const currentPath = window.location.pathname;
+    switch (currentPath) {
+      case '/info':
+        setSelectedMenu('AI 정보');
+        break;
+      case '/rec':
+        setSelectedMenu('AI 추천');
+        break;
+      case '/comm':
+        setSelectedMenu('커뮤니티');
+        break;
+      case '/news':
+        setSelectedMenu('이용방법');
+        break;
+      // 추가적인 페이지 경로에 대한 처리
+      default:
+        setSelectedMenu('홈');
+        break;
+    }
+  }, []);
+
   return (
     <>
       <sidebar>
+        <div id="side-start">
         <Link to="/">
           <img id="logo" alt='logo' src="img/logo.png" />
         </Link>
         <div className="menu">
           <Link to="/">
-            <p id="side-menu">
-            <img className="side-img" alt='home_icon' src="img/home.png" />
+            <div id="side-menu"
+              onClick={() => handleMenuClick("홈")}
+              className={selectedMenu === "홈" ? "selected" : ""}
+              >
+            <img className="side-img" alt='home_icon' src="img/side-home.png" />
             <a id="side-txt">
-            Home
+            홈
             </a>
-            </p>
+            </div>
           </Link>
           <Link to="/info">
-            <p id="side-menu">
-            <img className="side-img" alt='edit_icon' src="img/edit.png" />
+          <div id="side-menu"
+              onClick={() => handleMenuClick("AI 정보")}
+              className={selectedMenu === "AI 정보" ? "selected" : ""}
+          >
+            <img className="side-img" alt='info_icon' src="img/side-info.png" />
             <a id="side-txt">
               AI 정보
             </a>
-            </p>
+            </div>
           </Link>
           <Link to="/rec">
-            <p id="side-menu">
-            <img className="side-img" alt='flag_icon' src="img/flag.png" />
+          <div id="side-menu"
+              onClick={() => handleMenuClick("AI 추천")}
+              className={selectedMenu === "AI 추천" ? "selected" : ""}
+          >
+            <img className="side-img" alt='rec_icon' src="img/side-rec.png" />
             <a id="side-txt">
               AI 추천
               </a>
-              </p>
+              </div>
           </Link>
           <Link to="/comm">
-            <p id="side-menu">
-            <img className="side-img" alt='globe_icon' src="img/globe.png" />
+          <div id="side-menu"
+              onClick={() => handleMenuClick("커뮤니티")}
+              className={selectedMenu === "커뮤니티" ? "selected" : ""}
+          >
+            <img className="side-img" alt='comm_icon' src="img/side-comm.png" />
             <a id="side-txt">
               커뮤니티
               </a>
-              </p>
+              </div>
           </Link>
           <Link to="/news">
-            <p id="side-menu">
-            <img className="side-img" alt='marker_icon' src="img/marker.png" />
+          <div id="side-menu"
+              onClick={() => handleMenuClick("이용방법")}
+              className={selectedMenu === "이용방법" ? "selected" : ""}
+          >
+            <img className="side-img" alt='help_icon' src="img/side-help.png" />
             <a id="side-txt">
-              AI 소식
+              이용방법
               </a>
-              </p>
+              </div>
           </Link>
         </div>
         <Link to="/write">
-          <button id="side-bt">+ 글 작성</button>
+          <button id="side-bt">글쓰기</button>
+          <img id="side-user" alt='write_icon' src="img/side-write.png" />
         </Link>
+        </div>
         <Link to="/login">
           <button id="side-bt2">로그인</button>
+          <img id="side-user" alt='user_icon' src="img/user.png" />
         </Link>
       </sidebar>
     </>

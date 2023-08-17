@@ -55,12 +55,17 @@ const Reply = ({ reply }) => {
   );
 };
 
-const CommentsList = ({ comments }) => (
-  <div className="comment_list">
-    {comments.map((comment) => (
-      <Comment key={comment.commentId} comment={comment} />
-    ))}
-  </div>
-);
+const CommentsList = ({ comments }) => {
+  // comments 객체를 배열로 변환
+  const commentsArray = Object.values(comments);
+
+  return (
+    <div className="comment_list">
+      {commentsArray.map((comment) => (
+        <Comment key={comment.commentId} comment={comment} />
+      ))}
+    </div>
+  );
+};
 
 export default CommentsList;
