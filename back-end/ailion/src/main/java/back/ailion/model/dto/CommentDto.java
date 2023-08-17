@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CommentDto {
 
+    private Long userId;
     private Long commentId;
 
     private String content;
@@ -25,6 +26,7 @@ public class CommentDto {
     private List<ReplyDto> replies;
 
     public CommentDto(Comment comment) {
+        this.userId = comment.getUser().getId();
         this.commentId = comment.getId();
         this.createdDate = comment.getCreatedDate();
         this.content = comment.getContent();

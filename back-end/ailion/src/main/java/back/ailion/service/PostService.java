@@ -165,6 +165,7 @@ public class PostService {
         List<CommentDto> commentDTOs = new ArrayList<>();
         for (Comment comment : comments) {
             CommentDto commentDTO = new CommentDto();
+            commentDTO.setUserId(comment.getUser().getId());
             commentDTO.setCommentId(comment.getId());
             commentDTO.setContent(comment.getContent());
             commentDTO.setWriter(comment.getWriter());
@@ -179,6 +180,7 @@ public class PostService {
         List<ReplyDto> replyDTOs = new ArrayList<>();
         for (Reply reply : replies) {
             ReplyDto replyDTO = new ReplyDto();
+            replyDTO.setUserId(reply.getUser().getId());
             replyDTO.setReplyId(reply.getId());
             replyDTO.setContent(reply.getContent());
             replyDTO.setWriter(reply.getWriter());

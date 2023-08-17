@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ReplyDto {
 
+    private Long userId;
     private Long replyId;
 
     private String content;
@@ -22,6 +23,7 @@ public class ReplyDto {
     private LocalDateTime createdDate;
 
     public ReplyDto(Reply reply) {
+        this.userId = reply.getUser().getId();
         this.replyId = reply.getId();
         this.createdDate = reply.getCreatedDate();
         this.content = reply.getContent();

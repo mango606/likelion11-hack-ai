@@ -27,7 +27,7 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
     private final PostRepository postRepository;
 
-    private ReplyDto CommentToCommentReplyDto(Reply reply) {
+    private ReplyDto ReplyToReplyDto(Reply reply) {
         return new ReplyDto(reply);
     }
 
@@ -52,7 +52,7 @@ public class ReplyService {
                 .build();
 
         post.setCommentCount(post.getCommentCount() + 1);
-        return CommentToCommentReplyDto(replyRepository.save(reply));
+        return ReplyToReplyDto(replyRepository.save(reply));
     }
 
     @Transactional
@@ -63,7 +63,7 @@ public class ReplyService {
 
         reply.modifyContent(replyUpdateDto.getContent());
 
-        return CommentToCommentReplyDto(replyRepository.findById(reply.getId()).get());
+        return ReplyToReplyDto(replyRepository.findById(reply.getId()).get());
     }
 
     @Transactional
