@@ -11,9 +11,9 @@ import javax.validation.constraints.Positive;
 @AllArgsConstructor
 public class ReplyDeleteDto {
 
-    @Positive
+    @Positive(message = "null")
     private Long replyId;
 
-    @Positive
+    @Positive(message = "null")
     private Long postId;
 }

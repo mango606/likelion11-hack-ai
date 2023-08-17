@@ -11,9 +11,9 @@ import javax.validation.constraints.Positive;
 @AllArgsConstructor
 public class HeartRequestDto {
 
-    @Positive
+    @Positive(message = "null")
     private Long userId;
 
-    @Positive
+    @Positive(message = "null")
     private Long postId;
 }

@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class PostRequestDto {
 
-    @Positive
+    @Positive(message = "null")
     private Long userId;
 
     @Size(min = 2, max = 30, message = "제목을 2~30자 사이로 입력해주세요.")

@@ -1,10 +1,7 @@
 package back.ailion.controller;
 
 import back.ailion.model.dto.*;
-import back.ailion.model.dto.request.FileUploadRequest;
-import back.ailion.model.dto.request.PostRequestDto;
-import back.ailion.model.dto.request.PostUpdateDto;
-import back.ailion.model.dto.request.SearchPostDto;
+import back.ailion.model.dto.request.*;
 import back.ailion.model.entity.Post;
 import back.ailion.service.AwsS3Service;
 import back.ailion.service.PostService;
@@ -61,12 +58,12 @@ public class PostApiController {
     }
 
     // 상세 게시글
-    @GetMapping("/posts/{postId}/{userId}")
-    public PostLikeDto getPost(@PathVariable("postId") Long postId, @PathVariable("userId") Long userId,
+    @GetMapping("/api/posts/detail")
+    public PostLikeDto getPost(@Valid @RequestBody PostDetailRequest detailRequest,
                                HttpServletRequest req, HttpServletResponse res) {
 
-        viewCountUp(postId, req, res);
-        return postService.getPost(postId, userId);
+        viewCountUp(detailRequest.getPostId(), req, res);
+        return postService.getPost(detailRequest.getPostId(), detailRequest.getUserId());
     }
 
     // 카테고리 게시글

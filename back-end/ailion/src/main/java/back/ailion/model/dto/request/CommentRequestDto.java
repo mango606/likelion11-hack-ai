@@ -13,10 +13,10 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class CommentRequestDto {
 
-    @Positive
+    @Positive(message = "null")
     private Long userId;
 
-    @Positive
+    @Positive(message = "null")
     private Long postId;
 
     @Size(min = 2, max = 50, message = "내용을 2~50자 사이로 입력해주세요.")
