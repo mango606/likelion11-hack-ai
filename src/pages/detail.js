@@ -1,10 +1,10 @@
 import React from "react";
-import "./detail.css";
+import "./DetailPage.css";
 import Sidebar from "../Sidebar";
 import { useState } from "react";
 import CommentsList from "../components/CommentsList";
 
-import { data } from "../components/detailtest";
+import { data } from "./detailtest.js";
 
 class Post {
   constructor(data) {
@@ -54,7 +54,6 @@ const DetailPage = () => {
 
   return (
     <>
-      <Sidebar />
       <article>
         <div className="detail">
           <div className="detail_title">

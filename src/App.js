@@ -15,12 +15,10 @@ import Mypage from './pages/Mypage';
 import MyCommentsPage from './pages/MyCommentsPage'
 import MyPostPage from './pages/MyPostPage';
 
-
 const App = () => {
   return (
     <div className="App">
-       
-      <box className="box">
+      <box>
       <Routes>
         <Route path='/' element={<HomePage />} />  {/* 홈 */}
         <Route path="/info" element={<InformationPage />} />  {/* AI 정보ㅗ */}
@@ -35,7 +33,6 @@ const App = () => {
           <Route path="/mypage/posts" element={<MyPostPage />} />
           <Route path="/mypage/comments" element={<MyCommentsPage />} />
         </Route>
-        
       </Routes>
       </box>
     </div>

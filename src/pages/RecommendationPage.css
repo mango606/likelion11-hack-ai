@@ -8,8 +8,7 @@
       list-style-type: none;
 }
 .top_title{
-      font-size: 30px;
-      letter-spacing: -3px;
+      font-size: 26px;
       color: #231942;
 }
 .recommend_box{
@@ -45,8 +44,7 @@
       margin: 20px 100px;
 }
 .rec_title{
-      letter-spacing: -3px;
-      font-size: 30px;
+      font-size: 26px;
       color: #231942;
 }
 .rec-page{

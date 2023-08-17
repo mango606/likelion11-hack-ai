@@ -9,15 +9,14 @@ html, body {
 }
 
 /* 전체 박스 */
-.box {
+box {
   display: flex;
   height: 100%;
   justify-content: space-between;
 }
 
 /* 왼쪽 박스 */
-.sidebar {
-  position: fixed;
+sidebar {
   display: flex;
   flex-direction: column;
   flex: 1;
