@@ -1,13 +1,13 @@
 import React from "react";
 import "./detail.css";
 import Sidebar from "../Sidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CommentsList from "../components/CommentsList";
-
-import { data } from "../components/detailtest";
+import axios from "axios";
 
 class Post {
-  constructor(data) {
+  constructor(datas) {
+    const data = datas.data;
     this.title = data.title;
     this.content = data.content;
     this.author = data.writer;
@@ -17,7 +17,8 @@ class Post {
     this.commentNum = data.commentCount;
     this.comments = data.comments;
     this.img = "https://via.placeholder.com/650x300";
-    this.likeCheck = data.likeCheck;
+    this.likeCheck = datas.likeCheck;
+    this.userId = data.userId;
   }
 
   getDate(createdDate) {
@@ -30,17 +31,71 @@ class Post {
 }
 
 const DetailPage = () => {
-  const post = new Post(data);
+  const [data, setData] = useState(null);
   const [comment, setComment] = useState("");
+  const [like, setLike] = useState(false);
+  const [post, setPost] = useState(null);
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("ailion/api/posts/31/1", {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+
+        setData(response.data);
+
+      } catch (e) {
+        console.log(e);
+
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      const postObject = new Post(data);
+      setPost(postObject);
+    }
+  }, [data]);
+
+  // useEffect(() => {
+  //   console.log(post);
+  // }, [post]);
+
+  useEffect(() => {
+    if (!(localStorage.getItem('jwt'))) {
+      return;
+    }
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get("ailion/user/", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          },
+        });
+        console.log(response.data);
+        setUser(response.data.id);
+
+      } catch (e) {
+        console.log(e);
+        localStorage.removeItem('jwt');
+      }
+    };
+    fetchUser();
+  }, []);
 
   const handleLike = () => {
-    if (post.likeCheck === false) {
-      post.likeCheck = true;
+    if (like === false) {
+      setLike(true);
     } else {
-      post.likeCheck = false;
+      setLike(false);
     }
-    console.log(post.likeCheck);
   }
 
   const handleCommentChange = (event) => {
@@ -49,35 +104,61 @@ const DetailPage = () => {
 
   const commentSubmit = (event) => {
     event.preventDefault();
-    console.log(post.comments);
+    if (comment.trim() === "") {
+      return ;
+    }
+
   };
+
+  useEffect(() => {
+    console.log(post, user);
+    if (post !== null && user !== null) {
+      setIsLoading(false);
+    }
+  }, [post, user]);
+
+
+
 
   return (
     <>
-      <Sidebar />
+    {isLoading ? <div className="loading">Loading...</div> :
+    <>
+
+<Sidebar />
       <article>
         <div className="detail">
           <div className="detail_title">
             <h1>{post.title}</h1>
+            <div className="detailPostInfo">
+            <img className="detailPostImg" alt="postImg" src={"img/alien" + (post.userId % 5 + 1) + ".png"}></img>
+            <p className="postAuthor">{post.author}</p>
+            <p className="detailPostDate">{`${post.date}`}</p>
+
+              {user && user === post.userId ?
+              <div className="detailPostButtonWrap">
+              <button className="detailPostButton">게시글 삭제</button>
+              </div> : <></>}
+
+            </div>
           </div>
           <hr></hr>
           <div className="detail_content">
-            <p>{post.content}</p>
             <img alt="postImg" className="detail_img" src={post.img} ali="sampleImg"></img>
-            <p>이러이러한 내용이에요</p>
+            <p>{post.content}</p>
           </div>
           <div className="detail_footer">
-            <p>{`${post.date} 조회 ${post.view}`}</p><br></br>
-            <p>{`작성자 : ${post.author}`}</p><br></br>
             <div className="like">
-            <img className="likeImg" onClick={handleLike} alt="likeImg" src={post.likeCheck === false ? "img/emptyLike.png" : "img/like.png"}></img><p>{`좋아요 ${post.like} 댓글 ${post.commentNum}`}</p>
+            <img className="likeImg" onClick={handleLike} alt="likeImg" src={like === false ? "img/emptyLike.png" : "img/like.png"}></img><p>{`${post.like}`}</p>
+            <img className="postCommentImg" alt="commentImg" src="img/comment-dots.png"></img><p>{`${post.commentNum}`}</p>
+            <img className="postViewImg" alt="viewImg" src="img/view.png"></img><p>{`${post.view}`}</p>
             </div>
           </div>
           <hr></hr>
           <div className="commentForm">
             <img
               className="commentImg"
-              src="img/id.png"
+              src="img/cyclops.png"
               alt="user"
             />
             <input
@@ -92,12 +173,15 @@ const DetailPage = () => {
           <hr></hr>
           <div className="comment_wrap">
 
-          <h3>댓글</h3>
-            <CommentsList comments={post.comments} />
+            <CommentsList comments={post.comments} User={user} />
           </div>
 
         </div>
       </article>
+
+
+    </>
+    }
     </>
   );
 };
