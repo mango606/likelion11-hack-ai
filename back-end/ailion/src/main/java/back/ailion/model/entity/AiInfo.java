@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class AiInfo extends BaseEntity{
+public class AiInfo{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +35,6 @@ public class AiInfo extends BaseEntity{
     @ColumnDefault("0")
     @Column(name = "favorite_count",nullable = false)
     private Integer favoriteCount;
-    private String click;
 
     @Builder
     public AiInfo(String name, String content, String url, String category) {
