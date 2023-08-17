@@ -1,5 +1,8 @@
 package back.ailion.controller;
 
+import back.ailion.exception.BaseExceptionCode;
+import back.ailion.exception.custom.NonPositiveException;
+import back.ailion.exception.custom.NotFoundException;
 import back.ailion.model.dto.*;
 import back.ailion.model.dto.request.*;
 import back.ailion.model.entity.Post;
@@ -11,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -58,12 +62,17 @@ public class PostApiController {
     }
 
     // 상세 게시글
-    @GetMapping("/api/posts/detail")
-    public PostLikeDto getPost(@Valid @RequestBody PostDetailRequest detailRequest,
+    @GetMapping("/api/posts/{postId}/{userId}")
+    public PostLikeDto getPost(@PathVariable("postId") Long postId,
+                               @PathVariable("userId") Long userId,
                                HttpServletRequest req, HttpServletResponse res) {
 
-        viewCountUp(detailRequest.getPostId(), req, res);
-        return postService.getPost(detailRequest.getPostId(), detailRequest.getUserId());
+        if (userId <= 0) {
+            throw new NonPositiveException(BaseExceptionCode.NON_POSITIVE_ID);
+        }
+
+        viewCountUp(postId, req, res);
+        return postService.getPost(postId, userId);
     }
 
     // 카테고리 게시글

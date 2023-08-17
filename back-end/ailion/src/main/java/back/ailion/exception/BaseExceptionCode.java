@@ -44,7 +44,9 @@ public enum BaseExceptionCode {
 
     FILE_UPLOAD_EXCEEDED(HttpStatus.BAD_REQUEST.value(), "파일 업로드 개수는 10개 이하여야 합니다."),
 
-    ALREADY_FAVORITE(HttpStatus.BAD_REQUEST.value(), "이미 즐겨찾기한 AI 입니다.");
+    ALREADY_FAVORITE(HttpStatus.BAD_REQUEST.value(), "이미 즐겨찾기한 AI 입니다."),
+
+    NON_POSITIVE_ID(HttpStatus.BAD_REQUEST.value(), "null");
 
 
     private final int httpStatusCode;

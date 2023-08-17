@@ -2,6 +2,7 @@ package back.ailion.exception;
 
 import back.ailion.exception.custom.AlreadyExecutedException;
 import back.ailion.exception.custom.FileException;
+import back.ailion.exception.custom.NonPositiveException;
 import back.ailion.exception.custom.NotFoundException;
 import com.nimbusds.oauth2.sdk.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -73,5 +74,12 @@ public class GlobalExceptionHandler {
         ex.getBindingResult().getAllErrors()
                 .forEach(c -> errors.put(((FieldError) c).getField(), c.getDefaultMessage()));
         return ResponseEntity.badRequest().body(errors);
+    }
+
+    @ExceptionHandler(NonPositiveException.class)
+    public ResponseEntity<ExceptionResponse> handleNonPositiveException(NonPositiveException e){
+        return ResponseEntity
+                .status(e.getBaseExceptionCode().getHttpStatusCode())
+                .body(new ExceptionResponse(e.getBaseExceptionCode().getHttpStatusCode(), e.getBaseExceptionCode().getMessage()));
     }
 }
