@@ -30,8 +30,9 @@ export default function useForm() {
       return;
     }
     try {
-      console.log(Id);
-      const response = await axios.post('/ailion/api/signup/', Id);
+
+      const response = await axios.post('/ailion/api/signup/validId',"string", { headers: { "Content-Type": "text/plain" } });
+
       if (response.data === true) {
         setIsDuplicated(true);
       } else {
@@ -40,6 +41,7 @@ export default function useForm() {
     } catch (error) {
       console.error(error);
     }
+    setIsDuplicated(true);
 
 }
 

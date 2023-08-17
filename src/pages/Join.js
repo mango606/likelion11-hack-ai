@@ -45,13 +45,14 @@ const Join = () => {
         "nickname": Nickname,
         "password": password,
         "recommends": {
-          "music" : music,
-          "search" : search,
-          "video" : video,
-          "novel" : novel,
+          "MUSIC" : parseInt(music),
+          "SEARCH" : parseInt(search),
+          "VIDEO" : parseInt(video),
+          "NOVEL" : parseInt(novel),
         },
         "username": Id
       };
+      console.log(music, search, video, novel);
     try {
       const response = await axios.post('/ailion/api/signup/', user);
       console.log(response.data);
@@ -59,7 +60,6 @@ const Join = () => {
     } catch (error) {
       console.error(error);
     }
-
 }
 
   const [idFocused, setIdFocused] = useState(false);
@@ -103,6 +103,7 @@ const Join = () => {
         onBlur={() => setEmailFocused(false)}
         placeholder='이메일' value={email} onChange={handleEmailChange} />
       </div>
+
       <div className={`passwordForm ${passwordFocused ? 'focused' : ''}`}>
         <img className="passwordImg" src="img/password.png" alt="password" width="20px" height="20px" />
         <input className="joinInput" type={inputType}
