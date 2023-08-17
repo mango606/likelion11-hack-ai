@@ -1,8 +1,12 @@
 {
-  "short_name": "React App",
+  "short_name": "AILION",
   "name": "Create React App Sample",
   "icons": [
-
+    {
+      "src": "logo2.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    }
   ],
   "start_url": ".",
   "display": "standalone",
