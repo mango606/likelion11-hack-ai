@@ -25,7 +25,11 @@ const Join = () => {
     handlePasswordSame,
     handleNicknameChange,
     handleBirthChange,
-    interest,
+
+    music,
+    video,
+    novel,
+    search,
     handleInterestChange,
     isDuplicated,
     handleIdDuplication
@@ -36,20 +40,26 @@ const Join = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const user = {
-      "username" : Id,
-      "email" : email,
-      "password" : password,
-      "nickname" : Nickname,
-      "name" : "test",
-    };
+        "name" : Id,
+        "email": email,
+        "nickname": Nickname,
+        "password": password,
+        "recommends": {
+          "music" : music,
+          "search" : search,
+          "video" : video,
+          "novel" : novel,
+        },
+        "username": Id
+      };
     try {
-      await axios.post('/ailion/api/signup/', user);
+      const response = await axios.post('/ailion/api/signup/', user);
+      console.log(response.data);
       navigate('/login');
     } catch (error) {
       console.error(error);
     }
-    //      Birth,
-    //interest
+
 }
 
   const [idFocused, setIdFocused] = useState(false);
@@ -65,6 +75,10 @@ const Join = () => {
   const togglePasswordVisibility = () => {
     setInputType(inputType === 'password' ? 'text' : 'password');
     setImgView(imgView === 'img/view.png' ? 'img/hide.png' : 'img/view.png');
+  }
+
+  if (localStorage.getItem('jwt')) {
+    navigate('/');
   }
 
   return (
@@ -133,14 +147,43 @@ const Join = () => {
       </div>
     </div>
     <div className="interestForm">
-    관심 있는 분야 :
-    <select className="joinSelect" name="interest" onChange={handleInterestChange} value={interest}>
-        <option className="joinOption" value="음악">음악</option>
-        <option className="joinOption" value="영상">영상</option>
-        <option className="joinOption" value="글쓰기">글쓰기</option>
-        <option className="joinOption" value="검색엔진">검색엔진</option>
-        <option className="joinOption" value="없음">없음</option>
-    </select>
+    흥미지수를 선택해주세요 (1~4)
+
+    <div>
+      음악
+    <input type="radio" name="music" value="1" defaultChecked onClick={handleInterestChange}></input>
+    <input type="radio" name="music" value="2" onClick={handleInterestChange} ></input>
+    <input type="radio" name="music" value="3" onClick={handleInterestChange} ></input>
+    <input type="radio" name="music" value="4" onClick={handleInterestChange} ></input>
+    </div>
+
+
+    <div>
+      영상
+    <input type="radio" name="video" value="1" defaultChecked onClick={handleInterestChange}></input>
+    <input type="radio" name="video" value="2" onClick={handleInterestChange} ></input>
+    <input type="radio" name="video" value="3" onClick={handleInterestChange} ></input>
+    <input type="radio" name="video" value="4" onClick={handleInterestChange} ></input>
+    </div>
+
+    <div>
+      글쓰기
+    <input type="radio" name="novel" value="1" defaultChecked onClick={handleInterestChange}></input>
+    <input type="radio" name="novel" value="2" onClick={handleInterestChange}></input>
+    <input type="radio" name="novel" value="3" onClick={handleInterestChange}></input>
+    <input type="radio" name="novel" value="4" onClick={handleInterestChange}></input>
+    </div>
+
+    <div>
+      검색엔진
+    <input type="radio" name="search" value="1" defaultChecked onClick={handleInterestChange}></input>
+    <input type="radio" name="search" value="2" onClick={handleInterestChange}></input>
+    <input type="radio" name="search" value="3" onClick={handleInterestChange}></input>
+    <input type="radio" name="search" value="4" onClick={handleInterestChange}></input>
+    </div>
+
+
+
     </div>
 
 

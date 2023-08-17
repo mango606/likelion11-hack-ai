@@ -31,8 +31,11 @@ const Sidebar = () => {
       console.log(err);
       navigate('/login');
     });
+  }
 
-
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    navigate('/');
   }
 
   return (
@@ -87,13 +90,16 @@ const Sidebar = () => {
           <button id="side-bt">+ 글 작성</button>
         </Link>
         {localStorage.getItem('jwt') ? (
+          <div>
           <button id="side-bt2" onClick={handleMypageClick}>마이페이지</button>
+          <button id="side-bt2" onClick={handleLogout}>로그아웃</button>
+          </div>
         ):(
           <Link to="/login">
           <button id="side-bt2">로그인</button>
         </Link>
         ) }
-        
+
       </sidebar>
     </>
   );

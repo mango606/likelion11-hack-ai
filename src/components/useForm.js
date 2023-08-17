@@ -1,5 +1,6 @@
 // useForm.js
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function useForm() {
   const [isDuplicated, setIsDuplicated] = useState(false);
@@ -15,7 +16,12 @@ export default function useForm() {
   const [NicknameError, setNicknameError] = useState(false);
   const [Birth, setBirth] = useState('');
   const [BirthError, setBirthError] = useState(false);
-  const [interest, setInterest] = useState('없음');
+
+  const [music , setMusic] = useState('1');
+  const [video , setVideo] = useState('1');
+  const [novel , setNovel] = useState('1');
+  const [search , setSearch] = useState('1');
+
 
 
   const handleIdDuplication = async (event) => {
@@ -23,19 +29,34 @@ export default function useForm() {
     if (IdError) {
       return;
     }
-  
+    try {
+      console.log(Id);
+      const response = await axios.post('/ailion/api/signup/', Id);
+      if (response.data === true) {
+        setIsDuplicated(true);
+      } else {
+        setIsDuplicated('duplicate');
+      }
+    } catch (error) {
+      console.error(error);
+    }
 
-  if (Id === 'testt') {
-    setIsDuplicated('duplicate');
-    console.log(isDuplicated);
-  } else {
-
-    setIsDuplicated(true); // 임시
-  }
 }
 
   const handleInterestChange = (event) => {
-    setInterest(event.target.value);
+
+    if (event.target.name === 'music') {
+      setMusic(event.target.value);
+    } else if (event.target.name === 'search') {
+      setSearch(event.target.value);
+    } else if (event.target.name === 'video') {
+      setVideo(event.target.value);
+
+    } else if (event.target.name === 'novel') {
+      setNovel(event.target.value);
+
+    }
+
   }
 
   const validatePassword = (password) => {
@@ -200,7 +221,10 @@ export default function useForm() {
     BirthError,
     handleNicknameChange,
     handleBirthChange,
-    interest,
+    music,
+    video,
+    novel,
+    search,
     handleInterestChange,
     isDuplicated,
     handleIdDuplication
