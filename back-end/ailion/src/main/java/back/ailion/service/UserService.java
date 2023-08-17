@@ -83,7 +83,7 @@ public class UserService {
     }
 
     public Boolean isValidId(String id) {
-        if (userRepository.findByUsername(id) != null) {
+        if (userRepository.findByUsername(id).isPresent()) {
             return true;
         }
         else{
