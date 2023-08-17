@@ -156,6 +156,7 @@ public class PostService {
         postDTO.setLikeCount(post.getLikeCount());
         postDTO.setViewCount(post.getViewCount());
         postDTO.setCreatedDate(post.getCreatedDate());
+        postDTO.setDelCheck(post.isDelCheck());
         postDTO.setComments(convertCommentsToDTOs(post.getComments()));
         postDTO.setUserId(post.getUser().getId());
         return postDTO;
@@ -170,6 +171,7 @@ public class PostService {
             commentDTO.setContent(comment.getContent());
             commentDTO.setWriter(comment.getWriter());
             commentDTO.setCreatedDate(comment.getCreatedDate());
+            commentDTO.setDelCheck(comment.isDelCheck());
             commentDTO.setReplies(convertRepliesToDTOs(comment.getReplies()));
             commentDTOs.add(commentDTO);
         }
@@ -184,6 +186,7 @@ public class PostService {
             replyDTO.setReplyId(reply.getId());
             replyDTO.setContent(reply.getContent());
             replyDTO.setWriter(reply.getWriter());
+            replyDTO.setDelCheck(reply.isDelCheck());
             replyDTO.setCreatedDate(reply.getCreatedDate());
             replyDTOs.add(replyDTO);
         }
