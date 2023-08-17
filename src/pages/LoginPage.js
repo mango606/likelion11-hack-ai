@@ -46,48 +46,48 @@ const LoginPage = () => {
   
 
 return (
-  <div className="container">
-         <NavLink to="/"><div className="title"> AILION </div></NavLink>
-        <form onSubmit={handleLogin} className="login_form">
-              <label className="login_label">
-                    <input 
-                        className="login_input"
-                        type="text"  
-                        placeholder="아이디" 
-                        id="username"
-                        value={id} 
-                        onChange={(e) => setId(e.target.value)} 
-                    />
-                    {id && <div type="button" className="btn_clear" onClick={handleClearId}>
-                          <img className="btn_clear_img" alt="close_icon" src="img/clear.png" />
-                          </div>}
-              </label>
-              <label>
-                    <input 
-                        className="login_input"
-                        type="password" 
-                        placeholder="비밀번호" 
-                        id="password" 
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
-                    />
-                    {password && <div type="button" className="btn_clear" onClick={handleClearPassword}>
-                                      <img className="btn_clear_img" alt="close_icon" src="img/clear.png" />
-                                 </div>}
-              </label>
-              {loginError && <div className="error_message">{loginError}</div>}
-              {loginError === '' && <div className="error_message"> </div>}
-              <button className="btn_login" type="submit">로그인</button>
-              <div className="txt_line"> 또는 </div>
-              <div className="btn_col">
-                    <button className="btn_naver">네이버 로그인</button>
-                    <button className="btn_kakao">Kakao 로그인</button>
-                    <button className="btn_Google">Google 로그인</button>
-              </div>
-              <NavLink to="/Join">
-                    <div className="link_join">회원가입</div>
-              </NavLink>             
-        </form>
+  <div className="login-container">
+      <NavLink to="/">
+            <img className="login-logo" alt="로고 이미지" src="img/logo.png" />
+      </NavLink>
+      <form onSubmit={handleLogin} className="login-form">
+            <div className="login-box">
+                  <div className="inp-text">
+                        <label for="loginId" className="screen-out">아이디</label>
+                        <input 
+                              className="login-input"
+                              type="text"  
+                              placeholder="아이디" 
+                              id="username"
+                              value={id} 
+                              onChange={(e) => setId(e.target.value)} 
+                        />
+                        {id && <div type="button" className="btn-clear" onClick={handleClearId}>
+                              <img className="btn-clear-img" alt="close_icon" src="img/clear.png" />
+                        </div>}
+                  </div>
+                  <div className="inp-text">
+                        <label for="loginPw" className="screen-out">비밀번호</label>
+                        <input 
+                              className="login-input"
+                              type="password" 
+                              placeholder="비밀번호" 
+                              id="password" 
+                              value={password} 
+                              onChange={(e) => setPassword(e.target.value)} 
+                        />
+                        {password && <div type="button" className="btn-clear" onClick={handleClearPassword}>
+                              <img className="btn-clear-img" alt="close-icon" src="img/clear.png" />
+                        </div>}
+                  </div>
+            </div>
+                  {loginError && <div className="error-message">{loginError}</div>}
+                  {loginError === '' && <div className="error-message"> </div>}
+                  <button className="btn-login" type="submit">로그인</button>
+      </form>
+      <NavLink to="/Join">
+            <div className="link-join">회원가입</div>
+      </NavLink>     
   </div>
 );
 }

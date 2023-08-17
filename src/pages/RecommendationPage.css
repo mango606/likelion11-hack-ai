@@ -1,0 +1,99 @@
+.top_container {
+      display: flex;
+      flex-direction: column;
+      padding: 30px 100px 10px;
+      border-bottom: 1px solid #D3D3D3;
+}
+.recommend_container ul, li {
+      list-style-type: none;
+}
+.top_title{
+      font-size: 30px;
+      letter-spacing: -3px;
+      color: #231942;
+}
+.recommend_box{
+      width: fit-content;
+      margin: 10px 0;
+      padding: 10px 25px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 3px 6px 0 rgba(29,34,53,.08);
+      text-align: center;
+}
+.recommend_box:hover{
+      background-color: #f5f5f5;
+}
+.topAI_list {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      margin-bottom: 5px;
+}
+.topAI_name{
+      margin-bottom: 5px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #5E548E;
+}
+.topAI_img{
+      width: 80px;
+      margin-bottom: 5px;
+      box-shadow: 0 3px 6px 0 rgba(29,34,53,.08);
+}
+.rec_container{
+      margin: 20px 100px;
+}
+.rec_title{
+      letter-spacing: -3px;
+      font-size: 30px;
+      color: #231942;
+}
+.rec-page{
+      display: flex;
+      flex-wrap: wrap;
+}
+.rec-box{
+      display: flex;
+      flex: 0 0 calc(50% - 50px);
+      align-items: center;
+      
+      width: 50%;
+      height: fit-content;
+      margin-top: 10px;
+      margin-right: 18px;
+      margin-bottom: 10px;
+      padding: 15px;
+      border: 1px solid #d0d0d0;
+      border-radius: 10px; 
+      box-shadow: 0 3px 6px 0 rgba(29,34,53,.08);
+}
+.rec-box:hover{
+      background-color: #f5f5f5;
+}
+.rec_info{
+      float: left;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+}
+.rec_name{
+      font-size: 15px;
+      font-weight: 600;
+      color: #5E548E;
+}
+.rec_category{
+      font-size: 15px;
+      font-weight: 600;
+}
+.rec_content{
+      white-space:normal;
+      font-size: 12px;
+}
+.rec_img{
+      width: 90px;
+      height: 90px;
+      margin-left: 10px;
+      border: 1px solid #D3D3D3;
+      border-radius: 10px;
+}

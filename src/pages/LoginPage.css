@@ -1,10 +1,4 @@
-* {
-      margin: 0px;
-      padding: 0px;
-      text-decoration: none;
-}
-
-.container {
+.login-container {
       display: flex; 
       flex-direction: column;
       justify-content: center;
@@ -13,115 +7,104 @@
       height: 100vh;
 }
 
-.title{
-      font-size: 25px;
-      font-weight: 600;
+.login-logo{
+      width: 40px;
 }
 
-.login_form {
+.login-form {
       display: flex; 
       flex-direction: column;
-      width: 270px;
+      width: 350px;
       margin: 20px;
       padding: 10px 30px 10px 30px;
       border: 1px solid #d8d8d8;
+      border-radius: 10px;
 }
-.login_label {
+.login-box {
+      margin: 20px 0 0;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #fff;
+      box-sizing: border-box;
+}
+.inp-text {
+      position: relative;
+      width: 100%;
+      margin: 0;
+      padding: 18px 19px 19px;
+      box-sizing: border-box;
+}
+.inp-text+.inp-text {
+      border-top: 1px solid #ddd;
+}
+.inp-text input {
+      display: block;
+      width: 100%;
+      height: 100%;
+      font-size: 13px;
+      color: #000;
+      border: none;
+      outline: 0;
+}
+.login-label {
       position: relative;
 }
-.login_input {
-      width: 90%;
-
-      margin-top: 40px;
-      margin-left: 15px;
-      margin-right: auto;
-      
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      border-bottom : 1px solid #d8d8d8;
-
+.login-input {
+      border: 0;
       outline: none;
-      font-size: 17px;
+      font-size: 19px;
 }
-.login_input:focus {
-      border-bottom : 1px solid #99dffc;
+.login-input::placeholder{
+      color: #5E548E;
+      font-size: 14px;
 }
-.btn_clear {
+.btn-clear {
       position: absolute;
-      top:40px;
+      top:10px;
       right:15px;
       width: 15px;
       height: 15px;
-      margin: 0;
+      margin:  5px 0 0 0;
       border-radius: 100%;
 }
-.btn_clear_img {
+.btn-clear-img {
       width: 15px;
       height: 15px;
       object-fit: cover;
 }
-.error_message {
+.error-message {
       margin-top: 16px;
-      margin-left: 15px;
+      margin-left: 5px;
       color: red;
-      font-size: 5px;
+      font-size: 13px;
 }
-.btn_login {
-      width: 90%;
-      height: 100%;
+.btn-login {
+      width: 100%;
+      height: fit-content;
 
       margin-top: 20px;
       margin-left: auto;
       margin-right: auto;
       margin-bottom: 27px;
 
-      padding: 12px;
-      border: 0;
-      background-color: #C4E8F8;
-}
-
-.txt_line {
-      display: flex;
-      flex-basis: 100%;
-      align-items: center;
-      margin-bottom: 20px;
-      color: #858585;
-      font-size: 10px;
-    }
-.txt_line::before, .txt_line::after {
-      content: "";
-      flex-grow: 1;
-      height: 1px;
-      background:#d8d8d8;
-      line-height: 1px;
-}
-
-.btn_col{
-      display: flex; 
-      flex-direction: column;
-      align-items: center; 
-}
-.btn_col button {
-      width: 80%;
-      margin-top: 9px;
       padding: 10px;
       border: 0;
-      border-radius: 2px;
-      cursor: pointer;
-}
-.btn_naver{
-      background-color: #03C73C;
-      color: #ffff;
-}
-.btn_kakao{
-      background-color: #FFEB3B;
+      border-radius: 10px;
+      color: #FFFFFF;
+      background-color: #231942;
+      font-size: 15px;
 }
 
-.link_join{
-      margin-top:30px;
-      margin-left: 115px;
-      margin-bottom: 0px;
-      color: #000000;
-      font-size: 8px;
+.link-join{
+      color: #5E548E;
+      font-size: 15px;
 }
+.screen-out {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      line-height: 0;
+      text-indent: -9999px;    
+}
+
