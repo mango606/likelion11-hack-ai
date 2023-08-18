@@ -5,8 +5,8 @@ import './Modal.css';
 // 모달 스타일을 설정합니다.
 const modalStyle = {
     content: {
-      width: '400px',
-      height: '300px',
+      width: '500px',
+      height: '400px',
       margin: 'auto',
       borderRadius: '8px',
       border: 'none',
