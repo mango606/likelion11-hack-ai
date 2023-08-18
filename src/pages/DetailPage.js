@@ -51,7 +51,7 @@ const DetailPage = () => {
             'Content-Type': 'application/json',
           }
         });
-
+        console.log(response.data);
         setData(prevData => ({
           ...prevData,
           ...response.data,
@@ -63,7 +63,7 @@ const DetailPage = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [postId, userId]);
 
   useEffect(() => {
     if (data) {
@@ -120,7 +120,7 @@ const DetailPage = () => {
 
     const fetchComment = async () => {
       try {
-        const response = await axios.post("/ailion/comments", commentObject, {
+        await axios.post("/ailion/comments", commentObject, {
           headers: {
             'Content-Type': 'application/json',
           }

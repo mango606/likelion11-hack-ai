@@ -14,6 +14,8 @@ const Comment = ({ comment, User, Post }) => {
     }
   );
 
+  const flag = comment.replies.length === 1 && comment.delCheck === true ? true : false;
+
   const handleDeleteComment = async () => {
     try {
 
@@ -60,14 +62,15 @@ const Comment = ({ comment, User, Post }) => {
       )}
       <div className="replies">
         {comment.replies.map((reply) => (
-          <Reply key={reply.replyId} reply={reply} User={User} Post={Post} />
+          <Reply key={reply.replyId} reply={reply} User={User} Post={Post} flag={flag} comment={comment.commentId} />
         ))}
       </div>
     </div>
   );
 };
 
-const Reply = ({ reply, User, Post }) => {
+const Reply = ({ reply, User, Post, flag, comment }) => {
+
   const formattedDate = new Date(reply.createdDate).toLocaleDateString(
     "ko-KR",
     {
@@ -83,6 +86,7 @@ const Reply = ({ reply, User, Post }) => {
 
   const handleDeleteReply = async () => {
     try {
+
       await axios.delete(`/ailion/reply/`, {
         data : {
           "postId" : parseInt(Post),
@@ -91,9 +95,20 @@ const Reply = ({ reply, User, Post }) => {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-        },
-
+        }
       });
+      if (flag === true) {
+        await axios.delete(`/ailion/comments`, {
+          data : {
+            "commentId" : comment,
+            "postId" : parseInt(Post),
+          },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+          },
+        });
+      }
       window.location.reload();
     } catch (e) {
       console.log(e);
