@@ -6,18 +6,21 @@ import axios from 'axios';
 const InformationPage = () => {
   const [data, setData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
-
+  const [imageUrls, setImageUrls] = useState({});
+  
+  const cheerio = require('cheerio');
+  
   useEffect(() => {
-    console.log("start")
+    console.log("start") 
     const fetchData = async () => {
       // if (!(localStorage.getItem('jwt'))) {
       //   return;
       // }
       try {
         let url = '/ailion/api/aiInfo';
-        //let url = 'https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/aiInfo';
+        // let url = 'https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/aiInfo';
         if (selectedCategory !== "all") {
-           //url = `https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/aiInfo/category/${selectedCategory}`;
+          // url = `https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/aiInfo/category/${selectedCategory}`;
           url = `/ailion/api/aiInfo/category/${selectedCategory}`;
         }
         // const response = await axios.get(url,{
@@ -35,13 +38,13 @@ const InformationPage = () => {
     fetchData();
   }, [selectedCategory]);
 
-
+  
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
 
-
+  
 
   return (
     <>
@@ -96,8 +99,8 @@ const InformationPage = () => {
         </div>
         {data.length > 0 && (
           <ul className="info-content">
-            {data.map(item => (
-              <li className="AI-box" key={item.id}>
+            {data.map((item,index) => (
+              <li className="AI-box" key={index}>
                 <div className="AI-info">
                 <a href={item.url} target="_blank" rel="noopener noreferrer">
                     <div className='AI-name'>{item.name}</div>
@@ -107,7 +110,7 @@ const InformationPage = () => {
                   </div>
 
                 </div>
-                <img className="AI-img" alt="인기 AI 이미지" src={item.img} />
+                <img className="AI-img" alt="인기 AI 이미지" src={item.imageUrl} />
               </li>
             ))}
           </ul>

@@ -3,6 +3,7 @@ import Sidebar from '../Sidebar';
 import './RecommendationPage.css';
 import axios from 'axios';
 
+
 const RecommendationPage = () => {
   const [topAI, setTopAI] = useState([]);
   const [recAI, setRecAI] = useState([]);
@@ -14,8 +15,13 @@ const RecommendationPage = () => {
 
   const fetchTopAI = async () => {
     try {
-      const response = await axios.get('https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/top5'); 
+      const response = await axios.get('/ailion/api/top5',{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          }
+      });
       setTopAI(response.data);
+
     } catch (error) {
       console.error('Error fetching top AI:', error);
     }
@@ -23,25 +29,41 @@ const RecommendationPage = () => {
 
   const fetchRecAI = async () => {
     try {
-      const response = await axios.get('https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/userRecommend');
-      setRecAI(response.data);
+      if (localStorage.getItem('jwt')) {
+        const response = await axios.get('/ailion/userRecommend', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          },
+        });
+      
+        const userInterests = ['MUSIC'];
+        const data = response.data;
+        const allRecAI = [];
+      
+        for (const key in data) {
+          if (Object.prototype.hasOwnProperty.call(data, key) && userInterests.includes(key)) {
+            allRecAI.push(...data[userInterests]);
+          }
+        }
+      
+        setRecAI(allRecAI);
+        const combinedRecAI = allRecAI.reduce((acc, prop) => acc.concat(prop), []);
+        setRecAI(combinedRecAI);
+        
+      }
+      
+       else {
+        const response = await axios.get('/ailion/api/userRecommend');
+        const allRecAI = Object.values(response.data);
+        const combinedRecAI = allRecAI.reduce((acc, prop) => acc.concat(prop), []);
+        setRecAI(combinedRecAI);
+      }
     } catch (error) {
-      console.error('Error fetching top AI:', error);
+      console.error('Error fetching recommended AI:', error);
     }
   };  
 
-// const extractImageUrl = async (url) => {
-//     try {
-//       const response = await axios.get(url);
-//       const match = response.data.match(/<meta\s+property="og:image"\s+content="([^"]+)"/);
-//       if (match && match[1]) {
-//         return match[1];
-//       }
-//     } catch (error) {
-//       console.error('Error extracting image URL:', error);
-//     }
-//     return null;
-//   };
+
   
 
   return (
@@ -51,13 +73,13 @@ const RecommendationPage = () => {
         <div className='top_container'>
         <span className='top_title'><h1>인기 AI TOP 5</h1></span>
         <ul className='topAI_list'>
-          {topAI.map((ai) => (
-            <li key={ai.id}>
+          {topAI.map((ai, index) => (
+            <li key={index}>
               <a href={ai.url} target="_blank" rel="noopener noreferrer">
               
               <div className='recommend_box'>
                 <div className='topAI_name'>{ai.name}</div>
-                <img className="topAI_img" alt="인기 AI 이미지" src={ai.img} />
+                <img className="topAI_img" alt="인기 AI 이미지" src={ai.imageUrl} />
               </div>
               
               </a>
@@ -80,7 +102,7 @@ const RecommendationPage = () => {
                 <div className='rec_category'>{ai.category}</div>
                 <div className="rec_content">{ai.content}</div>
               </div>
-              <img className="rec_img" alt={`${ai.name} 로고`} src={ai.img} />
+              <img className="rec_img" alt={`${ai.name} 로고`} src={ai.imageUrl} />
             </li>
           ))}
         </ul>

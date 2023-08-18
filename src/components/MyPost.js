@@ -33,7 +33,7 @@ const MyPost = () => {
       <p id="my-txt">안녕하세요. 저에 대해서 간단히 소개합니다. 글자 수 제한이 있습니다.</p>
       <hr id="my-line"></hr>
       <div id="post-menu">
-        <img id="post-img" src="./img/angle-left.png" onClick={() => navigate(-1)}/>
+        <img id="post-img" alt='뒤로가기 이미지'src="./img/angle-left.png" onClick={() => navigate(-1)}/>
         <h2>내가 쓴 글</h2>
     </div>
       <ul class="my-page">
@@ -45,14 +45,14 @@ const MyPost = () => {
             <div class="post-title">{post.title}</div>
             <div class="post-message">{post.content}</div>
             <div class="post-content">
-                <img class="post-img2" src="./img/heart.png"></img>
-                <a class="post-likes">{post.likes}</a>
-                <img class="post-img2" src="./img/comment-dots.png"></img>
-                <a class="post-comments">{post.comments}</a>
+                <img class="post-img2" alt='하트이미지' src="./img/heart.png"></img>
+                <span class="post-likes">{post.likes}</span>
+                <img class="post-img2" alt='댓글 이미지' src="./img/comment-dots.png"></img>
+                <span class="post-comments">{post.comments}</span>
                 <span class="post-createdAt">{formatDate(post.createdAt)}</span>
             </div>
           </div>
-          <img class="post-img3" src={post.picture}></img>
+          <img class="post-img3" alt='게시글 이미지' src={post.picture}></img>
         </li>
         ))}
       </ul>
