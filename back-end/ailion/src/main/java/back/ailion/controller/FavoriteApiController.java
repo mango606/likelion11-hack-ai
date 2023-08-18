@@ -28,4 +28,9 @@ public class FavoriteApiController {
     public boolean cancelFavorite(@Valid @RequestBody FavoriteDeleteDto favoriteDeleteDto) {
         return favoriteService.cancelFavorite(favoriteDeleteDto);
     }
+
+    @GetMapping("/{userId}/{aiInfoId}")
+    public boolean existFavorite(@PathVariable Long userId, @PathVariable Long aiInfoId){
+        return favoriteService.existFavorite(userId, aiInfoId);
+    }
 }
