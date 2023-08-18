@@ -143,6 +143,12 @@
 	cursor: pointer;
 }
 
+.FavorImg {
+	width : 25px;
+	margin-right: 1%;
+	cursor: pointer;
+}
+
 .postCommentImg {
 	width : 20px;
 	height : 20px;
@@ -284,4 +290,11 @@
 
   .commentBtn:active {
 	transform: scale(1.5);
+  }
+
+
+  .postContent {
+	margin-top : 3%;
+	margin-left : 2%;
+	margin-right : 2%;
   }

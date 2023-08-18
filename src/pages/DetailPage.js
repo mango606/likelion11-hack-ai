@@ -221,7 +221,7 @@ const DetailPage = () => {
           <hr></hr>
           <div className="detail_content">
             <img alt="postImg" className="detail_img" src={post.img} ali="sampleImg"></img>
-            <p>{post.content}</p>
+            <p className="postContent">{post.content}</p>
           </div>
           <div className="detail_footer">
             <div className="like">
