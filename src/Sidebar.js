@@ -188,7 +188,7 @@ const Sidebar = () => {
         </div>
 
         {localStorage.getItem('jwt') ? (
-          <div>
+          <div id="side-btn">
           <button id="side-bt2" onClick={handleMypageClick}>마이페이지</button>
           <button id="side-bt2" onClick={handleLogout}>로그아웃</button>
           </div>
@@ -200,7 +200,7 @@ const Sidebar = () => {
         </Link>
         ) }
 
-<Modal isOpen={isHelpModalOpen} onClose={closeHelpModal}>
+        <Modal isOpen={isHelpModalOpen} onClose={closeHelpModal}>
                 {/* 모달 내용 */}
                 {helpContent[currentHelpStep] && (
                 <div id="help-box">
@@ -224,7 +224,7 @@ const Sidebar = () => {
                     </div>
                 </div>
                 )}
-            </Modal>
+        </Modal>
 
       </sidebar>
     </>
