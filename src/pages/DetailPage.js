@@ -15,7 +15,6 @@ function DetailPage() {
   const [mycomment, setMyComment] = useState("");
 
   useEffect(() => {
-    // axios.defaults.baseURL = 'https://b233b880-2048-4890-965f-6ad3e1839bf0.mock.pstmn.io';
     axios.get(`/ailion/posts/${userId}/${postId}`)
       .then((response) => {
         setData(response.data.data);

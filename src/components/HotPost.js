@@ -19,8 +19,7 @@ function GetData() {
   };
 
   useEffect(() => {
-    axios.defaults.baseURL = 'https://b233b880-2048-4890-965f-6ad3e1839bf0.mock.pstmn.io';
-    axios.get('/ailion/posts/api/best/list').then((response)=> {
+    axios.get('/ailion/api/posts/best/list').then((response)=> {
       setData(response.data.data);
     })
   }, []);
@@ -55,5 +54,5 @@ function HotPost() {
         </div>
     );
 }
-  
+
 export default HotPost;
