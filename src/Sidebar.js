@@ -172,7 +172,7 @@ const Sidebar = () => {
               </div>
           </Link>
           <div id="side-menu"
-              onClick={openHelpModal}
+              onClick={openHelpModal} style={{ cursor: 'pointer' }}
           >
             <img className="side-img" alt='help_icon' src="/img/side-help.png" />
             <a id="side-txt">
@@ -181,7 +181,7 @@ const Sidebar = () => {
               </div>
         </div>
         <Link to="/write">
-          <button id="side-bt">글쓰기</button>
+          <button id="side-bt" style={{ cursor: 'pointer' }}>글쓰기</button>
           <img id="side-user" alt='write_icon' src="/img/side-write.png" />
         </Link>
 
@@ -195,7 +195,7 @@ const Sidebar = () => {
         ):(
           <Link to="/login">
 
-          <button id="side-bt2">로그인</button>
+          <button id="side-bt2" style={{ cursor: 'pointer' }}>로그인</button>
           <img id="side-user" alt='user_icon' src="/img/user.png" />
         </Link>
         ) }

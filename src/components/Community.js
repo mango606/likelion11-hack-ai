@@ -146,12 +146,14 @@ const Community = () => {
                 <button
                   onClick={() => handleCategoryClick("all")}
                   className={selectedCategory === "all" ? "selected" : ""}
+                  style={{ cursor: 'pointer' }}
                 >
                   전체
                 </button>
                 <button
                   onClick={() => handleCategoryClick("자유")}
                   className={selectedCategory === "자유" ? "selected" : ""}
+                  style={{ cursor: 'pointer' }}
                 >
                   자유
                 </button>
@@ -160,6 +162,7 @@ const Community = () => {
                   className={
                     selectedCategory === "자신만의 AI 노하우" ? "selected" : ""
                   }
+                  style={{ cursor: 'pointer' }}
                 >
                   나만의 AI 노하우
                 </button>
@@ -168,6 +171,7 @@ const Community = () => {
                   className={
                     selectedCategory === "AI 결과물 자랑" ? "selected" : ""
                   }
+                  style={{ cursor: 'pointer' }}
                 >
                   결과물 자랑
                 </button>
@@ -176,6 +180,7 @@ const Community = () => {
                   className={
                     selectedCategory === "수익 창출 공유" ? "selected" : ""
                   }
+                  style={{ cursor: 'pointer' }}
                 >
                   수익 창출 공유
                 </button>
