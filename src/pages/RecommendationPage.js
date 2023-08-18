@@ -6,23 +6,30 @@ import axios from 'axios';
 const RecommendationPage = () => {
   const [topAI, setTopAI] = useState([]);
   const [recAI, setRecAI] = useState([]);
+  const [imageUrl, setImageUrl] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     fetchTopAI();
     fetchRecAI();
-
   }, []);
 
   const fetchTopAI = async () => {
     try {
-      const response = await axios.get('/ailion/api/top5'); 
+      const response = await axios.get('/ailion/api/top5',{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          }
+      });
       setTopAI(response.data);
+      setError('');
     } catch (error) {
       console.error('Error fetching top AI:', error);
     }
   };
 
   const fetchRecAI = async () => {
+
     try {
       const response = await axios.get('/ailion/api/userRecommend');
       const allRecAI = Object.values(response.data);
@@ -46,6 +53,7 @@ const RecommendationPage = () => {
 //     return null;
 //   };
   
+
   return (
     <>
       <Sidebar />

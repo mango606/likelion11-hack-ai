@@ -8,22 +8,24 @@ const InformationPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   useEffect(() => {
+    console.log("start") 
     const fetchData = async () => {
-      if (!(localStorage.getItem('jwt'))) {
-        return;
-      }
+      // if (!(localStorage.getItem('jwt'))) {
+      //   return;
+      // }
       try {
-        let url = '/api/aiInfo';
+        let url = '/ailion/api/aiInfo';
         // let url = 'https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/aiInfo';
         if (selectedCategory !== "all") {
           // url = `https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/aiInfo/category/${selectedCategory}`;
-          url = `/api/aiInfo/category/${selectedCategory}`;
+          url = `/ailion/api/aiInfo/category/${selectedCategory}`;
         }
-        const response = await axios.get(url,{
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-            }
-        });
+        // const response = await axios.get(url,{
+        //   headers: {
+        //     Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        //     }
+        // });
+        const response = await axios.get(url);
         setData(response.data);
         console.log('성공');
       } catch (error) {
@@ -38,6 +40,8 @@ const InformationPage = () => {
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
+
+  
 
   return (
     <>
