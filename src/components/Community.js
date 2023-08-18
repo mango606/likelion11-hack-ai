@@ -158,18 +158,18 @@ const Community = () => {
                   자유
                 </button>
                 <button
-                  onClick={() => handleCategoryClick("자신만의 AI 노하우")}
+                  onClick={() => handleCategoryClick("나만의 AI 노하우")}
                   className={
-                    selectedCategory === "자신만의 AI 노하우" ? "selected" : ""
+                    selectedCategory === "나만의 AI 노하우" ? "selected" : ""
                   }
                   style={{ cursor: 'pointer' }}
                 >
                   나만의 AI 노하우
                 </button>
                 <button
-                  onClick={() => handleCategoryClick("AI 결과물 자랑")}
+                  onClick={() => handleCategoryClick("결과물 자랑")}
                   className={
-                    selectedCategory === "AI 결과물 자랑" ? "selected" : ""
+                    selectedCategory === "결과물 자랑" ? "selected" : ""
                   }
                   style={{ cursor: 'pointer' }}
                 >
@@ -193,7 +193,7 @@ const Community = () => {
                         <Link to={`/comm/${item.postId}/${user === null ? 0 : user}`} className="post-link">
                         <li className="post">
                             <div className="post-box">
-                                <div className="post-category">{item.category} 게시판</div>
+                                <div className="post-category">{item.category}</div>
                                 <div className="post-title">{item.title}</div>
                                 <div className="post-message">{item.content}</div>
                                 <div className="post-content">

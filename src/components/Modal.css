@@ -84,3 +84,12 @@
     margin-left: 50px;
     border: 1px solid #D3D3D3;
   }
+
+  #help-btn > button:hover {
+    background-color: #5E548E;
+  }
+
+  #help-before:hover {
+    color: white;
+    font-weight: bold;
+  }

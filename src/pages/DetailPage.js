@@ -202,7 +202,7 @@ const DetailPage = () => {
 
   <Sidebar />
 
-      <article>
+      <article id="detail-article">
         <div className="detail">
           <div className="detail_title">
             <h1>{post.title}</h1>

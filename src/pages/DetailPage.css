@@ -1,22 +1,28 @@
+#detail-article {
+	display: flex;
+    justify-content: center;
+}
+
 .detail {
-	justify-content: center;
+	width: 840px;
 }
 
 .detailPostInfo {
 	display: flex;
-
-	margin-top : 3%;
 }
 
 .detailPostDate {
-	margin-left : 3%;
+	margin-left : 16px;
 	padding-top : 1%;
 	color : rgb(173, 173, 173);
+	font-size: 13px;
 }
 
 .detail_title {
+	margin-top: 40px;
 	margin-left : 5%;
 	margin-bottom: 3%;
+	font-size: 18px;
 }
 
 .detail_content {
@@ -138,8 +144,9 @@
 }
 
 .like .likeImg {
-	width : 25px;
-	margin-right: 1%;
+	width : 18px;
+	height: 18px;
+	margin-right: 4px;
 	cursor: pointer;
 }
 
@@ -150,25 +157,26 @@
 }
 
 .postCommentImg {
-	width : 20px;
-	height : 20px;
-	margin-left : 1%;
+	width : 16px;
+	height : 16px;
+	margin-left : 12px;
 	margin-right : 0.8%;
 }
 
 .postViewImg {
-	width : 20px;
-	height : 20px;
-	margin-left : 1%;
+	width : 16px;
+	height : 16px;
+	margin-left : 12px;
 	margin-right : 0.8%;
 }
 
 .detailPostImg {
 	width : 40px;
-	margin-right: 1%;
+	height: 40px;
 	border : 1px solid antiquewhite;
 	background-color: antiquewhite;
-	border-radius: 50%;
+	border-radius: 100%;
+	margin: 14px;
 }
 
 .replyImg {
@@ -217,7 +225,8 @@
 }
 
 .postAuthor {
-	margin-left : 1%;
+	font-size: 14px;
+	margin-left : 4px;
 	padding-top : 1%;
 }
 
@@ -297,4 +306,5 @@
 	margin-top : 3%;
 	margin-left : 2%;
 	margin-right : 2%;
+	text-align: left;
   }
