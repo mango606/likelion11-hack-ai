@@ -35,23 +35,23 @@ const RecommendationPage = () => {
             Authorization: `Bearer ${localStorage.getItem('jwt')}`,
           },
         });
-      
+
         const userInterests = ['MUSIC'];
         const data = response.data;
         const allRecAI = [];
-      
+
         for (const key in data) {
           if (Object.prototype.hasOwnProperty.call(data, key) && userInterests.includes(key)) {
             allRecAI.push(...data[userInterests]);
           }
         }
-      
+
         setRecAI(allRecAI);
         const combinedRecAI = allRecAI.reduce((acc, prop) => acc.concat(prop), []);
         setRecAI(combinedRecAI);
-        
+
       }
-      
+
        else {
         const response = await axios.get('/ailion/api/userRecommend');
         const allRecAI = Object.values(response.data);
@@ -61,10 +61,10 @@ const RecommendationPage = () => {
     } catch (error) {
       console.error('Error fetching recommended AI:', error);
     }
-  };  
+  };
 
 
-  
+
 
   return (
     <>
@@ -76,12 +76,12 @@ const RecommendationPage = () => {
           {topAI.map((ai, index) => (
             <li key={index}>
               <a href={ai.url} target="_blank" rel="noopener noreferrer">
-              
+
               <div className='recommend_box'>
                 <div className='topAI_name'>{ai.name}</div>
                 <img className="topAI_img" alt="인기 AI 이미지" src={ai.imageUrl} />
               </div>
-              
+
               </a>
             </li>
             ))}
@@ -89,7 +89,7 @@ const RecommendationPage = () => {
         </div>
         <div className='rec_container'>
 
-        
+
        <div className='rec_title'><h1>사용자 추천 AI </h1></div>
        {recAI.length > 0 ? (
         <ul className="rec-page">
@@ -108,7 +108,7 @@ const RecommendationPage = () => {
         </ul>
       ) : (
         <div className="post-none-box">
-          <p className="post-none">게시글이 존재하지 않습니다.</p>
+          <p className="post-none">게시글을 불러오는 중 입니다.</p>
         </div>
       )}
         </div>

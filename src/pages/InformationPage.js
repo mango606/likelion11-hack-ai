@@ -117,7 +117,7 @@ const InformationPage = () => {
         )}
         {data.length === 0 && (
           <div className="post-none-box">
-            <p className="post-none">게시글이 존재하지 않습니다.</p>
+            <p className="post-none">게시글을 불러오는 중 입니다.</p>
           </div>
         )}
       </article>
