@@ -7,23 +7,23 @@ import Modal from './components/Modal';
 const Sidebar = () => {
   const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
     const [currentHelpStep, setCurrentHelpStep] = useState(0);
-  
+
     const openHelpModal = () => {
       setIsHelpModalOpen(true);
       setCurrentHelpStep(0); // 모달 열릴 때 첫 번째 스텝으로 초기화
     };
-  
+
     const closeHelpModal = () => {
       setIsHelpModalOpen(false);
       setCurrentHelpStep(0); // 모달 닫을 때 스텝 초기화
     };
-  
+
     const handleNextStep = () => {
       if (currentHelpStep < helpContent.length - 1) {
         setCurrentHelpStep(currentHelpStep + 1);
       }
     };
-  
+
     const handlePrevStep = () => {
       if (currentHelpStep > 0) {
         setCurrentHelpStep(currentHelpStep - 1);
@@ -115,6 +115,7 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('userId');
     navigate('/');
   }
 
