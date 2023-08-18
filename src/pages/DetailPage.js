@@ -1,9 +1,10 @@
 import React from "react";
 import "./DetailPage.css";
 import Sidebar from "../Sidebar";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import CommentsList from "../components/CommentsList";
+
 
 import axios from "axios";
 
@@ -36,12 +37,15 @@ class Post {
 const DetailPage = () => {
   const [data, setData] = useState(null);
   const [comment, setComment] = useState("");
-  const [like, setLike] = useState(false);
   const [post, setPost] = useState(null);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [like, setLike] = useState(false);
+
 
   const { postId, userId } = useParams();
+
+  const Navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,6 +73,7 @@ const DetailPage = () => {
     if (data) {
       const postObject = new Post(data);
       setPost(postObject);
+      setLike(postObject.likeCheck);
     }
   }, [data]);
 
@@ -77,29 +82,49 @@ const DetailPage = () => {
     if (!(localStorage.getItem('jwt'))) {
       return;
     }
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get("/ailion/user/", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-          },
-        });
-
-        setUser(response.data.id);
-
-      } catch (e) {
-        console.log(e);
-        localStorage.removeItem('jwt');
-      }
-    };
-    fetchUser();
+    const userId = localStorage.getItem('userId');
+    setUser(userId);
   }, []);
 
-  const handleLike = () => {
-    if (like === false) {
-      setLike(true);
+  const handleLike = async () => {
+    if (!(localStorage.getItem('jwt'))) {
+      Navigate('/login');
+    }
+
+    if (post.likeCheck === false) {
+      try {
+        await axios.post(`/ailion/hearts`, {
+          "postId" : postId,
+          "userId" : user
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+          }
+        });
+        setLike(true);
+        window.location.reload();
+      }
+      catch (e) {
+        console.log(e);
+      }
     } else {
+      try {
+        await axios.delete(`/ailion/hearts`, {
+          data: {
+            "postId" : postId,
+            "userId" : user
+          },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+          }
+      });
       setLike(false);
+      window.location.reload();
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -109,6 +134,11 @@ const DetailPage = () => {
 
   const commentSubmit = (event) => {
     event.preventDefault();
+
+    if (!(localStorage.getItem('jwt'))) {
+      Navigate('/login');
+    }
+
     if (comment.trim() === "") {
       return ;
     }
@@ -137,12 +167,31 @@ const DetailPage = () => {
 
   useEffect(() => {
 
+    if (!(localStorage.getItem('jwt'))) {
+      if (post !== null) {
+        setIsLoading(false);
+      }
+    }
     if (post !== null && user !== null) {
       setIsLoading(false);
     }
   }, [post, user]);
 
 
+  const deletePosting = async () => {
+    try {
+      await axios.delete(`/ailion/posts/${postId}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        }
+      });
+      Navigate('/');
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
 
   return (
@@ -153,7 +202,7 @@ const DetailPage = () => {
 
   <Sidebar />
 
-      <article>
+      <article id="detail-article">
         <div className="detail">
           <div className="detail_title">
             <h1>{post.title}</h1>
@@ -162,9 +211,9 @@ const DetailPage = () => {
             <p className="postAuthor">{post.author}</p>
             <p className="detailPostDate">{`${post.date}`}</p>
 
-              {user && user === post.userId ?
+              {user && parseInt(user) === post.userId ?
               <div className="detailPostButtonWrap">
-              <button className="detailPostButton">게시글 삭제</button>
+              <button className="detailPostButton" onClick={deletePosting}>게시글 삭제</button>
               </div> : <></>}
 
             </div>
@@ -172,7 +221,7 @@ const DetailPage = () => {
           <hr></hr>
           <div className="detail_content">
             <img alt="postImg" className="detail_img" src={post.img} ali="sampleImg"></img>
-            <p>{post.content}</p>
+            <p className="postContent">{post.content}</p>
           </div>
           <div className="detail_footer">
             <div className="like">

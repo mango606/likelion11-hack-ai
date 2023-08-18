@@ -25,7 +25,6 @@ const App = () => {
         <Route path="/rec" element={<RecommendationPage />} />  {/* AI 추천 */}
         <Route path="/comm" element={<CommunityPage />} />  {/* 커뮤니티 */}
         <Route path='/comm/:postId/:userId/' element={<DetailPage />}  />
-        <Route path="/news" element={<NewsPage />} />   {/* AI 소식 */}
         <Route path="/write" element={<WritePage />} />   {/* 글 작성 */}
         <Route path="/login" element={<LoginPage />} />   {/* 로그인 */}
         <Route path="/join" element={<Join />} /> {/* 회원가입 */}

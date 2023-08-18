@@ -1,5 +1,6 @@
 #hot-title {
-  padding-top: 40px;
+  padding-top: 30px;
+  margin-bottom: 6px;
   margin-left: 50px;
   font-size: 36px;
   font-weight: bold;
@@ -9,7 +10,7 @@
 #hot-box {
   justify-content: center;
   display: flex;
-  padding: 20px 15px 40px 30px;
+  padding: 0 15px 40px 30px;
   border-bottom: 1px solid #d0d0d0;
 }
 
@@ -26,7 +27,7 @@
 }
 
 .hot-table {
-    width: 140px;
+    width: 120px;
     height: 120px;
     margin: 0 auto;
     text-align: left;
@@ -61,4 +62,8 @@
     display: -webkit-box;
     -webkit-line-clamp: 3; /* 줄 수 */
     -webkit-box-orient: vertical;
+  }
+
+  .hot-form {
+    padding-left: 0;
   }

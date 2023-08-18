@@ -106,7 +106,7 @@ const InformationPage = () => {
                   <div className='AI-category'>{item.category}</div>
                   <div className='AI-content'>{item.content}
                   </div>
-                  
+
                 </div>
                 <img className="AI-img" alt="인기 AI 이미지" src={item.imageUrl} />
               </li>
