@@ -1,12 +1,13 @@
 import React from 'react';
 import Sidebar from '../Sidebar';
+import Home from '../components/Home';
 
 const HomePage = () => {
   return (
     <>
       <Sidebar />
-      <article>
-        홈
+      <article id="home-img">
+        <Home />
       </article>
     </>
   );

@@ -76,7 +76,7 @@ const Sidebar = () => {
       <sidebar>
         <div id="side-start">
         <Link to="/">
-          <img id="logo" alt='logo' src="img/logo.png" />
+          <img id="logo" alt='logo' src="/img/logo.png" />
         </Link>
         <div className="menu">
           <Link to="/">
@@ -84,7 +84,7 @@ const Sidebar = () => {
               onClick={() => handleMenuClick("홈")}
               className={selectedMenu === "홈" ? "selected" : ""}
               >
-            <img className="side-img" alt='home_icon' src="img/side-home.png" />
+            <img className="side-img" alt='home_icon' src="/img/side-home.png" />
             <a id="side-txt">
             홈
             </a>
@@ -95,7 +95,7 @@ const Sidebar = () => {
               onClick={() => handleMenuClick("AI 정보")}
               className={selectedMenu === "AI 정보" ? "selected" : ""}
           >
-            <img className="side-img" alt='info_icon' src="img/side-info.png" />
+            <img className="side-img" alt='info_icon' src="/img/side-info.png" />
             <a id="side-txt">
               AI 정보
             </a>
@@ -106,7 +106,7 @@ const Sidebar = () => {
               onClick={() => handleMenuClick("AI 추천")}
               className={selectedMenu === "AI 추천" ? "selected" : ""}
           >
-            <img className="side-img" alt='rec_icon' src="img/side-rec.png" />
+            <img className="side-img" alt='rec_icon' src="/img/side-rec.png" />
             <a id="side-txt">
               AI 추천
               </a>
@@ -117,7 +117,7 @@ const Sidebar = () => {
               onClick={() => handleMenuClick("커뮤니티")}
               className={selectedMenu === "커뮤니티" ? "selected" : ""}
           >
-            <img className="side-img" alt='comm_icon' src="img/side-comm.png" />
+            <img className="side-img" alt='comm_icon' src="/img/side-comm.png" />
             <a id="side-txt">
               커뮤니티
               </a>
@@ -128,7 +128,7 @@ const Sidebar = () => {
               onClick={() => handleMenuClick("이용방법")}
               className={selectedMenu === "이용방법" ? "selected" : ""}
           >
-            <img className="side-img" alt='help_icon' src="img/side-help.png" />
+            <img className="side-img" alt='help_icon' src="/img/side-help.png" />
             <a id="side-txt">
               이용방법
               </a>
@@ -137,7 +137,7 @@ const Sidebar = () => {
         </div>
         <Link to="/write">
           <button id="side-bt">글쓰기</button>
-          <img id="side-user" alt='write_icon' src="img/side-write.png" />
+          <img id="side-user" alt='write_icon' src="/img/side-write.png" />
         </Link>
 
         </div>
@@ -151,7 +151,7 @@ const Sidebar = () => {
           <Link to="/login">
 
           <button id="side-bt2">로그인</button>
-          <img id="side-user" alt='user_icon' src="img/user.png" />
+          <img id="side-user" alt='user_icon' src="/img/user.png" />
         </Link>
         ) }
 

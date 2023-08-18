@@ -9,30 +9,75 @@ const Community = () => {
     const [filteredData, setFilteredData] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("all");
+    const [page, setPage] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
+    const [user, setUser] = useState(null);
 
     // axios 사용
     useEffect(() => {
-        axios.get(`/ailion/posts/api/lists`).then((response)=> {
-        setData(response.data.content);
-        setFilteredData(response.data.content); // 초기에 모든 데이터를 표시하기 위해 filteredData 초기화
-      })
+        const pages = page;
+        const getPosts = async () => {
+            try {
+                const response = await axios.get(`/ailion/api/posts/list`, {
+                    params: {
+                        page: pages,
+                    },
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                setData(response.data.content);
+                setFilteredData(response.data.content); // 초기에 모든 데이터를 표시하기 위해 filteredData 초기화
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        getPosts();
+    }, [page]);
+
+    useEffect(() => {
+        if (!(localStorage.getItem('jwt'))) {
+            return;
+        }
+        const fetchUser = async () => {
+            try {
+                const response = await axios.get("/ailion/user/", {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+                    },
+                });
+
+                setUser(response.data.id);
+            } catch (e) {
+                console.log(e);
+                localStorage.removeItem('jwt');
+            }
+        }
+        fetchUser();
     }, []);
+
+    useEffect(() => {
+        if (data.length > 0 && user !== null) {
+            setIsLoading(false);
+        }
+    }, [data, user]);
 
     // 게시글
     const items = (Object.values(data)).map((item) => (
-        <ul class="my-page" key={item.postId}>
-            <li class="post">
-            <Link to={`/comm/${item.userId}/${item.postId}`} className="post-link">
-            <div class="post-box">
-                <div class="post-category">{item.category}</div>
-                    <div class="post-title">{item.title}</div>
-                    <div class="post-message">{item.content}</div>
-                    <div class="post-content">
-                        <img class="post-img2" src="./img/heart.png"></img>
-                        <a class="post-likes">{item.likeCount}</a>
-                        <img class="post-img2" src="./img/comment-dots.png"></img>
-                        <a class="post-comments">{item.commentCount}</a>
-                        <span class="post-createdAt">{item.createdDate}</span>
+        <ul className="my-page" key={item.postId}>
+            <li className="post">
+
+            <Link to={`/comm/${item.postId}/${user === null ? 0 : user}`} className="post-link">
+            <div className="post-box">
+                <div className="post-category">{item.category}</div>
+                    <div className="post-title">{item.title}</div>
+                    <div className="post-message">{item.content}</div>
+                    <div className="post-content">
+                        <img className="post-img2" src="./img/heart.png"></img>
+                        <a className="post-likes">{item.likeCount}</a>
+                        <img className="post-img2" src="./img/comment-dots.png"></img>
+                        <a className="post-comments">{item.commentCount}</a>
+                        <span className="post-createdAt">{item.createdDate}</span>
                 </div>
             </div>
             </Link>
@@ -77,9 +122,14 @@ const filterData = (keyword, category) => {
     );
     setFilteredData(filtered);
 };
-    
-    // console.log(testData.content[0].content);
+
+
     return (
+        <>
+        {isLoading ? <div className="loading">Loading...</div> : <>
+
+
+
         <section>
             <h3 id="com-title">최근 게시글</h3>
 
@@ -135,7 +185,7 @@ const filterData = (keyword, category) => {
             {filteredData.length > 0 ? (
                 filteredData.map(item => (
                     <ul className="my-page" key={item.postId}>
-                        <Link to={`/comm/${item.userId}/${item.postId}`} className="post-link">
+                        <Link to={`/comm/${item.postId}/${user === null ? 0 : user}`} className="post-link">
                         <li className="post">
                             <div className="post-box">
                                 <div className="post-category">{item.category} 게시판</div>
@@ -149,7 +199,7 @@ const filterData = (keyword, category) => {
                                     <span className="post-createdAt">{formatDate(item.createdDate)}</span>
                                 </div>
                             </div>
-                            <img class="post-img3" src='https://cdn.pixabay.com/photo/2023/07/18/02/24/ai-generated-8133842_640.jpg'></img>
+                            <img className="post-img3" src='https://cdn.pixabay.com/photo/2023/07/18/02/24/ai-generated-8133842_640.jpg'></img>
                         </li>
                         </Link>
                     </ul>
@@ -161,7 +211,12 @@ const filterData = (keyword, category) => {
             )}
 
         </section>
-      );
+
+        </>}
+
+
+        </>
+    );
 };
 
 export default Community;
