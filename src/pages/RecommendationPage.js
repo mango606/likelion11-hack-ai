@@ -6,8 +6,6 @@ import axios from 'axios';
 const RecommendationPage = () => {
   const [topAI, setTopAI] = useState([]);
   const [recAI, setRecAI] = useState([]);
-  const [imageUrl, setImageUrl] = useState('');
-  const [error, setError] = useState('');
 
   useEffect(() => {
     fetchTopAI();
@@ -16,25 +14,17 @@ const RecommendationPage = () => {
 
   const fetchTopAI = async () => {
     try {
-      const response = await axios.get('/ailion/api/top5',{
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-          }
-      });
+      const response = await axios.get('https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/top5'); 
       setTopAI(response.data);
-      setError('');
     } catch (error) {
       console.error('Error fetching top AI:', error);
     }
   };
 
   const fetchRecAI = async () => {
-
     try {
-      const response = await axios.get('/ailion/api/userRecommend');
-      const allRecAI = Object.values(response.data);
-      const combinedRecAI = allRecAI.reduce((acc, prop) => acc.concat(prop), []); 
-      setRecAI(combinedRecAI);
+      const response = await axios.get('https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/userRecommend');
+      setRecAI(response.data);
     } catch (error) {
       console.error('Error fetching top AI:', error);
     }

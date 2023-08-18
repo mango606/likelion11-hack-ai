@@ -199,7 +199,7 @@ const filterData = (keyword, category) => {
                         <Link to={`/comm/${item.postId}/${user === null ? 0 : user}`} className="post-link">
                         <li className="post">
                             <div className="post-box">
-                                <div className="post-category">{item.category} 게시판</div>
+                                <div className="post-category">{item.category}</div>
                                 <div className="post-title">{item.title}</div>
                                 <div className="post-message">{item.content}</div>
                                 <div className="post-content">

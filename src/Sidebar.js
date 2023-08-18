@@ -2,8 +2,56 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Modal from './components/Modal';
 
 const Sidebar = () => {
+  const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
+    const [currentHelpStep, setCurrentHelpStep] = useState(0);
+  
+    const openHelpModal = () => {
+      setIsHelpModalOpen(true);
+      setCurrentHelpStep(0); // 모달 열릴 때 첫 번째 스텝으로 초기화
+    };
+  
+    const closeHelpModal = () => {
+      setIsHelpModalOpen(false);
+      setCurrentHelpStep(0); // 모달 닫을 때 스텝 초기화
+    };
+  
+    const handleNextStep = () => {
+      if (currentHelpStep < helpContent.length - 1) {
+        setCurrentHelpStep(currentHelpStep + 1);
+      }
+    };
+  
+    const handlePrevStep = () => {
+      if (currentHelpStep > 0) {
+        setCurrentHelpStep(currentHelpStep - 1);
+      }
+    };
+
+    const helpContent = [
+        {
+          title: 'AI 정보',
+          image: './img/help1.png',
+          description: 'AI 정보 목록에서 각종 AI의 정보를 확인해 보세요.',
+        },
+        {
+          title: 'AI 추천',
+          image: './img/help2.png',
+          description: 'AI 추천 목록에서 사용자 맞춤형 AI 추천 정보를 확인해 보세요.',
+        },
+        {
+            title: '커뮤니티',
+            image: './img/help3.png',
+            description: '커뮤니티 목록에서 다른 사용자들과 함께 의견을 나누어 보세요.',
+          },
+          {
+            title: '회원가입',
+            image: './img/help4.png',
+            description: '회원가입을 통해 마이페이지에서 활동 내역을 확인할 수 있어요.',
+          },
+      ];
 
   const [selectedMenu, setSelectedMenu] = useState("홈");
 
@@ -124,8 +172,7 @@ const Sidebar = () => {
               </div>
           </Link>
           <div id="side-menu"
-              onClick={() => handleMenuClick("이용방법")}
-              className={selectedMenu === "이용방법" ? "selected" : ""}
+              onClick={openHelpModal}
           >
             <img className="side-img" alt='help_icon' src="/img/side-help.png" />
             <a id="side-txt">
@@ -152,6 +199,32 @@ const Sidebar = () => {
           <img id="side-user" alt='user_icon' src="/img/user.png" />
         </Link>
         ) }
+
+<Modal isOpen={isHelpModalOpen} onClose={closeHelpModal}>
+                {/* 모달 내용 */}
+                {helpContent[currentHelpStep] && (
+                <div id="help-box">
+                    <div id="help-up">
+                        <p id="help-title">{helpContent[currentHelpStep].title}</p>
+                        <img id="help-img" src="./img/home-x.png" onClick={closeHelpModal} style={{ cursor: 'pointer' }}></img>
+                    </div>
+                    <div id="help-middle">
+                        <img id="help-upload" src={helpContent[currentHelpStep].image} alt="Image" />
+                        <p id="help-txt">{helpContent[currentHelpStep].description}</p>
+                    </div>
+                    <div id="help-btn">
+                    {currentHelpStep > 0 && (
+                    <button id="help-before" onClick={handlePrevStep} style={{ cursor: 'pointer' }}>이전</button>
+                    )}
+                    {currentHelpStep < helpContent.length - 1 ? (
+                    <button id="help-next" onClick={handleNextStep} style={{ cursor: 'pointer' }}>다음</button>
+                    ) : (
+                    <button id="help-next" onClick={closeHelpModal} style={{ cursor: 'pointer' }}>닫기</button>
+                    )}
+                    </div>
+                </div>
+                )}
+            </Modal>
 
       </sidebar>
     </>
