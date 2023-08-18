@@ -18,7 +18,7 @@ const Comment = ({ comment, User }) => {
       {comment.delCheck === false ? (
         <>
         <div className="commentImgWrap">
-        <img className="commentProfileImg" src={"img/alien" + (comment.commentId % 5 + 1) + ".png"} alt="commentImg" />
+        <img className="commentProfileImg" src={"/img/alien" + (comment.commentId % 5 + 1) + ".png"} alt="commentImg" />
         <h3>{comment.writer}</h3>
 
         {User === comment.userId ?
@@ -62,7 +62,7 @@ const Reply = ({ reply, User}) => {
   return (
     <div className="reply">
       <div className="replyImgWrap">
-      <img className="replyImg" src={"img/alien" + (reply.userId % 5 + 1) + ".png"} alt="commentImg" />
+      <img className="replyImg" src={"/img/alien" + (reply.userId % 5 + 1) + ".png"} alt="commentImg" />
       <h4>{reply.writer}</h4>
 
       {User === reply.userId ?

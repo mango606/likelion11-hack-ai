@@ -1,101 +1,196 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from 'axios';
-
 import "./DetailPage.css";
 import Sidebar from "../Sidebar";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import CommentsList from "../components/CommentsList";
 
-function DetailPage() {
-  const { userId, postId } = useParams();
-  const [data, setData] = useState([]);
-  const [likeCheck, setLikeCheck] = useState({});
+import axios from "axios";
+
+
+class Post {
+  constructor(datas) {
+    const data = datas.data;
+    this.title = data.title;
+    this.content = data.content;
+    this.author = data.writer;
+    this.view = data.viewCount;
+    this.date = this.getDate(data.createdDate);
+    this.like = data.likeCount;
+    this.commentNum = data.commentCount;
+    this.comments = data.comments;
+    this.img = "https://via.placeholder.com/650x300";
+    this.likeCheck = datas.likeCheck;
+    this.userId = data.userId;
+  }
+
+  getDate(createdDate) {
+    let newDate = new Date(createdDate);
+    let formattedDate = newDate.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+    let formattedTime = newDate.toLocaleTimeString('ko-KR', { hour12: true, hour: 'numeric', minute: 'numeric', second: 'numeric' });
+    formattedDate = `${formattedDate} ${formattedTime}`;
+    return (formattedDate);
+  }
+}
+
+const DetailPage = () => {
+  const [data, setData] = useState(null);
   const [comment, setComment] = useState("");
-  const [mycomment, setMyComment] = useState("");
+  const [like, setLike] = useState(false);
+  const [post, setPost] = useState(null);
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { postId, userId } = useParams();
 
   useEffect(() => {
-    axios.get(`/ailion/posts/${userId}/${postId}`)
-      .then((response) => {
-        setData(response.data.data);
-        setLikeCheck(response.data.likeCheck);
-        setComment(response.data.data.comments);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, [userId, postId]);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/ailion/api/posts/${postId}/${userId}`, {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}/${month}/${day}`;
-  };
+        setData(response.data);
+
+      } catch (e) {
+        console.log(e);
+
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      const postObject = new Post(data);
+      setPost(postObject);
+    }
+  }, [data]);
+
+  // useEffect(() => {
+  //   console.log(post);
+  // }, [post]);
+
+  useEffect(() => {
+    if (!(localStorage.getItem('jwt'))) {
+      return;
+    }
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get("/ailion/user/", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          },
+        });
+
+        setUser(response.data.id);
+
+      } catch (e) {
+        console.log(e);
+        localStorage.removeItem('jwt');
+      }
+    };
+    fetchUser();
+  }, []);
 
   const handleLike = () => {
-    setLikeCheck(!likeCheck);
-  };
+    if (like === false) {
+      setLike(true);
+    } else {
+      setLike(false);
+    }
+  }
 
   const handleCommentChange = (event) => {
-    setMyComment(event.target.value);
+    setComment(event.target.value);
   };
 
   const commentSubmit = (event) => {
     event.preventDefault();
-    console.log(mycomment);
+    if (comment.trim() === "") {
+      return ;
+    }
+
   };
+
+  useEffect(() => {
+
+    if (post !== null && user !== null) {
+      setIsLoading(false);
+    }
+  }, [post, user]);
+
+
+
 
   return (
     <>
-      <Sidebar />
+
+    {isLoading ? <div className="loading">Loading...</div> :
+    <>
+
+  <Sidebar />
+
       <article>
         <div className="detail">
           <div className="detail_title">
-            <h1>{data.title}</h1>
-          </div>
-          <hr />
-          <div className="detail_content">
-            <p>{data.content}</p>
-            <img alt="postImg" className="detail_img" src={"https://via.placeholder.com/650x300"} ali="sampleImg" />
-          </div>
-          <div className="detail_footer">
-            <p>{`${formatDate(data.createdDate)} 조회 ${data.viewCount}`}</p><br />
-            <p>{`작성자 : ${data.writer}`}</p><br />
-            <div className="like">
-              <img
-                className="likeImg"
-                onClick={handleLike}
-                alt="likeImg"
-                src={likeCheck === false ? "https://private-user-images.githubusercontent.com/75062110/260640455-940926a1-3666-45f4-8e01-3fa270607283.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTIwODA3NDQsIm5iZiI6MTY5MjA4MDQ0NCwicGF0aCI6Ii83NTA2MjExMC8yNjA2NDA0NTUtOTQwOTI2YTEtMzY2Ni00NWY0LThlMDEtM2ZhMjcwNjA3MjgzLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MTUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODE1VDA2MjA0NFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWQ3NTIzM2Y5Y2E5OGFkYWNkNDMxZWUzYjkzYjVlYTM4NTEzYTA0YmViOWVmYzA4NWEwYjg0OWUxYmU4NjIxM2QmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.NSnhDcJXqsN1QPrGp1Zhzy836HrQ2KFTYth7z0vi1kE" : "https://private-user-images.githubusercontent.com/75062110/260640468-3d7881d0-e213-4fd3-bf9f-594e8488decc.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTIwODA3NDQsIm5iZiI6MTY5MjA4MDQ0NCwicGF0aCI6Ii83NTA2MjExMC8yNjA2NDA0NjgtM2Q3ODgxZDAtZTIxMy00ZmQzLWJmOWYtNTk0ZTg0ODhkZWNjLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MTUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODE1VDA2MjA0NFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTY5MzhhZGI3YjA2NDljM2NjNDgyNTg0YjZhZTU4ZTdkNjk3NmM1MWY5OWQ2NDJjMDFiMTMyZTBhNGU3ZGNhZmUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.-D7e48lmhCy3-SXutqip8kzSKwM4ZcvmnSK9_yGUX_U"}
-              />
-              <p>{`좋아요 ${data.likeCount} 댓글 ${data.commentCount}`}</p>
+            <h1>{post.title}</h1>
+            <div className="detailPostInfo">
+            <img className="detailPostImg" alt="postImg" src={"/img/alien" + (post.userId % 5 + 1) + ".png"}></img>
+            <p className="postAuthor">{post.author}</p>
+            <p className="detailPostDate">{`${post.date}`}</p>
+
+              {user && user === post.userId ?
+              <div className="detailPostButtonWrap">
+              <button className="detailPostButton">게시글 삭제</button>
+              </div> : <></>}
+
             </div>
           </div>
-          <hr />
+          <hr></hr>
+          <div className="detail_content">
+            <img alt="postImg" className="detail_img" src={post.img} ali="sampleImg"></img>
+            <p>{post.content}</p>
+          </div>
+          <div className="detail_footer">
+            <div className="like">
+            <img className="likeImg" onClick={handleLike} alt="likeImg" src={like === false ? "/img/emptyLike.png" : "/img/like.png"}></img><p>{`${post.like}`}</p>
+            <img className="postCommentImg" alt="commentImg" src="/img/comment-dots.png"></img><p>{`${post.commentNum}`}</p>
+            <img className="postViewImg" alt="viewImg" src="/img/view.png"></img><p>{`${post.view}`}</p>
+            </div>
+          </div>
+          <hr></hr>
           <div className="commentForm">
-            <img className="commentImg" src="img/id.png" alt="user" />
+            <img
+              className="commentImg"
+              src="/img/cyclops.png"
+              alt="user"
+            />
             <input
               className="commentInput"
               type="text"
               placeholder="댓글 작성"
-              value={mycomment}
+              value={comment}
               onChange={handleCommentChange}
             />
-            <button className="commentButton" onClick={commentSubmit}>
-              댓글 달기
-            </button>
+            <button className="commentButton" onClick={commentSubmit} >댓글 달기</button>
           </div>
-          <hr />
+          <hr></hr>
           <div className="comment_wrap">
-            <h3>댓글</h3>
-            <CommentsList comments={comment} />
+
+            <CommentsList comments={post.comments} User={user} />
           </div>
+
         </div>
       </article>
+
+
+    </>
+    }
     </>
   );
-}
+};
 
 export default DetailPage;

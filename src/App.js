@@ -24,7 +24,7 @@ const App = () => {
         <Route path="/info" element={<InformationPage />} />  {/* AI 정보ㅗ */}
         <Route path="/rec" element={<RecommendationPage />} />  {/* AI 추천 */}
         <Route path="/comm" element={<CommunityPage />} />  {/* 커뮤니티 */}
-          <Route path='/comm/:userId/:postId' element={<DetailPage />}  />
+        <Route path='/comm/:postId/:userId/' element={<DetailPage />}  />
         <Route path="/news" element={<NewsPage />} />   {/* AI 소식 */}
         <Route path="/write" element={<WritePage />} />   {/* 글 작성 */}
         <Route path="/login" element={<LoginPage />} />   {/* 로그인 */}

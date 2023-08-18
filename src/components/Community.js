@@ -11,17 +11,16 @@ const Community = () => {
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [page, setPage] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null);
 
     // axios 사용
     useEffect(() => {
-        let pages = page;
+        const pages = page;
         const getPosts = async () => {
-            console.log("getPosts");
             try {
                 const response = await axios.get(`/ailion/api/posts/list`, {
                     params: {
-                        pages: 0,
+                        page: pages,
                     },
                     headers: {
                         'Content-Type': 'application/json',
@@ -47,6 +46,7 @@ const Community = () => {
                         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
                     },
                 });
+
                 setUser(response.data.id);
             } catch (e) {
                 console.log(e);
@@ -57,16 +57,17 @@ const Community = () => {
     }, []);
 
     useEffect(() => {
-        if (data.length > 0) {
+        if (data.length > 0 && user !== null) {
             setIsLoading(false);
         }
-    }, [data]);
+    }, [data, user]);
 
     // 게시글
     const items = (Object.values(data)).map((item) => (
         <ul className="my-page" key={item.postId}>
             <li className="post">
-            <Link to={`/comm/${item.userId}/${item.postId}`} className="post-link">
+
+            <Link to={`/comm/${item.postId}/${user === null ? 0 : user}`} className="post-link">
             <div className="post-box">
                 <div className="post-category">{item.category}</div>
                     <div className="post-title">{item.title}</div>
@@ -184,7 +185,7 @@ const filterData = (keyword, category) => {
             {filteredData.length > 0 ? (
                 filteredData.map(item => (
                     <ul className="my-page" key={item.postId}>
-                        <Link to={`/comm/${item.userId}/${item.postId}`} className="post-link">
+                        <Link to={`/comm/${item.postId}/${user === null ? 0 : user}`} className="post-link">
                         <li className="post">
                             <div className="post-box">
                                 <div className="post-category">{item.category} 게시판</div>
