@@ -40,15 +40,20 @@ const Community = () => {
             return;
         }
         const fetchUser = async () => {
+            console.log("fetchUser", user);
             try {
-                const response = await axios.get("/ailion/user/", {
+                console.log("fetchUser", user);
+                const response = await axios.get("/ailion/user", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
                     },
                 });
+                console.log(response.data.id);
 
                 setUser(response.data.id);
+
             } catch (e) {
+                console.log("dddddd", user);
                 console.log(e);
                 localStorage.removeItem('jwt');
             }
@@ -57,6 +62,12 @@ const Community = () => {
     }, []);
 
     useEffect(() => {
+        console.log(data, user);
+        if (!(localStorage.getItem('jwt'))) {
+            if (data.length > 0) {
+                setIsLoading(false);
+            }
+        }
         if (data.length > 0 && user !== null) {
             setIsLoading(false);
         }
@@ -199,7 +210,7 @@ const filterData = (keyword, category) => {
                                     <span className="post-createdAt">{formatDate(item.createdDate)}</span>
                                 </div>
                             </div>
-                            <img className="post-img3" src='https://cdn.pixabay.com/photo/2023/07/18/02/24/ai-generated-8133842_640.jpg'></img>
+                            <img className="post-img3" alt="post-img" src='https://cdn.pixabay.com/photo/2023/07/18/02/24/ai-generated-8133842_640.jpg'></img>
                         </li>
                         </Link>
                     </ul>

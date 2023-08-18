@@ -9,6 +9,7 @@ import './HotPost.css';
 
 function GetData() {
   const [data, setData] = useState({});
+  const [user, setUser] = useState(null);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -24,11 +25,28 @@ function GetData() {
     })
   }, []);
 
+  useEffect(() => {
+    if (!(localStorage.getItem('jwt'))) {
+      return;
+    }
+    axios.get("/ailion/user/", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    }).then((response) => {
+      setUser(response.data.id);
+      console.log(user);
+    }).catch((error) => {
+      console.log(error);
+      localStorage.removeItem('jwt');
+    });
+  }, []);
+
   const top5Post = (Object.values(data)).slice(0, 5);   // 5개의 게시글만 보여주기
   const item = top5Post.map((item) => (
     <ul className="hot-form" key={item.postId}>
         <li className="hot-post">
-        <Link to={`/comm/${item.userId}/${item.postId}`} className="post-link">
+        <Link to={`/comm/${item.postId}/${user === null ? 0 : user}`} className="post-link">
         <div className="hot-table">
           <div className="hot-category">{item.category}</div>
           <div className="hot-title">{item.title}</div>

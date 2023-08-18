@@ -32,7 +32,6 @@ const LoginPage = () => {
     try {
       const response = await axios.post('/ailion/api/authenticate', { username, password });
       const token = response.data.token;
-      console.log(response.data);
       localStorage.setItem('jwt', token);
       navigate('/');
     } catch (error) {

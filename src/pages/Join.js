@@ -193,6 +193,7 @@ const Join = () => {
     <input className="radioButton" type="radio" name="music" value="2" onClick={handleInterestChange} ></input>
     <input className="radioButton" type="radio" name="music" value="3" onClick={handleInterestChange} ></input>
     <input className="radioButton" type="radio" name="music" value="4" onClick={handleInterestChange} ></input>
+    <input className="radioButton" type="radio" name="music" value="5" onClick={handleInterestChange} ></input>
     </div>
 
 
@@ -202,6 +203,7 @@ const Join = () => {
     <input className="radioButton" type="radio" name="video" value="2" onClick={handleInterestChange} ></input>
     <input className="radioButton" type="radio" name="video" value="3" onClick={handleInterestChange} ></input>
     <input className="radioButton" type="radio" name="video" value="4" onClick={handleInterestChange} ></input>
+    <input className="radioButton" type="radio" name="video" value="5" onClick={handleInterestChange} ></input>
     </div>
 
 
@@ -211,6 +213,7 @@ const Join = () => {
     <input className="radioButton" type="radio" name="novel" value="2" onClick={handleInterestChange}></input>
     <input className="radioButton" type="radio" name="novel" value="3" onClick={handleInterestChange}></input>
     <input className="radioButton" type="radio" name="novel" value="4" onClick={handleInterestChange}></input>
+    <input className="radioButton" type="radio" name="novel" value="5" onClick={handleInterestChange} ></input>
     </div>
 
     <div className="interestWord">검색엔진</div>
@@ -219,6 +222,7 @@ const Join = () => {
     <input className="radioButton" type="radio" name="search" value="2" onClick={handleInterestChange}></input>
     <input className="radioButton" type="radio" name="search" value="3" onClick={handleInterestChange}></input>
     <input className="radioButton" type="radio" name="search" value="4" onClick={handleInterestChange}></input>
+    <input className="radioButton" type="radio" name="search" value="5" onClick={handleInterestChange} ></input>
     </div>
 
 
