@@ -90,8 +90,8 @@ const RecommendationPage = () => {
         <div className='rec_container'>
 
 
-       <div className='rec_title'><h1>사용자 추천 AI </h1></div>
-       {recAI.length > 0 ? (
+      <div className='rec_title'><h1>사용자 추천 AI </h1></div>
+      {recAI.length > 0 ? (
         <ul className="rec-page">
           {recAI.map((ai, index) => (
             <li className="rec-box" key={index}>

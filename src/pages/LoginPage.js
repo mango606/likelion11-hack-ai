@@ -30,7 +30,13 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await axios.post('/ailion/api/authenticate', { username, password });
+      const response = await axios.post('/ailion/api/authenticate', {
+            "username" : username,
+            "password" : password }, {
+            headers: {
+                  'Content-Type': 'application/json',
+            }
+            });
       const token = response.data.token;
       const userId = response.data.userId;
       localStorage.setItem('jwt', token);
