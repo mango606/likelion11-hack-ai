@@ -82,22 +82,8 @@ const DetailPage = () => {
     if (!(localStorage.getItem('jwt'))) {
       return;
     }
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get("/ailion/user/", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-          },
-        });
-
-        setUser(response.data.id);
-
-      } catch (e) {
-        console.log(e);
-        localStorage.removeItem('jwt');
-      }
-    };
-    fetchUser();
+    const userId = localStorage.getItem('userId');
+    setUser(userId);
   }, []);
 
   const handleLike = async () => {
@@ -117,6 +103,7 @@ const DetailPage = () => {
           }
         });
         setLike(true);
+        window.location.reload();
       }
       catch (e) {
         console.log(e);
@@ -134,6 +121,7 @@ const DetailPage = () => {
           }
       });
       setLike(false);
+      window.location.reload();
       } catch (e) {
         console.log(e);
       }
@@ -190,6 +178,20 @@ const DetailPage = () => {
   }, [post, user]);
 
 
+  const deletePosting = async () => {
+    try {
+      await axios.delete(`/ailion/posts/${postId}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        }
+      });
+      Navigate('/');
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
 
   return (
@@ -200,7 +202,7 @@ const DetailPage = () => {
 
   <Sidebar />
 
-      <article>
+      <article id="detail-article">
         <div className="detail">
           <div className="detail_title">
             <h1>{post.title}</h1>
@@ -209,9 +211,9 @@ const DetailPage = () => {
             <p className="postAuthor">{post.author}</p>
             <p className="detailPostDate">{`${post.date}`}</p>
 
-              {user && user === post.userId ?
+              {user && parseInt(user) === post.userId ?
               <div className="detailPostButtonWrap">
-              <button className="detailPostButton">게시글 삭제</button>
+              <button className="detailPostButton" onClick={deletePosting}>게시글 삭제</button>
               </div> : <></>}
 
             </div>
@@ -219,7 +221,7 @@ const DetailPage = () => {
           <hr></hr>
           <div className="detail_content">
             <img alt="postImg" className="detail_img" src={post.img} ali="sampleImg"></img>
-            <p>{post.content}</p>
+            <p className="postContent">{post.content}</p>
           </div>
           <div className="detail_footer">
             <div className="like">

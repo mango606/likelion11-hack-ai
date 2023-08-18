@@ -66,20 +66,17 @@ const Form = () => {
     <>
       <section id="write-box">
         <form id="write-form" method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
-          <div id="write-title">
-            <input
-              type="text"
-              className="form-title"
-              name="title"
-              placeholder="제목"
-              required
-              value={formData.title}
-              onChange={handleInputChange}
-            />
-          </div>
-
-          <div>
+          <div className="write-btn">
+            <button type="button" className="write-cancel" style={{ cursor: 'pointer' }}>
+              취소
+            </button>
+            <button type="submit" className="write-submit" style={{ cursor: 'pointer' }}>
+              등록
+            </button>
+            </div>
+        <div id="write-up">
             <select
+              id="write-up-left"
               name="category"
               required
               value={formData.category}
@@ -93,9 +90,8 @@ const Form = () => {
               <option value="자유">자유</option>
               <option value="수익 창출 공유">수익 창출 공유</option>
             </select>
-          </div>
 
-        <div>
+          <div id="write-up-right">
             <input
                 type="file"
                 id="attach-file-input"
@@ -104,20 +100,35 @@ const Form = () => {
           />
 
           <input
-                type="file"
-                id="image-files-input"
-                accept="image/*"
-                multiple
-                encType="multipart/form-data"
-                onChange={handleImageFilesChange}
+            
+            type="file"
+            id="image-files-input"
+            accept="image/*"
+            multiple
+            encType="multipart/form-data"
+            onChange={handleImageFilesChange}
           />
+          </div>
         </div>
+
+            <input
+              id="form-title"
+              type="text"
+              className="form-title"
+              name="title"
+              placeholder="제목"
+              required
+              value={formData.title}
+              onChange={handleInputChange}
+            />
+
+        <hr></hr>
 
         <div>
           <textarea
             className="form-content"
             name="content"
-            rows="20"
+            rows="24"
             placeholder="본문 내용을 입력해 주세요."
             required
             value={formData.content}
@@ -125,14 +136,6 @@ const Form = () => {
           ></textarea>
         </div>
 
-          <div className="write-btn">
-            <button type="button" className="write-cancl">
-              취소
-            </button>
-            <button type="submit" className="write-submit">
-              작성
-            </button>
-          </div>
         </form>
       </section>
     </>

@@ -32,7 +32,9 @@ const LoginPage = () => {
     try {
       const response = await axios.post('/ailion/api/authenticate', { username, password });
       const token = response.data.token;
+      const userId = response.data.userId;
       localStorage.setItem('jwt', token);
+      localStorage.setItem('userId', userId);
       navigate('/');
     } catch (error) {
       console.error('로그인 실패', error);

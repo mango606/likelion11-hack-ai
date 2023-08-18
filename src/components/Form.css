@@ -1,9 +1,78 @@
-#write-box {
+#write-article {
     display: flex;
     justify-content: center;
 }
 
+#write-box {
+    width: 900px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 14px 10px rgba(0,0,0,0.25);
+}
+
+.write-btn {
+    margin: 42px 0 0 580px;
+}
+
+#write-up {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+}
+
+#write-up-left {
+    order: 1;
+    padding: 6px;
+    border-radius: 10px;
+    border: 1px solid #231942;
+}
+
+#write-up-right {
+    display: flex;
+    gap: 2px;
+    order: 2;
+}
+
 #write-form {
-    width: 800px;
+    width: 720px;
     height: 100%;
+}
+
+#form-title {
+    width: 100%;
+    height: 48px;
+    border: 0;
+    font-size: 32px;
+    background-color: white;
+    color: #D3D3D3;
+    margin-top: 16px;
+}
+
+.form-content {
+    width: 100%;
+    border: 0;
+    font-size: 16px;
+}
+
+.write-submit {
+    width: 60px;
+    height: 26px;
+    border: 0;
+    background-color: #231942;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+.write-cancel {
+    width: 60px;
+    height: 26px;
+    color: #231942;
+    font-weight: bold;
+    font-size: 14px;
+    border: 1px solid #231942;
+    border-radius: 10px;
+    margin-right: 12px;
 }

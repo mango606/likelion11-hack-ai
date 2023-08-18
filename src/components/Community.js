@@ -1,196 +1,190 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import "./Community.css";
-import './PostStyle.css';
+import "./PostStyle.css";
 
 const Community = () => {
-    const [data, setData] = useState([]);
-    const [filteredData, setFilteredData] = useState([]);
-    const [searchKeyword, setSearchKeyword] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState("all");
-    const [page, setPage] = useState(0);
-    const [isLoading, setIsLoading] = useState(true);
-    const [user, setUser] = useState(null);
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [page, setPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
-    // axios 사용
-    useEffect(() => {
-        const pages = page;
-        const getPosts = async () => {
-            try {
-                const response = await axios.get(`/ailion/api/posts/list`, {
-                    params: {
-                        page: pages,
-                    },
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                });
-                setData(response.data.content);
-                setFilteredData(response.data.content); // 초기에 모든 데이터를 표시하기 위해 filteredData 초기화
-            } catch (e) {
-                console.log(e);
-            }
-        };
-        getPosts();
-    }, [page]);
+  // axios 사용
+  useEffect(() => {
+    const pages = page;
+    const getPosts = async () => {
+      try {
+        const response = await axios.get(`/ailion/api/posts/list`, {
+          params: {
+            page: pages,
+          },
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        setData(response.data.content);
+        setFilteredData(response.data.content); // 초기에 모든 데이터를 표시하기 위해 filteredData 초기화
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getPosts();
+  }, [page]);
 
-    useEffect(() => {
-        if (!(localStorage.getItem('jwt'))) {
-            return;
-        }
-        const fetchUser = async () => {
-            console.log("fetchUser", user);
-            try {
-                console.log("fetchUser", user);
-                const response = await axios.get("/ailion/user", {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-                    },
-                });
-                console.log(response.data.id);
+  useEffect(() => {
+    if (!(localStorage.getItem("jwt"))) {
+      return;
+    }
+    const userId = localStorage.getItem("userId");
+    setUser(userId);
+  }, []);
 
-                setUser(response.data.id);
+  useEffect(() => {
+    if (!localStorage.getItem("jwt")) {
+      if (data.length > 0) {
+        setIsLoading(false);
+      }
+    }
+    if (data.length > 0 && user !== null) {
+      setIsLoading(false);
+    }
+  }, [data, user]);
 
-            } catch (e) {
-                console.log("dddddd", user);
-                console.log(e);
-                localStorage.removeItem('jwt');
-            }
-        }
-        fetchUser();
-    }, []);
-
-    useEffect(() => {
-        console.log(data, user);
-        if (!(localStorage.getItem('jwt'))) {
-            if (data.length > 0) {
-                setIsLoading(false);
-            }
-        }
-        if (data.length > 0 && user !== null) {
-            setIsLoading(false);
-        }
-    }, [data, user]);
-
-    // 게시글
-    const items = (Object.values(data)).map((item) => (
-        <ul className="my-page" key={item.postId}>
-            <li className="post">
-
-            <Link to={`/comm/${item.postId}/${user === null ? 0 : user}`} className="post-link">
-            <div className="post-box">
-                <div className="post-category">{item.category}</div>
-                    <div className="post-title">{item.title}</div>
-                    <div className="post-message">{item.content}</div>
-                    <div className="post-content">
-                        <img className="post-img2" src="./img/heart.png"></img>
-                        <a className="post-likes">{item.likeCount}</a>
-                        <img className="post-img2" src="./img/comment-dots.png"></img>
-                        <a className="post-comments">{item.commentCount}</a>
-                        <span className="post-createdAt">{item.createdDate}</span>
-                </div>
+  // 게시글
+  Object.values(data).map((item) => (
+    <ul className="my-page" key={item.postId}>
+      <li className="post">
+        <Link
+          to={`/comm/${item.postId}/${user === null ? 0 : user}`}
+          className="post-link"
+        >
+          <div className="post-box">
+            <div className="post-category">{item.category}</div>
+            <div className="post-title">{item.title}</div>
+            <div className="post-message">{item.content}</div>
+            <div className="post-content">
+              <img className="post-img2" src="./img/heart.png"></img>
+              <a className="post-likes">{item.likeCount}</a>
+              <img className="post-img2" src="./img/comment-dots.png"></img>
+              <a className="post-comments">{item.commentCount}</a>
+              <span className="post-createdAt">{item.createdDate}</span>
             </div>
-            </Link>
-            </li>
-        </ul>
-    ));
+          </div>
+        </Link>
+      </li>
+    </ul>
+  ));
 
-    // createdDate 포맷 변환
+  // createdDate 포맷 변환
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
     return `${year}/${month}/${day}`;
   };
 
   // 검색어 입력
   const handleSearchChange = (event) => {
     setSearchKeyword(event.target.value);
-};
+  };
 
-// 엔터 입력
-const handleEnterKey = (event) => {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        filterData(searchKeyword, selectedCategory);
+  // 엔터 입력
+  const handleEnterKey = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      filterData(searchKeyword, selectedCategory);
     }
-};
+  };
 
-// 카테고리 클릭
-const handleCategoryClick = (category) => {
-  setSelectedCategory(category);
-  setSearchKeyword(""); // 검색값 초기화
-  filterData("", category); // 검색값 초기화 후 필터링된 결과 보여주기
-};
+  // 카테고리 클릭
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+    setSearchKeyword(""); // 검색값 초기화
+    filterData("", category); // 검색값 초기화 후 필터링된 결과 보여주기
+  };
 
-const filterData = (keyword, category) => {
-    const filtered = data.filter(item =>
+  const filterData = (keyword, category) => {
+    const filtered = data.filter(
+      (item) =>
         (category === "all" || item.category === category) &&
         (item.title.toLowerCase().includes(keyword.toLowerCase()) ||
-        item.content.toLowerCase().includes(keyword.toLowerCase()))
+          item.content.toLowerCase().includes(keyword.toLowerCase()))
     );
     setFilteredData(filtered);
-};
+  };
 
-
-    return (
+  return (
+    <>
+      {isLoading ? (
+        <div className="loading">Loading...</div>
+      ) : (
         <>
-        {isLoading ? <div className="loading">Loading...</div> : <>
-
-
-
-        <section>
+          <section>
             <h3 id="com-title">최근 게시글</h3>
 
             <div id="com-search-center">
-            <form id="com-search-box" className="search">
-            <input
-                        id="com-search"
-                        name="keyword"
-                        placeholder="검색어를 입력해 주세요."
-                        className="text"
-                        value={searchKeyword}
-                        onChange={handleSearchChange}
-                        onKeyDown={handleEnterKey}
-                    />
-                </form>
+              <form id="com-search-box" className="search">
+                <input
+                  id="com-search"
+                  name="keyword"
+                  placeholder="검색어를 입력해 주세요."
+                  className="text"
+                  value={searchKeyword}
+                  onChange={handleSearchChange}
+                  onKeyDown={handleEnterKey}
+                />
+              </form>
             </div>
 
             <div id="com-btn">
-                <div id="com-wrap">
+              <div id="com-wrap">
                 <button
-                        onClick={() => handleCategoryClick("all")}
-                        className={selectedCategory === "all" ? "selected" : ""}
+                  onClick={() => handleCategoryClick("all")}
+                  className={selectedCategory === "all" ? "selected" : ""}
+                  style={{ cursor: 'pointer' }}
                 >
-                        전체
+                  전체
                 </button>
                 <button
-                        onClick={() => handleCategoryClick("자유")}
-                        className={selectedCategory === "자유" ? "selected" : ""}
+                  onClick={() => handleCategoryClick("자유")}
+                  className={selectedCategory === "자유" ? "selected" : ""}
+                  style={{ cursor: 'pointer' }}
                 >
-                    자유
+                  자유
                 </button>
                 <button
-                        onClick={() => handleCategoryClick("자신만의 AI 노하우")}
-                        className={selectedCategory === "자신만의 AI 노하우" ? "selected" : ""}
+                  onClick={() => handleCategoryClick("나만의 AI 노하우")}
+                  className={
+                    selectedCategory === "나만의 AI 노하우" ? "selected" : ""
+                  }
+                  style={{ cursor: 'pointer' }}
                 >
-                    나만의 AI 노하우
+                  나만의 AI 노하우
                 </button>
                 <button
-                    onClick={() => handleCategoryClick("AI 결과물 자랑")}
-                    className={selectedCategory === "AI 결과물 자랑" ? "selected" : ""}
+                  onClick={() => handleCategoryClick("결과물 자랑")}
+                  className={
+                    selectedCategory === "결과물 자랑" ? "selected" : ""
+                  }
+                  style={{ cursor: 'pointer' }}
                 >
-                    결과물 자랑
+                  결과물 자랑
                 </button>
                 <button
-                    onClick={() => handleCategoryClick("수익 창출 공유")}
-                    className={selectedCategory === "수익 창출 공유" ? "selected" : ""}
+                  onClick={() => handleCategoryClick("수익 창출 공유")}
+                  className={
+                    selectedCategory === "수익 창출 공유" ? "selected" : ""
+                  }
+                  style={{ cursor: 'pointer' }}
                 >
-                    수익 창출 공유
+                  수익 창출 공유
                 </button>
-                </div>
+              </div>
             </div>
 
             {filteredData.length > 0 ? (
@@ -199,7 +193,7 @@ const filterData = (keyword, category) => {
                         <Link to={`/comm/${item.postId}/${user === null ? 0 : user}`} className="post-link">
                         <li className="post">
                             <div className="post-box">
-                                <div className="post-category">{item.category} 게시판</div>
+                                <div className="post-category">{item.category}</div>
                                 <div className="post-title">{item.title}</div>
                                 <div className="post-message">{item.content}</div>
                                 <div className="post-content">
@@ -216,18 +210,15 @@ const filterData = (keyword, category) => {
                     </ul>
                 ))
             ) : (
-                <div className="post-none-box">
-                    <p className="post-none">게시글이 존재하지 않습니다.</p>
-                </div>
+              <div className="post-none-box">
+                <p className="post-none">게시글이 존재하지 않습니다.</p>
+              </div>
             )}
-
-        </section>
-
-        </>}
-
-
+          </section>
         </>
-    );
+      )}
+    </>
+  );
 };
 
 export default Community;

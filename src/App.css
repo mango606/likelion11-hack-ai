@@ -101,6 +101,10 @@ sidebar {
   background: #5E548E;
 }
 
+#side-btn {
+  margin-left: 100px;
+}
+
 #side-user {
   display: none;
 }
