@@ -123,7 +123,6 @@ const Sidebar = () => {
               </a>
               </div>
           </Link>
-          <Link to="/news">
           <div id="side-menu"
               onClick={() => handleMenuClick("이용방법")}
               className={selectedMenu === "이용방법" ? "selected" : ""}
@@ -133,7 +132,6 @@ const Sidebar = () => {
               이용방법
               </a>
               </div>
-          </Link>
         </div>
         <Link to="/write">
           <button id="side-bt">글쓰기</button>

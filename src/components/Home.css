@@ -32,3 +32,14 @@
     background-color: white;
     border-radius: 10px;
 }
+
+#help-up {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+#help-img {
+    width: 25px;
+    height: 25px;
+}

@@ -6,7 +6,7 @@ const NewsPage = () => {
         <>
           <Sidebar />
           <article>
-           AI 소식
+           
           </article>
         </>
       );
