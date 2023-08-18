@@ -32,6 +32,8 @@ public class AiInfo{
     @Column(name = "category")
     private String category;
 
+    private String imageUrl;
+
     @ColumnDefault("0")
     @Column(name = "favorite_count",nullable = false)
     private Integer favoriteCount;
