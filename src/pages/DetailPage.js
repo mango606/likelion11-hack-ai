@@ -51,7 +51,7 @@ const DetailPage = () => {
             'Content-Type': 'application/json',
           }
         });
-        console.log(response.data);
+
         setData(prevData => ({
           ...prevData,
           ...response.data,
@@ -125,7 +125,7 @@ const DetailPage = () => {
             'Content-Type': 'application/json',
           }
         });
-        console.log(response);
+
         setComment("");
       } catch (e) {
         console.log(e);

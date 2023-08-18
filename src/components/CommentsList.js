@@ -16,7 +16,7 @@ const Comment = ({ comment, User, Post }) => {
 
   const handleDeleteComment = async () => {
     try {
-      console.log(comment.commentId, parseInt(Post), comment);
+
       await axios.delete(`/ailion/comments`, {
         data : {
           "commentId" : comment.commentId,
