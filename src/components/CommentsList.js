@@ -1,7 +1,15 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
+
+import { useState, useEffect } from "react";
+import { Navigate } from "react-router";
 
 const Comment = ({ comment, User, Post }) => {
+
+  const [reply, setReply] = useState("");
+  const [showInput, setShowInput] = useState(false);
+
   const formattedDate = new Date(comment.createdDate).toLocaleDateString(
     "ko-KR",
     {
@@ -15,6 +23,7 @@ const Comment = ({ comment, User, Post }) => {
   );
 
   const flag = comment.replies.length === 1 && comment.delCheck === true ? true : false;
+  const Navigate = useNavigate();
 
   const handleDeleteComment = async () => {
     try {
@@ -36,6 +45,38 @@ const Comment = ({ comment, User, Post }) => {
     }
   };
 
+  const handleReply = async () => {
+
+    if (!(localStorage.getItem('jwt'))) {
+      Navigate('/login');
+    }
+    setShowInput(!showInput);
+    if (showInput === true) {
+      if (reply.trim() !== "") {
+
+        try {
+          await axios.post('/ailion/reply', {
+            "postId" : parseInt(Post),
+            "commentId" : comment.commentId,
+            "content" : reply,
+            "userId" : parseInt(User)
+            }, {
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+              }})
+          window.location.reload();
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    }
+  }
+
+  const handleReplySet = (e) => {
+    setReply(e.target.value);
+  }
+
   return (
     <div className="comment">
       {comment.delCheck === false ? (
@@ -44,16 +85,25 @@ const Comment = ({ comment, User, Post }) => {
         <img className="commentProfileImg" src={"/img/alien" + (comment.userId % 5 + 1) + ".png"} alt="commentImg" />
         <h3>{comment.writer}</h3>
 
-        {User === comment.userId ?
+        {parseInt(User) === comment.userId ?
         <div className="commentBtnWrap">
-        <button className="commentBtn" onClick={handleDeleteComment}>삭제</button>
+        <button className="commentBtn" onClick={handleDeleteComment}>delete</button>
+        <button className="commentBtn" onClick={handleReply}>reply</button>
         </div>
-        : null}
+        :
+        <div className="commentBtnWrap">
+        <button className="commentBtn" onClick={handleReply}>reply</button>
+        </div>
+        }
+
+
+
+
 
         </div>
         <p className="commentContent">{comment.content}</p>
         <p className="commentDate">{formattedDate}</p>
-
+        {showInput && <input type="text" value={reply} onChange={handleReplySet} placeholder="입력하세요" />}
 
 
         </>
@@ -121,11 +171,12 @@ const Reply = ({ reply, User, Post, flag, comment }) => {
       <img className="replyImg" src={"/img/alien" + (reply.userId % 5 + 1) + ".png"} alt="commentImg" />
       <h4>{reply.writer}</h4>
 
-      {User === reply.userId ?
+      {parseInt(User) === reply.userId ?
         <div className="commentBtnWrap">
         <button className="commentBtn" onClick={handleDeleteReply}>삭제</button>
         </div>
         : null}
+
 
       </div>
       <p className="replyContent">{reply.content}</p>
