@@ -8,17 +8,17 @@ const InformationPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   useEffect(() => {
-    console.log("start") 
+    console.log("start")
     const fetchData = async () => {
       // if (!(localStorage.getItem('jwt'))) {
       //   return;
       // }
       try {
-        // let url = '/ailion/api/aiInfo';
-        let url = 'https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/aiInfo';
+        let url = '/ailion/api/aiInfo';
+        //let url = 'https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/aiInfo';
         if (selectedCategory !== "all") {
-           url = `https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/aiInfo/category/${selectedCategory}`;
-          // url = `/ailion/api/aiInfo/category/${selectedCategory}`;
+           //url = `https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/aiInfo/category/${selectedCategory}`;
+          url = `/ailion/api/aiInfo/category/${selectedCategory}`;
         }
         // const response = await axios.get(url,{
         //   headers: {
@@ -35,13 +35,13 @@ const InformationPage = () => {
     fetchData();
   }, [selectedCategory]);
 
-  
+
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
 
-  
+
 
   return (
     <>
@@ -105,7 +105,7 @@ const InformationPage = () => {
                   <div className='AI-category'>{item.category}</div>
                   <div className='AI-content'>{item.content}
                   </div>
-                  
+
                 </div>
                 <img className="AI-img" alt="인기 AI 이미지" src={item.img} />
               </li>
