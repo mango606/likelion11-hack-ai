@@ -3,11 +3,10 @@ import Sidebar from '../Sidebar';
 import './RecommendationPage.css';
 import axios from 'axios';
 
+
 const RecommendationPage = () => {
   const [topAI, setTopAI] = useState([]);
   const [recAI, setRecAI] = useState([]);
-  const [imageUrl, setImageUrl] = useState('');
-  const [error, setError] = useState('');
 
   useEffect(() => {
     fetchTopAI();
@@ -22,23 +21,48 @@ const RecommendationPage = () => {
           }
       });
       setTopAI(response.data);
-      setError('');
+      
     } catch (error) {
       console.error('Error fetching top AI:', error);
     }
   };
 
   const fetchRecAI = async () => {
-
     try {
-      const response = await axios.get('/ailion/api/userRecommend');
-      const allRecAI = Object.values(response.data);
-      const combinedRecAI = allRecAI.reduce((acc, prop) => acc.concat(prop), []); 
-      setRecAI(combinedRecAI);
+      if (localStorage.getItem('jwt')) {
+        const response = await axios.get('/ailion/userRecommend', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          },
+        });
+      
+        const userInterests = ['MUSIC'];
+        const data = response.data;
+        const allRecAI = [];
+      
+        for (const key in data) {
+          if (Object.prototype.hasOwnProperty.call(data, key) && userInterests.includes(key)) {
+            allRecAI.push(...data[userInterests]);
+          }
+        }
+      
+        setRecAI(allRecAI);
+        const combinedRecAI = allRecAI.reduce((acc, prop) => acc.concat(prop), []);
+        setRecAI(combinedRecAI);
+        
+      }
+      
+       else {
+        const response = await axios.get('/ailion/api/userRecommend');
+        const allRecAI = Object.values(response.data);
+        const combinedRecAI = allRecAI.reduce((acc, prop) => acc.concat(prop), []);
+        setRecAI(combinedRecAI);
+      }
     } catch (error) {
-      console.error('Error fetching top AI:', error);
+      console.error('Error fetching recommended AI:', error);
     }
-  };  
+  };
+  
 
 // const extractImageUrl = async (url) => {
 //     try {

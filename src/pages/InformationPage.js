@@ -6,7 +6,10 @@ import axios from 'axios';
 const InformationPage = () => {
   const [data, setData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
-
+  const [imageUrls, setImageUrls] = useState({});
+  
+  const cheerio = require('cheerio');
+  
   useEffect(() => {
     console.log("start") 
     const fetchData = async () => {
@@ -27,6 +30,18 @@ const InformationPage = () => {
         // });
         const response = await axios.get(url);
         setData(response.data);
+        const imageUrls = {};
+
+    // 각 URL에 대해 이미지 URL 추출
+    // for (const item of response.data) {
+    //   const html = item.url; 
+    //   console.log(item.url);// API 데이터에서 URL 추출
+    //   const $ = cheerio.load(html);
+    //   const ogImageUrl = $('meta[property="og:image"]').attr('content');
+    //   console.log('og:image URL:', ogImageUrl);
+    
+    // }
+    console.log('Image URLs:', imageUrls);
         console.log('성공');
       } catch (error) {
         console.error('API 요청 에러:', error);
