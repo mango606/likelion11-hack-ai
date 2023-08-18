@@ -15,12 +15,13 @@ const Community = () => {
 
     // axios 사용
     useEffect(() => {
+        let pages = page;
         const getPosts = async () => {
             console.log("getPosts");
             try {
                 const response = await axios.get(`/ailion/api/posts/list`, {
                     params: {
-                        page: 0,
+                        pages: 0,
                     },
                     headers: {
                         'Content-Type': 'application/json',
@@ -33,7 +34,7 @@ const Community = () => {
             }
         };
         getPosts();
-    }, []);
+    }, [page]);
 
     useEffect(() => {
         if (!(localStorage.getItem('jwt'))) {
