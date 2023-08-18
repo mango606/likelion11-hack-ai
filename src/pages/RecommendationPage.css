@@ -37,8 +37,10 @@
 }
 .topAI_img{
       width: 80px;
+      height:  80px;
       margin-bottom: 5px;
       box-shadow: 0 3px 6px 0 rgba(29,34,53,.08);
+      object-fit:cover;
 }
 .rec_container{
       margin: 20px 100px;

@@ -27,6 +27,7 @@ const InformationPage = () => {
         // });
         const response = await axios.get(url);
         setData(response.data);
+        console.log(response.data);
         console.log('성공');
       } catch (error) {
         console.error('API 요청 에러:', error);
@@ -96,8 +97,8 @@ const InformationPage = () => {
         </div>
         {data.length > 0 && (
           <ul className="info-content">
-            {data.map(item => (
-              <li className="AI-box" key={item.id}>
+            {data.map((item,index) => (
+              <li className="AI-box" key={index}>
                 <div className="AI-info">
                 <a href={item.url} target="_blank" rel="noopener noreferrer">
                     <div className='AI-name'>{item.name}</div>
@@ -107,7 +108,7 @@ const InformationPage = () => {
                   </div>
                   
                 </div>
-                <img className="AI-img" alt="인기 AI 이미지" src={item.img} />
+                <img className="AI-img" alt="인기 AI 이미지" src={item.imageUrl} />
               </li>
             ))}
           </ul>

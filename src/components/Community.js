@@ -73,10 +73,10 @@ const Community = () => {
                     <div className="post-title">{item.title}</div>
                     <div className="post-message">{item.content}</div>
                     <div className="post-content">
-                        <img className="post-img2" src="./img/heart.png"></img>
-                        <a className="post-likes">{item.likeCount}</a>
-                        <img className="post-img2" src="./img/comment-dots.png"></img>
-                        <a className="post-comments">{item.commentCount}</a>
+                        <img className="post-img2" alt='하트이미지' src="./img/heart.png"></img>
+                        <span className="post-likes">{item.likeCount}</span>
+                        <img className="post-img2"alt='댓글이미지' src="./img/comment-dots.png"></img>
+                        <span className="post-comments">{item.commentCount}</span>
                         <span className="post-createdAt">{item.createdDate}</span>
                 </div>
             </div>
