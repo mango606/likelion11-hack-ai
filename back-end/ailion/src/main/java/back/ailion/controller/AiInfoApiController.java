@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/ailion")
 public class AiInfoApiController {
 
     private final AiInfoService aiInfoService;

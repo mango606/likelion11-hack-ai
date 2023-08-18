@@ -67,9 +67,6 @@ public class PostApiController {
                                @PathVariable("userId") Long userId,
                                HttpServletRequest req, HttpServletResponse res) {
 
-        if (userId <= 0) {
-            throw new NonPositiveException(BaseExceptionCode.NON_POSITIVE_ID);
-        }
 
         viewCountUp(postId, req, res);
         return postService.getPost(postId, userId);
