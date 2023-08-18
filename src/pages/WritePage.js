@@ -6,7 +6,7 @@ const WritePage = () => {
     return (
         <>
           <Sidebar />
-          <article>
+          <article id="write-article">
             <Form />
           </article>
         </>

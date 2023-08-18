@@ -65,7 +65,7 @@ function Home() {
                 <div id="help-box">
                     <div id="help-up">
                         <p id="help-title">{helpContent[currentHelpStep].title}</p>
-                        <img id="help-img" src="./img/home-x.png" onClick={closeHelpModal} style={{ cursor: 'pointer' }}></img>
+                        <img id="help-img" alt="Close" src="./img/home-x.png" onClick={closeHelpModal} style={{ cursor: 'pointer' }}></img>
                     </div>
                     <div id="help-middle">
                         <img id="help-upload" src={helpContent[currentHelpStep].image} alt="Image" />
