@@ -51,8 +51,11 @@ const DetailPage = () => {
             'Content-Type': 'application/json',
           }
         });
-
-        setData(response.data);
+        console.log(response.data);
+        setData(prevData => ({
+          ...prevData,
+          ...response.data,
+        }));
 
       } catch (e) {
         console.log(e);
@@ -69,9 +72,6 @@ const DetailPage = () => {
     }
   }, [data]);
 
-  // useEffect(() => {
-  //   console.log(post);
-  // }, [post]);
 
   useEffect(() => {
     if (!(localStorage.getItem('jwt'))) {
@@ -112,8 +112,28 @@ const DetailPage = () => {
     if (comment.trim() === "") {
       return ;
     }
+    const commentObject = {
+      'content' : comment,
+      'userId' : user,
+      'postId' : postId
+    };
 
-  };
+    const fetchComment = async () => {
+      try {
+        const response = await axios.post("/ailion/comments", commentObject, {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+        console.log(response);
+        setComment("");
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  fetchComment();
+  window.location.reload();
+};
 
   useEffect(() => {
 
@@ -180,7 +200,7 @@ const DetailPage = () => {
           <hr></hr>
           <div className="comment_wrap">
 
-            <CommentsList comments={post.comments} User={user} />
+            <CommentsList comments={post.comments} User={user} Post={postId} />
           </div>
 
         </div>
