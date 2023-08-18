@@ -7,11 +7,11 @@ const InformationPage = () => {
   const [data, setData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [imageUrls, setImageUrls] = useState({});
-  
+
   const cheerio = require('cheerio');
-  
+
   useEffect(() => {
-    console.log("start") 
+    console.log("start")
     const fetchData = async () => {
       // if (!(localStorage.getItem('jwt'))) {
       //   return;
@@ -38,13 +38,13 @@ const InformationPage = () => {
     fetchData();
   }, [selectedCategory]);
 
-  
+
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
 
-  
+
 
   return (
     <>
@@ -73,8 +73,8 @@ const InformationPage = () => {
             검색형
           </button>
           <button
-            onClick={() => handleCategoryClick("text")}
-            className={selectedCategory === "text" ? "selected" : ""}
+            onClick={() => handleCategoryClick("write")}
+            className={selectedCategory === "write" ? "selected" : ""}
           >
             글쓰기
           </button>
