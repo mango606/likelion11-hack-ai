@@ -1,9 +1,10 @@
 import React from "react";
 import "./DetailPage.css";
 import Sidebar from "../Sidebar";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import CommentsList from "../components/CommentsList";
+
 
 import axios from "axios";
 
@@ -36,12 +37,15 @@ class Post {
 const DetailPage = () => {
   const [data, setData] = useState(null);
   const [comment, setComment] = useState("");
-  const [like, setLike] = useState(false);
   const [post, setPost] = useState(null);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [like, setLike] = useState(false);
+
 
   const { postId, userId } = useParams();
+
+  const Navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,6 +73,7 @@ const DetailPage = () => {
     if (data) {
       const postObject = new Post(data);
       setPost(postObject);
+      setLike(postObject.likeCheck);
     }
   }, [data]);
 
@@ -95,11 +100,43 @@ const DetailPage = () => {
     fetchUser();
   }, []);
 
-  const handleLike = () => {
-    if (like === false) {
-      setLike(true);
+  const handleLike = async () => {
+    if (!(localStorage.getItem('jwt'))) {
+      Navigate('/login');
+    }
+
+    if (post.likeCheck === false) {
+      try {
+        await axios.post(`/ailion/hearts`, {
+          "postId" : postId,
+          "userId" : user
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+          }
+        });
+        setLike(true);
+      }
+      catch (e) {
+        console.log(e);
+      }
     } else {
+      try {
+        await axios.delete(`/ailion/hearts`, {
+          data: {
+            "postId" : postId,
+            "userId" : user
+          },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+          }
+      });
       setLike(false);
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -109,6 +146,11 @@ const DetailPage = () => {
 
   const commentSubmit = (event) => {
     event.preventDefault();
+
+    if (!(localStorage.getItem('jwt'))) {
+      Navigate('/login');
+    }
+
     if (comment.trim() === "") {
       return ;
     }
@@ -137,6 +179,11 @@ const DetailPage = () => {
 
   useEffect(() => {
 
+    if (!(localStorage.getItem('jwt'))) {
+      if (post !== null) {
+        setIsLoading(false);
+      }
+    }
     if (post !== null && user !== null) {
       setIsLoading(false);
     }
