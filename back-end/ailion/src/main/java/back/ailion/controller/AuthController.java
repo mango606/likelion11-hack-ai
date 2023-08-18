@@ -4,6 +4,7 @@ import back.ailion.config.jwt.JwtFilter;
 import back.ailion.config.jwt.TokenProvider;
 import back.ailion.model.dto.LoginDto;
 import back.ailion.model.dto.TokenDto;
+import back.ailion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import javax.validation.Valid;
 public class AuthController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final UserRepository userRepository;
 
     @PostMapping("/api/authenticate")
     public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto) {
@@ -45,7 +47,9 @@ public class AuthController {
         // response header에 jwt token에 넣어줌
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
+        Long userId = userRepository.findByUsername(loginDto.getUsername()).get().getId();
+
         // tokenDto를 이용해 response body에도 넣어서 리턴
-        return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(new TokenDto(jwt, userId), httpHeaders, HttpStatus.OK);
     }
 }

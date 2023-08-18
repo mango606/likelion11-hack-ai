@@ -65,4 +65,8 @@ public class FavoriteService {
         aiInfoRepository.subFavoriteCount(aiInfo);
         return true;
     }
+
+    public boolean existFavorite(Long userId, Long aiInfoId){
+        return favoriteRepository.findByUserIdAndAiInfoId(userId, aiInfoId).isPresent();
+    }
 }
