@@ -9,20 +9,31 @@ const InformationPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!(localStorage.getItem('jwt'))) {
+        return;
+      }
       try {
-        
-        let url = 'https://86cde655-bb02-477b-b80b-b77961697d7e.mock.pstmn.io/ailion/api/aiInfo';
+        let url = '/api/aiInfo';
+        // let url = 'https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/aiInfo';
         if (selectedCategory !== "all") {
-          url = `https://86cde655-bb02-477b-b80b-b77961697d7e.mock.pstmn.io/ailion/api/aiInfo/category/${selectedCategory}`;
+          // url = `https://82cac7c3-07a4-4d45-900b-6c9cb3df5f89.mock.pstmn.io/ailion/api/aiInfo/category/${selectedCategory}`;
+          url = `/api/aiInfo/category/${selectedCategory}`;
         }
-        const response = await axios.get(url);
+        const response = await axios.get(url,{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+            }
+        });
         setData(response.data);
+        console.log('성공');
       } catch (error) {
         console.error('API 요청 에러:', error);
       }
     };
     fetchData();
   }, [selectedCategory]);
+
+  
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);

@@ -10,11 +10,12 @@ const RecommendationPage = () => {
   useEffect(() => {
     fetchTopAI();
     fetchRecAI();
+
   }, []);
 
   const fetchTopAI = async () => {
     try {
-      const response = await axios.get('https://86cde655-bb02-477b-b80b-b77961697d7e.mock.pstmn.io/ailion/api/top5'); 
+      const response = await axios.get('/ailion/api/top5'); 
       setTopAI(response.data);
     } catch (error) {
       console.error('Error fetching top AI:', error);
@@ -23,13 +24,28 @@ const RecommendationPage = () => {
 
   const fetchRecAI = async () => {
     try {
-      const response = await axios.get('https://86cde655-bb02-477b-b80b-b77961697d7e.mock.pstmn.io/ailion/api/userRecommend');
-      setRecAI(response.data);
+      const response = await axios.get('/ailion/api/userRecommend');
+      const allRecAI = Object.values(response.data);
+      const combinedRecAI = allRecAI.reduce((acc, prop) => acc.concat(prop), []); 
+      setRecAI(combinedRecAI);
     } catch (error) {
       console.error('Error fetching top AI:', error);
     }
-  };
+  };  
 
+// const extractImageUrl = async (url) => {
+//     try {
+//       const response = await axios.get(url);
+//       const match = response.data.match(/<meta\s+property="og:image"\s+content="([^"]+)"/);
+//       if (match && match[1]) {
+//         return match[1];
+//       }
+//     } catch (error) {
+//       console.error('Error extracting image URL:', error);
+//     }
+//     return null;
+//   };
+  
   return (
     <>
       <Sidebar />
@@ -55,10 +71,10 @@ const RecommendationPage = () => {
 
         
        <div className='rec_title'><h1>사용자 추천 AI </h1></div>
-        {recAI.length > 0 && (
+       {recAI.length > 0 ? (
         <ul className="rec-page">
-          {recAI.map((ai) => (
-            <li className="rec-box" key={ai.id}>
+          {recAI.map((ai, index) => (
+            <li className="rec-box" key={index}>
               <div className="rec_info">
                 <a href={ai.url} target="_blank" rel="noopener noreferrer">
                   <div className="rec_name">{ai.name}</div>
@@ -70,13 +86,11 @@ const RecommendationPage = () => {
             </li>
           ))}
         </ul>
-        )}
-        {recAI.length === 0 && (
-          <div className="post-none-box">
-            <p className="post-none">게시글이 존재하지 않습니다.</p>
-          </div>
-        )}
-
+      ) : (
+        <div className="post-none-box">
+          <p className="post-none">게시글이 존재하지 않습니다.</p>
+        </div>
+      )}
         </div>
       </article>
     </>
