@@ -19,7 +19,7 @@
 ![image](https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/b34db263-bddc-4c57-90b5-540019fc8c39)
 
 
-## 기술 스택
+## 🛠️ 기술 스택 🔨
  ### Frontend<br>
  
 <br>
@@ -36,7 +36,7 @@
 * AWS EC2
 
 
-## 깃 규칙
+## 📝 깃 규칙 ✍️
 ### 작업태그
 |message|설명|
 |---|---|
