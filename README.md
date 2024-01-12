@@ -18,6 +18,14 @@
 ### 프로젝트 ERD
 ![image](https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/b34db263-bddc-4c57-90b5-540019fc8c39)
 
+### 프로젝트 결과
+|홈|AI 정보|
+|---|---|
+|<img src="https://github.com/mango606/likelion11-hack-ai/assets/75062110/ff02767c-d8cb-4258-9d77-0377e29ac885" width="500"/>|<img src="https://github.com/mango606/likelion11-hack-ai/assets/75062110/4298f48c-5ce1-4bfb-8fce-51d6e366fe1c" width="500"/>|
+
+|AI 추천|커뮤니티|
+|---|---|
+|<img src="https://github.com/mango606/likelion11-hack-ai/assets/75062110/4ef95f5c-e382-4e2c-b2ea-81f17db60d45" width="500"/>|<img src="https://github.com/mango606/likelion11-hack-ai/assets/75062110/000b2b45-4762-4050-98bb-85eeb56b1e18" width="500"/>|
 
 ## 🛠️ 기술 스택 🔨
  ### Frontend<br>
