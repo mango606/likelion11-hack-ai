@@ -16,13 +16,13 @@
 
 ## 👨‍💻 프로젝트 소개 👩‍💻
 ### ☑️ 프로젝트 개요
-<img src="https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/7fbe2828-77c7-48dc-828d-24a24ca0687e" width="800" />
+<img src="https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/7fbe2828-77c7-48dc-828d-24a24ca0687e" width="600" />
 
 ### ☑️ 프로젝트 아키텍처
-<img src="https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/6d322b27-71fc-4a35-babd-6ce66e8c9c63" width="800" />
+<img src="https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/6d322b27-71fc-4a35-babd-6ce66e8c9c63" width="600" />
 
 ### ☑️ 프로젝트 ERD
-<img src="https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/b34db263-bddc-4c57-90b5-540019fc8c39" width="800" />
+<img src="https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/b34db263-bddc-4c57-90b5-540019fc8c39" width="600" />
 
 ### ☑️ 프로젝트 디자인
 초기 디자인을 바탕으로 프론트엔드 내에서 제작한 디자인 중 하나를 선택하여 진행했습니다.
