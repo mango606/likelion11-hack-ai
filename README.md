@@ -1,3 +1,6 @@
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Flikelion11-kangwon%2Flikelion11-hack-ai&count_bg=%235E548E&title_bg=%23555555&icon=github.svg&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+<img src="https://img.shields.io/badge/react-61DAFB?style=flat&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/spring-6DB33F?style=flat&logo=spring&logoColor=white">
 # Hackathon
 
 ## TEAM AILION
@@ -6,7 +9,7 @@
 |이름|한윤수|안재진|박서희|김찬우|손민주|윤채연|
 |:----|:----|:----|:----|:----|:----|:----|
 |구분|Back-End|Back-End|Back-End|Front-End|Front-End|Front-End|
-|역할|`로그인` `AI 추천 페이지` `마이 페이지` `서버 구축 및 배포`|`AI 커뮤니티` `메인 페이지` `마이페이지`|`AI 정보 페이지`|`로그인` `회원가입` `게시글 상세 보기` `배포`|`메뉴바` `AI 커뮤니티` `글쓰기` `내가 쓴 글` `홈`|`마이페이지` `AI 추천` `AI 정보`|
+|역할|`로그인` `AI 추천 페이지` `마이 페이지` `서버 구축 및 배포`|`AI 커뮤니티` `메인 페이지` `마이페이지`|`AI 정보 페이지`|`로그인` `회원가입` `게시글 상세 보기` `배포`|`디자인` `메뉴바` `AI 커뮤니티` `글쓰기` `내가 쓴 글` `홈`|`마이페이지` `AI 추천` `AI 정보`|
 
 ## 🧑‍💻 프로젝트 소개 🧑‍💻
 ### 프로젝트 개요
