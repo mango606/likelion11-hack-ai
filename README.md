@@ -16,13 +16,13 @@
 
 ## 👨‍💻 프로젝트 소개 👩‍💻
 ### ☑️ 프로젝트 개요
-<img src="https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/7fbe2828-77c7-48dc-828d-24a24ca0687e" width="600" />
+<img src="https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/7fbe2828-77c7-48dc-828d-24a24ca0687e" width="800" />
 
 ### ☑️ 프로젝트 아키텍처
-<img src="https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/6d322b27-71fc-4a35-babd-6ce66e8c9c63" width="600" />
+<img src="https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/6d322b27-71fc-4a35-babd-6ce66e8c9c63" width="800" />
 
 ### ☑️ 프로젝트 ERD
-<img src="https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/b34db263-bddc-4c57-90b5-540019fc8c39" width="600" />
+<img src="https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/b34db263-bddc-4c57-90b5-540019fc8c39" width="800" />
 
 ### ☑️ 프로젝트 디자인
 초기 디자인을 바탕으로 프론트엔드 내에서 제작한 디자인 중 하나를 선택하여 진행했습니다.
@@ -91,4 +91,4 @@
 - develop : 작성한 FE, BE 코드 merge 후 배포 전 개발 브랜치
 - bug/bugName : main 브랜치에서 급한 버그 발생시, 버그 해결을 위해 main에서 분기하는 브랜치. Merge 이후 remote에서 삭제.
 
-![workflow](https://github.com/likelion11-kangwon/MaeumgaGYM/assets/98443541/1eed7807-171b-474f-8a8d-17264c86d75f)
+<img src="https://github.com/likelion11-kangwon/MaeumgaGYM/assets/98443541/1eed7807-171b-474f-8a8d-17264c86d75f" width="800" />
