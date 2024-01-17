@@ -7,7 +7,7 @@
 ## TEAM AILION 🦁
 
 
-## 👨‍👩‍👧‍👦 팀 역할 👨‍👧‍👦 
+## 👨‍👩‍👧‍👦 팀원 소개 👨‍👧‍👦 
 |👑한윤수|안재진|박서희|👑김찬우|손민주|윤채연|
 |:----|:----|:----|:----|:----|:----|
 |Back-End|Back-End|Back-End|Front-End|Front-End|Front-End|
@@ -15,7 +15,7 @@
 
 
 ## 🧑‍💻 프로젝트 소개 🧑‍💻
-### 프로젝트 개요
+### ☑️ 프로젝트 개요
 <img src="https://github.com/likelion11-kangwon/Hackathon-1/assets/69111959/7fbe2828-77c7-48dc-828d-24a24ca0687e" width="800" />
 
 ### ☑️ 프로젝트 아키텍처
