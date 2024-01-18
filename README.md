@@ -89,6 +89,6 @@
 - FE/main : FE 코드를 합친 FE 제작 브랜치
 - BE/main : BE 코드를 합친 BE 제작 브랜치
 - develop : 작성한 FE, BE 코드 merge 후 배포 전 개발 브랜치
-- bug/bugName : main 브랜치에서 급한 버그 발생시, 버그 해결을 위해 main에서 분기하는 브랜치. Merge 이후 remote에서 삭제.
+- bug/bugName : main 브랜치에서 급한 버그 발생시, 버그 해결을 위해 main에서 분기하는 브랜치. Merge 이후 remote에서 삭제
 
 <img src="https://github.com/likelion11-kangwon/MaeumgaGYM/assets/98443541/1eed7807-171b-474f-8a8d-17264c86d75f" width="800" />
