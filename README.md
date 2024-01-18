@@ -2,7 +2,7 @@
 <img src="https://img.shields.io/badge/react-61DAFB?style=flat&logo=react&logoColor=black">
 <img src="https://img.shields.io/badge/spring-6DB33F?style=flat&logo=spring&logoColor=white">
 # Hackathon
-멋쟁이사자처럼 11기 해커톤의 주제인 '디지털 격차 완화'에 대해서 만든 AI 추천 사이트입니다.
+멋쟁이사자처럼 11기 해커톤의 주제인 '디지털 격차'에 대해서 만든 AI 추천 사이트입니다.
 
 ## TEAM AILION 🦁
 
