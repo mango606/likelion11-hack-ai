@@ -2,7 +2,7 @@
 <img src="https://img.shields.io/badge/react-61DAFB?style=flat&logo=react&logoColor=black">
 <img src="https://img.shields.io/badge/spring-6DB33F?style=flat&logo=spring&logoColor=white">
 # Hackathon
-
+멋쟁이사자처럼 11기 해커톤에 제출한 AI 추천 사이트입니다.
 
 ## TEAM AILION 🦁
 
