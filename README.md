@@ -33,7 +33,7 @@
 |<img src="https://github.com/mango606/likelion11-hack-ai/assets/75062110/8ecb8b26-c8f5-4998-80d7-5364993b4b67" width="800" />|
 
 ### ☑️ 프로젝트 결과
-서버 배포를 성공하여 대회에 제출했습니다. [[링크]](https://drive.google.com/file/d/1F3OIYQiee5x90HgHPWnuCWB2wdIxb5Gh/view?usp=sharing)
+서버 배포를 성공하여 대회에 제출했습니다. [[링크]](https://drive.google.com/file/d/1s2tbtm4t3LBQNnt7XI2wpwzpbO0bBEhJ/view?usp=sharing)
 |홈|AI 정보|
 |---|---|
 |<img src="https://github.com/mango606/likelion11-hack-ai/assets/75062110/ff02767c-d8cb-4258-9d77-0377e29ac885" width="400"/>|<img src="https://github.com/mango606/likelion11-hack-ai/assets/75062110/4298f48c-5ce1-4bfb-8fce-51d6e366fe1c" width="400"/>|
